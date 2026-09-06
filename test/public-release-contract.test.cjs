@@ -60,8 +60,8 @@ test('README documents pull-first installation and the image override', () => {
   assert.match(readme, /ghcr\.io\/markussela\/poketokendocker:0\.1\.1/);
 });
 
-test('public screenshot gallery keeps Homepage Mini second and separates each feature view', () => {
-  const expected = ['home.png', 'mini.png', 'homepage.png', 'home-panel.png', 'bag.png', 'shop.png', 'pokedex.png', 'catch-log.png', 'settings.png'];
+test('public screenshot gallery lists the Homepage card and each feature view', () => {
+  const expected = ['home.png', 'homepage.png', 'home-panel.png', 'bag.png', 'shop.png', 'pokedex.png', 'catch-log.png', 'settings.png'];
   const readmes = fs.readdirSync(root)
     .filter((name) => name.startsWith('README') && name.endsWith('.md'))
     .sort();
@@ -76,7 +76,7 @@ test('public screenshot gallery keeps Homepage Mini second and separates each fe
     for (const image of expected) assert.equal(fs.existsSync(path.join(root, 'docs', 'images', image)), true, image);
   }
   const policy = read('docs/SCREENSHOTS.md');
-  assert.match(policy, /Real Homepage dashboard capture with header, search, Services, and Bookmarks/s);
-  assert.match(policy, /exactly one service card.*PokeTokenDocker/s);
+  assert.match(policy, /Project-owner-provided compact Homepage card, rebranded to `PokeTokenDocker`/s);
+  assert.doesNotMatch(policy, /mini\.png|Homepage Mini view|Real Homepage dashboard capture/i);
   assert.match(policy, /42-card fixture collection.*readable Pokémon name/s);
 });

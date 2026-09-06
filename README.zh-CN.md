@@ -78,7 +78,6 @@ PokeTokenDocker 是原始 companion 概念的无头 Web 版本：本地 AI 编�
 
 <table>
   <tr><td align="center"><img src="docs/images/home.png" alt="带有 shiny Pikachu 和已命名 Pokémon 的 PokeTokenDocker Web 工作区" width="520"></td><td><strong>🏠 工作区。</strong><br>宽屏布局同时展示 Home、Bag、Shop 和带有可读名称的 Pokédex。shiny Pikachu 是视觉主角，Home 显示合成 token 数值和 5 个演示 provider。</td></tr>
-  <tr><td align="center"><img src="docs/images/mini.png" alt="带有一个 PokeTokenDocker Mini 服务卡片和公开链接的 Homepage 仪表盘" width="520"></td><td><strong>🧩 Homepage 中的 Mini。</strong><br>这个 Homepage 仪表盘包含页眉、搜索、仅有一个 PokeTokenDocker service card 的 Services 分组，以及包含四个公开链接的 Bookmarks 分组。嵌入的真实 Mini 显示 shiny Pikachu、合成的今日使用量、进度和 Pokédex 数量；其他容器因隐私不会显示。</td></tr>
   <tr><td align="center"><img src="docs/images/homepage.png" alt="显示 shiny Pikachu 和 8M today 的 PokeTokenDocker Homepage 卡片" width="520"></td><td><strong>🌐 Homepage 卡片预览。</strong><br>本版本提供的紧凑卡片使用 PokeTokenDocker 标识，显示 shiny Pikachu、Jolly 性格、1/1 阶段、三分之一进度和可见的 8M today 示例。它不包含主机、账户、凭据或私人路径。</td></tr>
   <tr><td align="center"><img src="docs/images/home-panel.png" alt="带有 shiny Pikachu 和 provider 指标的 PokeTokenDocker Home" width="420"></td><td><strong>📊 Home。</strong><br>在一个面板中显示 shiny Pikachu、进度、wallet、合成的今日/本周总量、5 个 provider、演示配额窗口和只读提示。</td></tr>
   <tr><td align="center"><img src="docs/images/bag.png" alt="带有图标和数量的 PokeTokenDocker Bag" width="380"></td><td><strong>🎒 Bag。</strong><br>独立 Bag 截图显示 Rare Candy、Mint、Shiny Charm 和 Poké Doll 的图标与数量，并显示只读边界。</td></tr>

@@ -78,7 +78,6 @@ PokeTokenDocker は元のコンパニオン概念をヘッドレス Web 化し�
 
 <table>
   <tr><td align="center"><img src="docs/images/home.png" alt="Pikachu shiny と名前付き Pokémon を表示する PokeTokenDocker Web ワークスペース" width="520"></td><td><strong>🏠 ワークスペース。</strong><br>ワイド表示で Home、Bag、Shop、Pokédex を確認できます。主役は Pikachu shiny。Home には合成 token 値と 5 つのデモ provider が表示されます。</td></tr>
-  <tr><td align="center"><img src="docs/images/mini.png" alt="PokeTokenDocker Mini と公開リンク 1 枚だけを載せた Homepage ダッシュボード" width="520"></td><td><strong>🧩 Homepage の Mini。</strong><br>この Homepage ダッシュボードにはヘッダー、検索、Services グループ（PokeTokenDocker の service card 1 枚）と、4 つの公開リンクを持つ Bookmarks グループがあります。埋め込まれた実際の Mini は Pikachu shiny、合成された今日の利用量、進行度、Pokédex 数を表示し、他のコンテナは省略しています。</td></tr>
   <tr><td align="center"><img src="docs/images/homepage.png" alt="PokeTokenDocker の shiny Pikachu と 8M today の Homepage カード" width="520"></td><td><strong>🌐 Homepage カードのプレビュー。</strong><br>このリリース向けに提供されたコンパクトなカードは PokeTokenDocker の名前を使い、shiny Pikachu、Jolly、フェーズ 1/1、3 分の 1 の進行度、表示例の 8M today を示します。ホスト名、アカウント、認証情報、個人パスは含みません。</td></tr>
   <tr><td align="center"><img src="docs/images/home-panel.png" alt="Pikachu shiny と provider メトリクスを表示する PokeTokenDocker Home" width="420"></td><td><strong>📊 Home。</strong><br>Pikachu shiny、進行度、wallet、今日/週の合成値、5 provider、デモ quota、read-only 通知をまとめて表示します。</td></tr>
   <tr><td align="center"><img src="docs/images/bag.png" alt="アイコンと個数を表示する PokeTokenDocker Bag" width="380"></td><td><strong>🎒 Bag。</strong><br>単独の Bag 画面で Rare Candy、Mint、Shiny Charm、Poké Doll と個数を表示します。read-only 境界も確認できます。</td></tr>

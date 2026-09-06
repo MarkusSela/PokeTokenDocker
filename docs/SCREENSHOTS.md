@@ -9,7 +9,6 @@ The fixture contains a shiny Pikachu companion, named Pokémon entries, neutral 
 | File | View | Purpose |
 | --- | --- | --- |
 | [`home.png`](images/home.png) | Full workspace | Wide Home, Bag, Shop, and Pokédex layout with shiny Pikachu, synthetic usage/provider data, and named Pokémon cards. |
-| [`mini.png`](images/mini.png) | Homepage Mini view | Real Homepage dashboard capture with header, search, Services, and Bookmarks: exactly one service card, `PokeTokenDocker`, the real [`web/mini.html`](../web/mini.html) embedded, and four public links. Other containers are intentionally absent. |
 | [`homepage.png`](images/homepage.png) | Homepage card reference | Project-owner-provided compact Homepage card, rebranded to `PokeTokenDocker` for this release; shows shiny Pikachu, Jolly nature, hatch phase 1/1, one-third progress, and the visible `8M today` example. It contains no host, account, credential, or private-path data. |
 | [`home-panel.png`](images/home-panel.png) | Home panel | Shiny Pikachu, progression, usage summary, five demonstration providers, quota windows, and the read-only boundary. |
 | [`bag.png`](images/bag.png) | Bag | Companion inventory, item counts, item icons, and the read-only action boundary. |
@@ -21,7 +20,6 @@ The fixture contains a shiny Pikachu companion, named Pokémon entries, neutral 
 ## Capture rules
 
 - Capture only the requested Docker web page or panel.
-- The Mini image is captured on a synthetic Homepage dashboard with header, search, `Services`, and `Bookmarks`; it contains exactly one `PokeTokenDocker` service card plus public links, and unrelated containers are never shown.
 - Never capture browser chrome, terminals, desktops, trays, unrelated containers, dashboards, or other applications.
 - Never capture Hermes databases, provider logs, state exports, credentials, hostnames, personal paths, or real usage values. The provided `homepage.png` is a presentation reference supplied by the project owner; do not treat its visible example value as a usage report.
 - Keep documentation images in `docs/images/` and explain every image in this index and in the README.

@@ -109,10 +109,6 @@ The gallery combines eight captures from an isolated synthetic fixture with a pr
       <td><strong>🏠 The workspace.</strong><br>The wide layout brings Home, Bag, Shop, and a named Pokédex view together. Shiny Pikachu is the visual hero, while the Home panel shows synthetic token totals and five demonstration providers.</td>
     </tr>
     <tr>
-      <td align="center"><img src="docs/images/mini.png" alt="Homepage dashboard with one PokeTokenDocker Mini service card and public links" width="520"></td>
-      <td><strong>🧩 Mini view on Homepage.</strong><br>This Homepage dashboard capture includes a header, search, a Services group with exactly one service card: PokeTokenDocker, and a Bookmarks group with four public links. The embedded Mini view shows shiny Pikachu, today’s synthetic usage, progression, and Pokédex count; unrelated containers are intentionally not shown.</td>
-    </tr>
-    <tr>
       <td align="center"><img src="docs/images/homepage.png" alt="PokeTokenDocker Homepage card with shiny Pikachu and 8M today" width="520"></td>
       <td><strong>🌐 Homepage card reference.</strong><br>The compact card supplied for this release uses the PokeTokenDocker identity and shows shiny Pikachu, Jolly nature, hatch phase 1/1, one-third progress, and the visible 8M today example. It contains no host, account, credential, or private-path data.</td>
     </tr>

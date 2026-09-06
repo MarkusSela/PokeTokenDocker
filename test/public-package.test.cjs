@@ -28,13 +28,13 @@ test('README documents the shipped Mini view and only real API routes', () => {
   assert.doesNotMatch(readme, /C:\\Users\\|192\.168\.1\.16|Bearer\s+[A-Za-z0-9._-]+/i);
 });
 
-test('screenshot documentation names every bundled image and keeps the Mini separate', () => {
+test('screenshot documentation names every bundled image and omits the Homepage Mini screenshot', () => {
   const docs = read('docs/SCREENSHOTS.md');
   for (const image of ['home.png', 'homepage.png', 'settings.png']) {
     assert.ok(fs.existsSync(path.join(root, 'docs', 'images', image)), `${image} must exist`);
     assert.match(docs, new RegExp(image.replace('.', '\\.'), 'i'));
   }
-  assert.match(docs, /mini\.html/);
+  assert.doesNotMatch(docs, /mini\.png|Homepage Mini view/i);
   assert.match(docs, /synthetic|fixture/i);
 });
 
