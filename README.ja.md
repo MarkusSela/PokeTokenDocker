@@ -77,12 +77,14 @@ PokeTokenDocker は PokeTokenBar のアイデアをヘッドレス Web 化した
 画像は隔離した合成 fixture から取得しています。live コンテナや個人アカウントのデータではありません。完全な一覧とルールは [`docs/SCREENSHOTS.md`](docs/SCREENSHOTS.md) を参照してください。
 
 <table>
-  <tr><td align="center"><img src="docs/images/home.png" alt="PokeTokenDocker Web ワークスペース" width="520"></td><td><strong>🏠 ワークスペース。</strong><br>Home、Bag、Shop、Pokédex をワイド表示。</td></tr>
-  <tr><td align="center"><img src="docs/images/home-panel.png" alt="PokeTokenDocker Home" width="360"></td><td><strong>📊 Home。</strong><br>コンパニオン、進行、wallet、利用量、provider、quota、読み取り専用通知。</td></tr>
-  <tr><td align="center"><img src="docs/images/bag.png" alt="PokeTokenDocker Bag" width="190"><img src="docs/images/shop.png" alt="PokeTokenDocker Shop" width="190"></td><td><strong>🎒 Bag と 🛍️ Shop。</strong><br>ローカルのアイテムとデモ価格を表示。既定の Docker モードでは変更操作が無効です。</td></tr>
-  <tr><td align="center"><img src="docs/images/pokedex.png" alt="PokeTokenDocker Pokédex" width="230"><img src="docs/images/catch-log.png" alt="PokeTokenDocker Catch Log" width="230"></td><td><strong>📖 Pokédex と Catch Log。</strong><br>アニメーション sprite、進化チェーン、レア度、性格、ニュートラルなデモ日付。</td></tr>
-  <tr><td align="center"><img src="docs/images/settings.png" alt="PokeTokenDocker Settings" width="520"></td><td><strong>⚙️ Settings。</strong><br>言語、更新間隔、プライバシー、読み取り専用フォルダー、バックアップ、更新確認、サポート。</td></tr>
-  <tr><td align="center"><img src="docs/images/mini.png" alt="PokeTokenDocker Mini ビュー" width="520"></td><td><strong>🧩 Mini ビュー。</strong><br>信頼できる Homepage/iframe 向け。`PTD_EMBED_ORIGIN` で許可する origin を 1 つ指定します。</td></tr>
+  <tr><td align="center"><img src="docs/images/home.png" alt="Pikachu shiny と名前付き Pokémon を表示する PokeTokenDocker Web ワークスペース" width="520"></td><td><strong>🏠 ワークスペース。</strong><br>ワイド表示で Home、Bag、Shop、Pokédex を確認できます。主役は Pikachu shiny。Home には合成 token 値と 5 つのデモ provider が表示されます。</td></tr>
+  <tr><td align="center"><img src="docs/images/mini.png" alt="PokeTokenDocker Mini と公開リンク 1 枚だけを載せた Homepage ダッシュボード" width="520"></td><td><strong>🧩 Homepage の Mini。</strong><br>この Homepage ダッシュボードにはヘッダー、検索、Services グループ（PokeTokenDocker の service card 1 枚）と、4 つの公開リンクを持つ Bookmarks グループがあります。埋め込まれた実際の Mini は Pikachu shiny、合成された今日の利用量、進行度、Pokédex 数を表示し、他のコンテナは省略しています。</td></tr>
+  <tr><td align="center"><img src="docs/images/home-panel.png" alt="Pikachu shiny と provider メトリクスを表示する PokeTokenDocker Home" width="420"></td><td><strong>📊 Home。</strong><br>Pikachu shiny、進行度、wallet、今日/週の合成値、5 provider、デモ quota、read-only 通知をまとめて表示します。</td></tr>
+  <tr><td align="center"><img src="docs/images/bag.png" alt="アイコンと個数を表示する PokeTokenDocker Bag" width="380"></td><td><strong>🎒 Bag。</strong><br>単独の Bag 画面で Rare Candy、Mint、Shiny Charm、Poké Doll と個数を表示します。read-only 境界も確認できます。</td></tr>
+  <tr><td align="center"><img src="docs/images/shop.png" alt="合成価格を表示する PokeTokenDocker Shop" width="380"></td><td><strong>🛍️ Shop。</strong><br>単独の Shop 画面で進行アイテムとタマゴ tier を合成価格付きで表示します。既定の `public-readonly` では操作が無効です。</td></tr>
+  <tr><td align="center"><img src="docs/images/pokedex.png" alt="名前付き sprite を表示する完全な PokeTokenDocker Pokédex" width="520"></td><td><strong>📖 Pokédex。</strong><br>fixture の 42 card を 1 枚に収録し、すべて実名と sprite を表示します。Pikachu shiny の進化ラインも含み、未知の名前はありません。</td></tr>
+  <tr><td align="center"><img src="docs/images/catch-log.png" alt="進化チェーンを表示する PokeTokenDocker Catch Log" width="520"></td><td><strong>📜 Catch Log。</strong><br>単独のログで進化チェーン、名前、レア度、性格、ニュートラルなデモ日付を表示します。</td></tr>
+  <tr><td align="center"><img src="docs/images/settings.png" alt="read-only の PokeTokenDocker Settings" width="520"></td><td><strong>⚙️ Settings。</strong><br>言語、更新間隔、概要、プライバシー、read-only フォルダー、保存、更新、サポートを 1 つのダイアログにまとめています。</td></tr>
 </table>
 
 ## 🐳 Docker Compose でインストール

@@ -59,3 +59,24 @@ test('README documents pull-first installation and the image override', () => {
   assert.match(readme, /PTD_IMAGE/);
   assert.match(readme, /ghcr\.io\/markussela\/poketokendocker:0\.1\.0/);
 });
+
+test('public screenshot gallery keeps Homepage Mini second and separates each feature view', () => {
+  const expected = ['home.png', 'mini.png', 'home-panel.png', 'bag.png', 'shop.png', 'pokedex.png', 'catch-log.png', 'settings.png'];
+  const readmes = fs.readdirSync(root)
+    .filter((name) => name.startsWith('README') && name.endsWith('.md'))
+    .sort();
+  for (const file of readmes) {
+    const source = read(file);
+    const start = source.indexOf('## 📸');
+    const end = source.indexOf('\n## ', start + 4);
+    assert.ok(start >= 0 && end > start, `${file} must have a bounded screenshot section`);
+    const section = source.slice(start, end);
+    const images = section.split('src="docs/images/').slice(1).map((chunk) => chunk.split('"')[0]);
+    assert.deepEqual(images, expected, `${file} screenshot order`);
+    for (const image of expected) assert.equal(fs.existsSync(path.join(root, 'docs', 'images', image)), true, image);
+  }
+  const policy = read('docs/SCREENSHOTS.md');
+  assert.match(policy, /Real Homepage dashboard capture with header, search, Services, and Bookmarks/s);
+  assert.match(policy, /exactly one service card.*PokeTokenDocker/s);
+  assert.match(policy, /42-card fixture collection.*readable Pokémon name/s);
+});

@@ -77,12 +77,14 @@ PokeTokenDocker 是 PokeTokenBar 概念的无头 Web 版本：本地 AI 编程�
 以下截图来自隔离的合成 fixture，只包含演示值，不是 live 容器或个人账户截图。完整索引见 [`docs/SCREENSHOTS.md`](docs/SCREENSHOTS.md)。
 
 <table>
-  <tr><td align="center"><img src="docs/images/home.png" alt="PokeTokenDocker Web 工作区" width="520"></td><td><strong>🏠 工作区。</strong><br>宽屏布局同时展示 Home、Bag、Shop 和 Pokédex。</td></tr>
-  <tr><td align="center"><img src="docs/images/home-panel.png" alt="PokeTokenDocker Home" width="360"></td><td><strong>📊 Home。</strong><br>显示伙伴、成长进度、钱包、使用量、provider、配额和只读提示。</td></tr>
-  <tr><td align="center"><img src="docs/images/bag.png" alt="PokeTokenDocker Bag" width="190"><img src="docs/images/shop.png" alt="PokeTokenDocker Shop" width="190"></td><td><strong>🎒 Bag 与 🛍️ Shop。</strong><br>显示本地物品和演示价格；默认 Docker 模式下修改按钮会被禁用。</td></tr>
-  <tr><td align="center"><img src="docs/images/pokedex.png" alt="PokeTokenDocker Pokédex" width="230"><img src="docs/images/catch-log.png" alt="PokeTokenDocker Catch Log" width="230"></td><td><strong>📖 Pokédex 与 Catch Log。</strong><br>Pokédex 使用动画 sprite，Catch Log 显示进化链、稀有度、性格和中性演示日期。</td></tr>
-  <tr><td align="center"><img src="docs/images/settings.png" alt="PokeTokenDocker Settings" width="520"></td><td><strong>⚙️ Settings。</strong><br>语言、刷新、隐私、只读扫描文件夹、备份、更新和支持链接集中在一个对话框中。</td></tr>
-  <tr><td align="center"><img src="docs/images/mini.png" alt="PokeTokenDocker Mini 视图" width="520"></td><td><strong>🧩 Mini 视图。</strong><br>适合可信 Homepage 或 iframe；用 `PTD_EMBED_ORIGIN` 允许一个精确来源。</td></tr>
+  <tr><td align="center"><img src="docs/images/home.png" alt="带有 shiny Pikachu 和已命名 Pokémon 的 PokeTokenDocker Web 工作区" width="520"></td><td><strong>🏠 工作区。</strong><br>宽屏布局同时展示 Home、Bag、Shop 和带有可读名称的 Pokédex。shiny Pikachu 是视觉主角，Home 显示合成 token 数值和 5 个演示 provider。</td></tr>
+  <tr><td align="center"><img src="docs/images/mini.png" alt="带有一个 PokeTokenDocker Mini 服务卡片和公开链接的 Homepage 仪表盘" width="520"></td><td><strong>🧩 Homepage 中的 Mini。</strong><br>这个 Homepage 仪表盘包含页眉、搜索、仅有一个 PokeTokenDocker service card 的 Services 分组，以及包含四个公开链接的 Bookmarks 分组。嵌入的真实 Mini 显示 shiny Pikachu、合成的今日使用量、进度和 Pokédex 数量；其他容器因隐私不会显示。</td></tr>
+  <tr><td align="center"><img src="docs/images/home-panel.png" alt="带有 shiny Pikachu 和 provider 指标的 PokeTokenDocker Home" width="420"></td><td><strong>📊 Home。</strong><br>在一个面板中显示 shiny Pikachu、进度、wallet、合成的今日/本周总量、5 个 provider、演示配额窗口和只读提示。</td></tr>
+  <tr><td align="center"><img src="docs/images/bag.png" alt="带有图标和数量的 PokeTokenDocker Bag" width="380"></td><td><strong>🎒 Bag。</strong><br>独立 Bag 截图显示 Rare Candy、Mint、Shiny Charm 和 Poké Doll 的图标与数量，并显示只读边界。</td></tr>
+  <tr><td align="center"><img src="docs/images/shop.png" alt="带有合成价格的 PokeTokenDocker Shop" width="380"></td><td><strong>🛍️ Shop。</strong><br>独立 Shop 截图列出成长道具和 egg tier，并使用合成价格。默认 `public-readonly` 配置下控件可见但已禁用。</td></tr>
+  <tr><td align="center"><img src="docs/images/pokedex.png" alt="带有 Pokémon 名称和 sprite 的完整 PokeTokenDocker Pokédex" width="520"></td><td><strong>📖 Pokédex。</strong><br>一张截图展示完整 fixture 集合：42 张卡片、真实 Pokémon 名称和已加载的 sprite，包括 shiny Pikachu 的进化线。没有未知名称。</td></tr>
+  <tr><td align="center"><img src="docs/images/catch-log.png" alt="带有进化链的 PokeTokenDocker Catch Log" width="520"></td><td><strong>📜 Catch Log。</strong><br>独立日志显示进化链、可读名称、稀有度、性格和中性的演示日期。</td></tr>
+  <tr><td align="center"><img src="docs/images/settings.png" alt="只读模式下的 PokeTokenDocker Settings" width="520"></td><td><strong>⚙️ Settings。</strong><br>语言、刷新、摘要、隐私、只读文件夹、保存、更新和支持链接集中在一个对话框中。</td></tr>
 </table>
 
 ## 🐳 使用 Docker Compose 安装

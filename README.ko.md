@@ -77,12 +77,14 @@ Hermes와 provider 디렉터리는 **읽기 전용**으로 마운트됩니다. �
 모든 이미지는 격리된 합성 fixture에서 캡처했습니다. live 컨테이너나 개인 계정의 데이터가 아닙니다. 전체 정책과 목록은 [`docs/SCREENSHOTS.md`](docs/SCREENSHOTS.md)를 참고하세요.
 
 <table>
-  <tr><td align="center"><img src="docs/images/home.png" alt="PokeTokenDocker 웹 워크스페이스" width="520"></td><td><strong>🏠 워크스페이스.</strong><br>넓은 레이아웃에서 Home, Bag, Shop, Pokédex를 함께 표시합니다.</td></tr>
-  <tr><td align="center"><img src="docs/images/home-panel.png" alt="PokeTokenDocker Home" width="360"></td><td><strong>📊 Home.</strong><br>컴패니언, 진행도, wallet, 사용량, provider, quota, read-only 경계를 표시합니다.</td></tr>
-  <tr><td align="center"><img src="docs/images/bag.png" alt="PokeTokenDocker Bag" width="190"><img src="docs/images/shop.png" alt="PokeTokenDocker Shop" width="190"></td><td><strong>🎒 Bag 및 🛍️ Shop.</strong><br>로컬 아이템과 데모 가격을 표시하며 기본 Docker 모드에서는 변경 버튼이 비활성화됩니다.</td></tr>
-  <tr><td align="center"><img src="docs/images/pokedex.png" alt="PokeTokenDocker Pokédex" width="230"><img src="docs/images/catch-log.png" alt="PokeTokenDocker Catch Log" width="230"></td><td><strong>📖 Pokédex와 Catch Log.</strong><br>애니메이션 sprite, 진화 체인, 희귀도, 성격, 중립적인 데모 날짜를 보여줍니다.</td></tr>
-  <tr><td align="center"><img src="docs/images/settings.png" alt="PokeTokenDocker Settings" width="520"></td><td><strong>⚙️ Settings.</strong><br>언어, 새로고침, 개인정보 보호, read-only 폴더, 백업, 업데이트, 지원 링크를 한 곳에서 관리합니다.</td></tr>
-  <tr><td align="center"><img src="docs/images/mini.png" alt="PokeTokenDocker Mini 보기" width="520"></td><td><strong>🧩 Mini 보기.</strong><br>신뢰할 수 있는 Homepage/iframe용입니다. `PTD_EMBED_ORIGIN`으로 정확한 origin 하나를 허용합니다.</td></tr>
+  <tr><td align="center"><img src="docs/images/home.png" alt="반짝이는 Pikachu와 이름이 표시된 Pokémon이 있는 PokeTokenDocker 웹 워크스페이스" width="520"></td><td><strong>🏠 워크스페이스.</strong><br>넓은 레이아웃에서 Home, Bag, Shop, Pokédex를 함께 표시합니다. 반짝이는 Pikachu가 중심이며 Home에는 합성 token 값과 5개의 데모 provider가 보입니다.</td></tr>
+  <tr><td align="center"><img src="docs/images/mini.png" alt="PokeTokenDocker Mini 서비스 카드 하나와 공개 링크가 있는 Homepage 대시보드" width="520"></td><td><strong>🧩 Homepage의 Mini.</strong><br>이 Homepage 대시보드에는 헤더, 검색, PokeTokenDocker service card 하나만 있는 Services 그룹과 네 개의 공개 링크가 있는 Bookmarks 그룹이 있습니다. 삽입된 실제 Mini는 반짝이는 Pikachu, 합성 오늘 사용량, 진행도, Pokédex 수를 보여주며 다른 컨테이너는 개인정보 보호를 위해 표시하지 않습니다.</td></tr>
+  <tr><td align="center"><img src="docs/images/home-panel.png" alt="반짝이는 Pikachu와 provider 지표가 있는 PokeTokenDocker Home" width="420"></td><td><strong>📊 Home.</strong><br>반짝이는 Pikachu, 진행도, wallet, 합성 오늘/주간 합계, 5개 provider, 데모 quota와 read-only 안내를 한 패널에 표시합니다.</td></tr>
+  <tr><td align="center"><img src="docs/images/bag.png" alt="아이콘과 수량이 있는 PokeTokenDocker Bag" width="380"></td><td><strong>🎒 Bag.</strong><br>별도의 Bag 화면에서 Rare Candy, Mint, Shiny Charm, Poké Doll과 수량을 보여줍니다. read-only 경계도 표시됩니다.</td></tr>
+  <tr><td align="center"><img src="docs/images/shop.png" alt="합성 가격이 있는 PokeTokenDocker Shop" width="380"></td><td><strong>🛍️ Shop.</strong><br>별도의 Shop 화면에서 진행 아이템과 egg tier를 합성 가격과 함께 표시합니다. 기본 `public-readonly` 프로필에서는 조작이 비활성화됩니다.</td></tr>
+  <tr><td align="center"><img src="docs/images/pokedex.png" alt="이름 있는 sprite가 표시된 완전한 PokeTokenDocker Pokédex" width="520"></td><td><strong>📖 Pokédex.</strong><br>fixture의 42개 card를 한 장에 담고 모든 실제 Pokémon 이름과 sprite를 표시합니다. 반짝이는 Pikachu 진화 라인도 포함하며 알 수 없는 이름이 없습니다.</td></tr>
+  <tr><td align="center"><img src="docs/images/catch-log.png" alt="진화 체인이 있는 PokeTokenDocker Catch Log" width="520"></td><td><strong>📜 Catch Log.</strong><br>별도의 로그에서 진화 체인, 읽을 수 있는 이름, 희귀도, 성격과 중립적인 데모 날짜를 보여줍니다.</td></tr>
+  <tr><td align="center"><img src="docs/images/settings.png" alt="read-only PokeTokenDocker Settings" width="520"></td><td><strong>⚙️ Settings.</strong><br>언어, 새로고침, 요약, 개인정보 보호, read-only 폴더, 저장, 업데이트와 지원 링크를 한 대화상자에 모았습니다.</td></tr>
 </table>
 
 ## 🐳 Docker Compose 설치

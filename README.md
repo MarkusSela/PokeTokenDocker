@@ -105,34 +105,36 @@ All images below were captured from an isolated synthetic fixture. They contain 
   </thead>
   <tbody>
     <tr>
-      <td align="center"><img src="docs/images/home.png" alt="PokeTokenDocker full web workspace with Home, Bag, Shop, and Pokédex" width="520"></td>
-      <td><strong>🏠 The workspace.</strong><br>Home, Bag, Shop, and Pokédex are visible together in the wide layout. The Home panel shows the active companion, progression, usage summary, provider rows, quota status, and the local-data boundary.</td>
+      <td align="center"><img src="docs/images/home.png" alt="PokeTokenDocker wide workspace with shiny Pikachu and named Pokémon" width="520"></td>
+      <td><strong>🏠 The workspace.</strong><br>The wide layout brings Home, Bag, Shop, and a named Pokédex view together. Shiny Pikachu is the visual hero, while the Home panel shows synthetic token totals and five demonstration providers.</td>
     </tr>
     <tr>
-      <td align="center"><img src="docs/images/home-panel.png" alt="PokeTokenDocker Home panel" width="360"></td>
-      <td><strong>📊 Home.</strong><br>The compact Home panel keeps the active companion, progression bar, wallet, today/week totals, provider metrics, official limits, and read-only notice in one place.</td>
+      <td align="center"><img src="docs/images/mini.png" alt="Homepage dashboard with one PokeTokenDocker Mini service card and public links" width="520"></td>
+      <td><strong>🧩 Mini view on Homepage.</strong><br>This Homepage dashboard capture includes a header, search, a Services group with exactly one service card: PokeTokenDocker, and a Bookmarks group with four public links. The embedded Mini view shows shiny Pikachu, today’s synthetic usage, progression, and Pokédex count; unrelated containers are intentionally not shown.</td>
     </tr>
     <tr>
-      <td align="center">
-        <img src="docs/images/bag.png" alt="PokeTokenDocker Bag panel" width="190">
-        <img src="docs/images/shop.png" alt="PokeTokenDocker Shop panel" width="190">
-      </td>
-      <td><strong>🎒 Bag and 🛍️ Shop.</strong><br>Bag displays the local inventory and activation state. Shop lists progression items and egg tiers. In the default Docker profile the controls remain visible but mutations are disabled.</td>
+      <td align="center"><img src="docs/images/home-panel.png" alt="PokeTokenDocker Home panel with shiny Pikachu and provider metrics" width="420"></td>
+      <td><strong>📊 Home.</strong><br>The focused Home panel keeps shiny Pikachu, progression, wallet, synthetic today/week totals, five provider rows, demonstration quota windows, and the read-only notice in one place.</td>
     </tr>
     <tr>
-      <td align="center">
-        <img src="docs/images/pokedex.png" alt="PokeTokenDocker Pokédex panel with animated Pokémon sprites" width="230">
-        <img src="docs/images/catch-log.png" alt="PokeTokenDocker Catch Log panel" width="230">
-      </td>
-      <td><strong>📖 Pokédex and Catch Log.</strong><br>The Pokédex keeps discovered species in animated sprite cards. Catch Log shows each companion's evolution chain, rarity, nature, and neutral demonstration date.</td>
+      <td align="center"><img src="docs/images/bag.png" alt="PokeTokenDocker Bag panel with item icons and counts" width="380"></td>
+      <td><strong>🎒 Bag.</strong><br>The standalone Bag view shows Rare Candy, Mint, Shiny Charm, and Poké Doll counts with their icons. The read-only boundary is visible and no action changes the fixture.</td>
+    </tr>
+    <tr>
+      <td align="center"><img src="docs/images/shop.png" alt="PokeTokenDocker Shop panel with synthetic prices" width="380"></td>
+      <td><strong>🛍️ Shop.</strong><br>The separate Shop view lists progression items and egg tiers with synthetic prices. Controls remain visible but are disabled in the default `public-readonly` profile.</td>
+    </tr>
+    <tr>
+      <td align="center"><img src="docs/images/pokedex.png" alt="Complete PokeTokenDocker Pokédex with named Pokémon sprites" width="520"></td>
+      <td><strong>📖 Pokédex.</strong><br>The complete fixture collection is shown in one capture: 42 cards, real Pokémon names, and loaded sprites, including the shiny Pikachu evolution line. No unknown-name placeholders are used.</td>
+    </tr>
+    <tr>
+      <td align="center"><img src="docs/images/catch-log.png" alt="PokeTokenDocker Catch Log with evolution chains" width="520"></td>
+      <td><strong>📜 Catch Log.</strong><br>The standalone log shows evolution chains, readable species names, rarity, nature, and neutral demonstration dates for the active and completed companions.</td>
     </tr>
     <tr>
       <td align="center"><img src="docs/images/settings.png" alt="PokeTokenDocker Settings dialog in read-only mode" width="520"></td>
       <td><strong>⚙️ Settings.</strong><br>Language, refresh cadence, summary display, privacy, extra read-only scan folders, save transfer, update checks, project links, and support are grouped in one dialog. The screenshot shows the default read-only boundary.</td>
-    </tr>
-    <tr>
-      <td align="center"><img src="docs/images/mini.png" alt="PokeTokenDocker compact Mini view" width="520"></td>
-      <td><strong>🧩 Mini view.</strong><br>The standalone compact page is suitable for a trusted Homepage or iframe. Use `PTD_EMBED_ORIGIN` to allow one exact embedding origin; leave it empty when embedding is not needed.</td>
     </tr>
   </tbody>
 </table>
