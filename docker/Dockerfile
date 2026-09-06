@@ -2,10 +2,10 @@ ARG VERSION=0.1.0
 FROM node:22-bookworm-slim
 ARG VERSION
 
-LABEL org.opencontainers.image.title="PokeTokenDocker" \\
-      org.opencontainers.image.description="A local-first Docker companion that turns local AI coding usage into Pokémon progress." \\
-      org.opencontainers.image.version="${VERSION}" \\
-      org.opencontainers.image.source="https://github.com/MarkusSela/PokeTokenDocker" \\
+LABEL org.opencontainers.image.title="PokeTokenDocker" \
+      org.opencontainers.image.description="A local-first Docker companion that turns local AI coding usage into Pokémon progress." \
+      org.opencontainers.image.version="${VERSION}" \
+      org.opencontainers.image.source="https://github.com/MarkusSela/PokeTokenDocker" \
       org.opencontainers.image.licenses="MIT"
 
 WORKDIR /app
