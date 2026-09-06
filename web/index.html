@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title data-i18n="pageTitle">PokeTokenDocker Home</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #151515;
+      --window: #222222;
+      --window-head: #2a2a2a;
+      --surface: #292929;
+      --surface-hover: #333333;
+      --line: #414141;
+      --text: #f4f4f4;
+      --muted: #a7a7a7;
+      --accent: #8db5ff;
+      --accent-soft: #31415e;
+      --good: #77d6ad;
+      --warning: #ffd27d;
+      --danger: #ff9d9d;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    body { margin: 0; min-width: 320px; background: var(--bg); color: var(--text); }
+    button, input, select { font: inherit; }
+    button { color: inherit; }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 { margin-bottom: 0; font-size: clamp(20px, 2.3vw, 28px); letter-spacing: -.03em; }
+    h2 { margin-bottom: 4px; font-size: 18px; }
+    h3 { margin-bottom: 3px; font-size: 14px; }
+    p { line-height: 1.45; }
+    .shell { width: 100%; max-width: none; margin: 0; padding: 18px 18px 24px; }
+    .topbar { display: flex; align-items: center; gap: 14px; margin: 0 auto 14px; }
+    .title-stack { display: grid; min-width: 190px; gap: 2px; }
+    .workspace-tools { display: flex; min-width: 0; flex: 1; align-items: center; flex-wrap: wrap; justify-content: flex-end; gap: 8px; }
+    .eyebrow { margin: 0 0 5px; color: var(--accent); font-size: 11px; font-weight: 800; letter-spacing: .18em; }
+    .subtle, .meta { color: var(--muted); }
+    .meta { font-size: 12px; }
+    .status { display: inline-flex; align-items: center; gap: 7px; margin: 0; color: var(--muted); font-size: 13px; }
+    .status::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--warning); }
+    .status.ready::before { background: var(--good); }
+    .status.error::before { background: var(--danger); }
+    .button, .action-button { border: 1px solid var(--line); border-radius: 9px; background: var(--surface); color: var(--text); cursor: pointer; transition: background .15s ease, border-color .15s ease, transform .15s ease; }
+    .button { padding: 9px 12px; }
+    .button:hover, .action-button:hover { border-color: var(--accent); background: var(--surface-hover); }
+    .button:active, .action-button:active { transform: translateY(1px); }
+    button:disabled, select:disabled, input:disabled { cursor: not-allowed; opacity: .45; }
+    .notice { min-height: 0; margin: 0; font-size: 12px; }
+    .notice-inline { max-width: 260px; overflow: hidden; color: var(--muted); text-overflow: ellipsis; white-space: nowrap; }
+    .settings-button { white-space: nowrap; }
+
+
+    .workspace { display: grid; width: 100%; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; align-items: stretch; padding-bottom: 4px; }
+    .window { display: flex; min-width: 0; min-height: 540px; height: calc(100vh - 174px); flex-direction: column; overflow: hidden; border: 1px solid var(--line); border-radius: 12px; background: var(--window); box-shadow: 0 12px 28px #00000035; }
+    .pokedex-window { min-width: 0; }
+    .window-head { display: flex; align-items: center; gap: 9px; min-height: 42px; padding: 0 12px; border-bottom: 1px solid var(--line); background: var(--window-head); }
+    .window-lights { display: inline-flex; gap: 5px; }
+    .window-lights span { width: 8px; height: 8px; border-radius: 50%; background: #777; }
+    .window-lights span:first-child { background: #ff9c91; }
+    .window-lights span:nth-child(2) { background: #f7d36c; }
+    .window-lights span:last-child { background: #7bd6a5; }
+    .window-title { margin: 0; color: var(--text); font-size: 13px; font-weight: 750; }
+    .window-meta { margin-left: auto; color: var(--muted); font-size: 11px; }
+    .window-body { display: flex; min-height: 0; flex: 1; flex-direction: column; gap: 12px; padding: 12px; overflow-y: auto; }
+    .panel-intro { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+    .panel-intro p { margin-bottom: 0; font-size: 12px; }
+    .hero-block { padding: 9px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+    .hero-layout { display: flex; align-items: center; gap: 9px; }
+    .hero-copy { min-width: 0; flex: 1; }
+    .sprite-frame { display: grid; width: 120px; height: 120px; flex: 0 0 auto; place-items: center; margin: 0; }
+    .sprite-frame img { width: 100%; height: 100%; max-width: 100%; max-height: 100%; object-fit: contain; image-rendering: pixelated; }
+    .sprite-fallback { font-size: 96px; filter: drop-shadow(0 8px 12px #00000066); }
+    .rarity { display: inline-block; padding: 4px 8px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+    .hero-block h2 { margin-top: 4px; font-size: 16px; }
+    .hero-block p { margin-bottom: 4px; font-size: 12px; }
+    .egg-progress { height: 8px; margin: 6px 0 4px; overflow: hidden; border-radius: 999px; background: #101010; }
+    .egg-progress span { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, #739cff, #9be0ff); transition: width .45s ease; will-change: width; }
+    .progress-feedback { min-height: 0; margin-top: 3px; color: var(--accent); font-size: 10px; font-weight: 700; }
+    .progress-updating .egg-progress { background: linear-gradient(90deg, #101010 20%, #31415e 50%, #101010 80%); background-size: 220% 100%; animation: progressPulse 1s linear infinite; }
+    .item-feedback { display: block; margin-top: 3px; color: var(--accent); font-size: 10px; font-weight: 700; }
+    .action-feedback-visible { border-color: var(--accent) !important; box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 30%, transparent); animation: itemActionPulse 1s ease-in-out infinite; }
+    @keyframes itemActionPulse { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-1px); } }
+    @keyframes progressPulse { from { background-position: 100% 0; } to { background-position: -100% 0; } }
+    .metric-strip { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+    .metric { padding: 3px 7px; border-left: 1px solid var(--line); background: transparent; }
+    .metric:first-child { padding-left: 0; border-left: 0; }
+    .metric small { display: block; color: var(--muted); font-size: 11px; }
+    .metric strong { display: block; margin-top: 3px; font-size: 18px; }
+    .metric span { display: block; margin-top: 2px; color: var(--muted); font-size: 10px; }
+    .subheading { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; margin: 2px 0 -4px; }
+    .subheading h3 { margin: 0; }
+    .stack { display: grid; gap: 8px; }
+    .provider-row, .item-row, .shop-row { display: flex; align-items: center; justify-content: space-between; gap: 9px; padding: 9px; border: 1px solid var(--line); border-radius: 9px; background: var(--surface); }
+    .provider-row strong, .item-row strong, .shop-row strong { display: block; font-size: 13px; }
+    .provider-row span, .item-row span, .shop-row span { display: block; margin-top: 2px; color: var(--muted); font-size: 11px; }
+    .item-copy, .shop-copy { min-width: 0; }
+    .provider-copy { min-width: 0; flex: 1; }
+    .provider-metrics { display: flex; flex-wrap: wrap; gap: 4px 8px; margin-top: 4px; color: var(--muted); font-size: 10px; }
+    .provider-metrics b { color: var(--text); font-weight: 650; }
+    .item-icon { display: grid; width: 48px; height: 48px; flex: 0 0 auto; place-items: center; border-radius: 9px; background: var(--accent-soft); font-size: 27px; }
+    .item-icon img { width: 42px; height: 42px; object-fit: contain; image-rendering: pixelated; }
+    .item-emoji { display: block; font-size: 64px; line-height: 1; transform: scale(1.45); }
+    .item-row .item-copy { flex: 1; }
+    .action-button { padding: 6px 8px; flex: 0 0 auto; font-size: 11px; }
+    .shop-row { align-items: flex-start; flex-direction: column; }
+    .shop-main { display: flex; width: 100%; align-items: center; gap: 9px; }
+    .shop-row .shop-footer { display: flex; width: 100%; align-items: center; justify-content: space-between; gap: 8px; }
+    .callout { margin-top: auto; padding: 9px 10px; border-radius: 8px; background: #2b3850; color: var(--muted); font-size: 11px; }
+    .limit-stack { display: grid; gap: 7px; }
+    .limit-row { padding: 8px 9px; border: 1px solid var(--line); border-radius: 9px; background: var(--surface); }
+    .limit-row header { display: flex; justify-content: space-between; gap: 8px; font-size: 11px; }
+    .limit-bar { height: 6px; margin-top: 6px; overflow: hidden; border-radius: 999px; background: #101010; }
+    .limit-bar span { display: block; height: 100%; border-radius: inherit; background: var(--good); }
+    .limit-bar.warning span { background: var(--warning); }
+    .limit-bar.critical span { background: var(--danger); }
+    .empty { padding: 22px 8px; color: var(--muted); font-size: 12px; text-align: center; }
+
+    .pokedex-head { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+    .pokedex-head h2 { margin: 0; }
+    .pokedex-head p { margin: 3px 0 0; }
+    .collection-toggle { display: flex; gap: 6px; padding: 3px; border: 1px solid var(--line); border-radius: 9px; background: var(--surface); }
+    .collection-tab { flex: 1; padding: 7px 9px; border: 0; border-radius: 6px; background: transparent; color: var(--muted); cursor: pointer; font-size: 11px; font-weight: 700; }
+    .collection-tab.active { background: var(--accent-soft); color: var(--text); }
+    .pokedex-scroll { min-height: 0; flex: 1; overflow-y: auto; padding: 1px 4px 3px 1px; }
+    .pokedex-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(106px, 1fr)); gap: 8px; }
+    .dex-card { display: flex; min-height: 102px; flex-direction: column; align-items: center; justify-content: space-between; padding: 6px; border: 1px solid var(--line); border-radius: 9px; background: var(--surface); text-align: center; }
+    .dex-card:hover { border-color: var(--accent); background: var(--surface-hover); }
+    .dex-sprite-frame { display: grid; width: 100%; height: 68px; place-items: center; }
+    .dex-card img { width: 72px; height: 72px; object-fit: contain; image-rendering: pixelated; }
+    .dex-card .sprite-fallback { font-size: 38px; }
+    .dex-number { color: var(--muted); font-size: 9px; }
+    .dex-name { max-width: 100%; overflow: hidden; font-size: 11px; font-weight: 700; text-overflow: ellipsis; white-space: nowrap; }
+    .dex-detail { color: var(--muted); font-size: 9px; }
+    .catch-log { display: grid; gap: 8px; }
+    .catch-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(120px, .55fr); align-items: center; gap: 8px; padding: 8px; border: 1px solid var(--line); border-radius: 9px; background: var(--surface); }
+    .catch-stages { display: flex; min-width: 0; align-items: center; gap: 3px; overflow-x: auto; }
+    .catch-stage { display: grid; min-width: 62px; justify-items: center; gap: 1px; }
+    .catch-stage .dex-sprite-frame { width: 62px; height: 54px; }
+    .catch-stage img { width: 58px; height: 58px; object-fit: contain; image-rendering: pixelated; }
+    .catch-stage-name { max-width: 68px; overflow: hidden; color: var(--muted); font-size: 9px; text-overflow: ellipsis; white-space: nowrap; }
+    .chain-arrow { color: var(--muted); font-size: 18px; }
+    .catch-meta { display: grid; min-width: 0; gap: 3px; }
+    .catch-name, .catch-detail { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .catch-detail { color: var(--muted); font-size: 10px; }
+    .pokedex-scroll::-webkit-scrollbar, .window-body::-webkit-scrollbar { width: 8px; }
+    .pokedex-scroll::-webkit-scrollbar-thumb, .window-body::-webkit-scrollbar-thumb { border: 2px solid var(--window); border-radius: 999px; background: #555; }
+
+    .settings-overlay[hidden] { display: none; }
+    .settings-overlay { position: fixed; z-index: 20; inset: 0; display: grid; place-items: center; padding: 18px; }
+    .settings-backdrop { position: absolute; inset: 0; background: #00000099; backdrop-filter: blur(3px); }
+    .settings-dialog { position: relative; display: flex; width: min(920px, 100%); max-height: min(850px, 92vh); flex-direction: column; overflow: hidden; border: 1px solid var(--line); border-radius: 14px; background: var(--window); box-shadow: 0 24px 80px #000000aa; }
+    .settings-dialog-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 15px 17px; border-bottom: 1px solid var(--line); background: var(--window-head); }
+    .settings-dialog-head h2 { margin: 0; font-size: 18px; }
+    .settings-dialog-head p { margin: 3px 0 0; color: var(--muted); font-size: 11px; }
+    .settings-close { width: 32px; height: 32px; padding: 0; font-size: 20px; line-height: 1; }
+    .settings-form { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; overflow-y: auto; padding: 14px; }
+    .settings-group { grid-column: 1 / -1; margin: 7px 0 -2px; color: var(--accent); font-size: 10px; font-weight: 800; letter-spacing: .14em; }
+    .setting-row { display: flex; min-height: 48px; align-items: center; justify-content: space-between; gap: 12px; padding: 9px 10px; border: 1px solid var(--line); border-radius: 9px; background: var(--surface); font-size: 12px; }
+    .setting-row.full { grid-column: 1 / -1; }
+    .setting-copy { min-width: 0; }
+    .setting-copy strong, .setting-copy small { display: block; }
+    .setting-copy small { margin-top: 3px; color: var(--muted); font-size: 10px; line-height: 1.35; }
+    .setting-control { display: flex; min-width: 120px; align-items: center; justify-content: flex-end; gap: 7px; }
+    .setting-control select, .setting-control input[type="text"] { min-width: 120px; max-width: 200px; border: 1px solid var(--line); border-radius: 6px; background: var(--window-head); color: var(--text); padding: 6px 7px; }
+    .setting-control input[type="range"] { width: 135px; }
+    .setting-value { min-width: 44px; color: var(--muted); font-size: 11px; text-align: right; }
+    .switch { position: relative; width: 38px; height: 22px; padding: 0; border: 1px solid var(--line); border-radius: 999px; background: #151515; cursor: pointer; }
+    .switch::after { position: absolute; top: 3px; left: 3px; width: 14px; height: 14px; border-radius: 50%; background: var(--muted); content: ''; transition: transform .15s ease, background .15s ease; }
+    .switch.on { border-color: var(--accent); background: var(--accent-soft); }
+    .switch.on::after { background: var(--accent); transform: translateX(16px); }
+    .settings-form .button { padding: 6px 8px; font-size: 11px; }
+    .settings-footnote { grid-column: 1 / -1; margin: 0; color: var(--muted); font-size: 10px; line-height: 1.4; }
+    .scan-folder-actions { display: flex; flex-wrap: wrap; gap: 7px; }
+    .scan-folder-actions input { flex: 1 1 260px; }
+
+    @media (max-width: 1200px) {
+      .workspace { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .settings-form { grid-template-columns: 1fr; }
+      .settings-group, .setting-row.full, .settings-footnote { grid-column: 1; }
+    }
+    @media (max-width: 900px) {
+      .workspace { grid-template-columns: 1fr; }
+      .metric-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .metric:nth-child(3) { padding-left: 0; border-left: 0; }
+    }
+    @media (max-width: 620px) {
+      .shell { padding: 14px 12px 20px; }
+      .topbar { align-items: stretch; flex-direction: column; }
+      .workspace-tools { justify-content: flex-start; }
+      .hero-layout { align-items: flex-start; flex-direction: column; }
+      .hero-copy { width: 100%; }
+      .catch-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <div class="title-stack">
+        <p class="eyebrow" data-i18n="eyebrow">POKETOKENDOCKER · LOCAL COMPANION</p>
+        <h1 data-i18n="workspaceTitle">Companion workspace</h1>
+      </div>
+      <div class="workspace-tools">
+        <span id="status" class="status" data-i18n="unknownStatus">docker · unknown</span>
+        <span id="notice" class="notice notice-inline" role="status" aria-live="polite"></span>
+        <button id="settings-open" class="button settings-button" type="button" data-i18n="settingsButton">⚙ Settings</button>
+        <button id="refresh" class="button" type="button" data-i18n="refreshButton">↻ Refresh</button>
+      </div>
+    </header>
+
+    <div class="workspace" aria-label="PokeTokenDocker windows" data-i18n-aria-label="workspaceAria">
+      <section class="window home-window" data-panel="home" aria-labelledby="home-window-title">
+        <header class="window-head">
+          <span class="window-lights" aria-hidden="true"><span></span><span></span><span></span></span>
+          <h2 id="home-window-title" class="window-title" data-i18n="home">Home</h2>
+          <span class="window-meta" data-i18n="overview">overview</span>
+        </header>
+        <div class="window-body">
+          <article id="hero-block" class="hero-block">
+            <div class="hero-layout">
+              <div id="hero-sprite" class="sprite-frame hero-sprite-frame" aria-live="polite"></div>
+              <div class="hero-copy">
+                <span id="hero-rarity" class="rarity" data-i18n="loadingRarity">EGG</span>
+                <h2 id="hero-name" data-i18n="loadingEggName">Incubating egg</h2>
+                <p id="hero-detail" class="subtle" data-i18n="loadingDetail">Reading local usage in read-only mode.</p>
+                <div id="egg-progress" class="egg-progress" aria-label="Egg progress" data-i18n-aria-label="progressAria"><span style="width: 0%"></span></div>
+                <p id="egg-label" class="meta" data-i18n="loadingProgress">0% · loading data</p>
+                <p id="progress-feedback" class="progress-feedback" role="status" aria-live="polite"></p>
+              </div>
+            </div>
+          </article>
+          <div class="metric-strip">
+            <article class="metric"><small data-i18n="wallet">Wallet</small><strong id="wallet">0</strong><span data-i18n="spendableTokens">spendable tokens</span></article>
+            <article class="metric"><small data-i18n="today">Today</small><strong id="today-tokens">0</strong><span data-i18n="readTokens">tokens read</span></article>
+            <article class="metric"><small data-i18n="week">Week</small><strong id="week-tokens">0</strong><span data-i18n="readTokens">tokens read</span></article>
+            <article class="metric"><small data-i18n="source">Source</small><strong id="source-mode">local</strong><span data-i18n="noUpload">no upload</span></article>
+          </div>
+          <div class="subheading"><h3 data-i18n="provider">Provider</h3><span id="provider-summary" class="meta"></span></div>
+          <div id="providers" class="stack"></div>
+          <div class="subheading"><h3 data-i18n="officialLimits">Official limits</h3><span id="limits-summary" class="meta"></span></div>
+          <div id="limits" class="limit-stack"></div>
+          <div id="home-callout" class="callout" data-i18n="homeLocalCallout">This Home uses the configured local service. The Hermes database remains read-only.</div>
+        </div>
+      </section>
+
+      <section class="window bag-window" data-panel="bag" aria-labelledby="bag-window-title">
+        <header class="window-head">
+          <span class="window-lights" aria-hidden="true"><span></span><span></span><span></span></span>
+          <h2 id="bag-window-title" class="window-title" data-i18n="bag">Bag</h2>
+          <span class="window-meta" data-i18n="inventory">inventory</span>
+        </header>
+        <div class="window-body">
+          <div class="panel-intro"><div><h2 data-i18n="inventory">Inventory</h2><p class="subtle" data-i18n="bagIntro">Companion resources.</p></div><span id="bag-total" class="meta"></span></div>
+          <div id="bag-items" class="stack"></div>
+          <div id="bag-callout" class="callout" data-i18n="bagCallout">The displayed items come from local companion state.</div>
+        </div>
+      </section>
+
+      <section class="window shop-window" data-panel="shop" aria-labelledby="shop-window-title">
+        <header class="window-head">
+          <span class="window-lights" aria-hidden="true"><span></span><span></span><span></span></span>
+          <h2 id="shop-window-title" class="window-title" data-i18n="shop">Shop</h2>
+          <span id="shop-wallet" class="window-meta"></span>
+        </header>
+        <div class="window-body">
+          <div class="panel-intro"><div><h2 data-i18n="shop">Shop</h2><p class="subtle" data-i18n="shopIntro">Use wallet tokens.</p></div></div>
+          <div id="shop-items" class="stack"></div>
+        </div>
+      </section>
+
+      <section class="window pokedex-window" data-panel="pokedex" aria-labelledby="pokedex-window-title">
+        <header class="window-head">
+          <span class="window-lights" aria-hidden="true"><span></span><span></span><span></span></span>
+          <h2 id="pokedex-window-title" class="window-title" data-i18n="pokedex">Pokédex</h2>
+          <span id="collection-count" class="window-meta"></span>
+        </header>
+        <div class="window-body">
+          <div class="pokedex-head">
+            <div><h2 id="collection-heading" data-i18n="pokedexTab">Pokémon</h2><p id="collection-description" class="meta" data-i18n="collectionDexDescription">discovered species, sorted by number</p></div>
+            <span class="meta" data-i18n="scrollExplore">scroll to explore</span>
+          </div>
+          <div class="collection-toggle" role="tablist" aria-label="Pokédex view" data-i18n-aria-label="pokedexViewAria">
+            <button type="button" class="collection-tab active" data-collection-mode="dex" role="tab" aria-selected="true" data-i18n="pokedexTab">Pokémon</button>
+            <button type="button" class="collection-tab" data-collection-mode="log" role="tab" aria-selected="false" data-i18n="catchLogTab">Catch log</button>
+          </div>
+          <div id="collection-items" class="pokedex-scroll" aria-label="Scrollable Pokédex" data-i18n-aria-label="pokedexViewAria"></div>
+        </div>
+      </section>
+    </div>
+
+    <div id="settings-overlay" class="settings-overlay" hidden role="dialog" aria-modal="true" aria-labelledby="settings-title">
+      <div class="settings-backdrop" data-close-settings="true"></div>
+      <section class="settings-dialog">
+        <header class="settings-dialog-head">
+          <div>
+            <h2 id="settings-title" data-i18n="settingsTitle">All settings</h2>
+            <p data-i18n="settingsDescription">Changes are saved in companion state.</p>
+          </div>
+          <button id="settings-close" class="button settings-close" type="button" aria-label="Close settings" data-i18n-aria-label="settingsCloseAria">×</button>
+        </header>
+        <div id="settings-content" class="settings-form"></div>
+      </section>
+    </div>
+  </main>
+  <script src="/i18n.js" defer></script>
+  <script src="/app.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+{
+  "name": "poketokendocker",
+  "version": "0.1.0",
+  "description": "A local-first Docker companion that turns local AI coding usage into Pokémon progress.",
+  "author": "PokeTokenDocker contributors",
+  "license": "MIT",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MarkusSela/PokeTokenDocker.git"
+  },
+  "homepage": "https://github.com/MarkusSela/PokeTokenDocker",
+  "bugs": {
+    "url": "https://github.com/MarkusSela/PokeTokenDocker/issues"
+  },
+  "main": "server/cli.cjs",
+  "scripts": {
+    "start": "node server/cli.cjs",
+    "start:web": "node server/cli.cjs",
+    "test": "node --test",
+    "audit:release": "node scripts/audit-release.cjs"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "sql.js": "latest"
+  }
+}

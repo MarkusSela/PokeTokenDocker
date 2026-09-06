@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>PokeTokenDocker companion</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: #f5f7fb;
+    }
+    * { box-sizing: border-box; }
+    html, body { width: 100%; min-width: 230px; min-height: 100%; margin: 0; background: transparent; }
+    body { padding: 0; }
+    main { width: 320px; max-width: 100%; background: transparent; }
+    button { border: 0; padding: 0; color: #dbeafe; background: transparent; cursor: pointer; font: inherit; line-height: 1; }
+    button:hover { color: #fff; }
+    button:disabled { cursor: wait; opacity: .55; }
+    .companion { display: grid; grid-template-columns: 58px minmax(0, 1fr) auto; align-items: center; gap: 9px; padding: 2px 0 5px; }
+    .sprite { display: grid; width: 58px; height: 58px; place-items: center; background: transparent; }
+    .sprite img { width: 56px; height: 56px; object-fit: contain; image-rendering: pixelated; }
+    .fallback { font-size: 31px; }
+    .copy { min-width: 0; }
+    .copy strong, .copy span { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .copy strong { font-size: 13px; font-weight: 650; }
+    .copy span { margin-top: 3px; color: #aeb9ca; font-size: 11px; }
+    .progress { height: 6px; margin-top: 7px; overflow: hidden; border-radius: 999px; background: #202938; }
+    .progress span { display: block; width: 0; height: 100%; border-radius: inherit; background: linear-gradient(90deg, #60a5fa, #a7f3d0); transition: width .25s ease; }
+    .today { min-width: 58px; color: #93c5fd; font-size: 10px; font-weight: 700; text-align: left; }
+    .today strong { display: block; color: #dbeafe; font-size: 20px; line-height: 1; }
+    .today span { display: block; margin-top: 3px; }
+    footer { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding-top: 2px; color: #aeb9ca; font-size: 10px; }
+    .meta { display: flex; align-items: center; gap: 6px; margin-left: auto; }
+    #mini-status:empty { display: none; }
+    .error { color: #fca5a5; }
+  </style>
+</head>
+<body>
+  <main aria-live="polite">
+    <section class="companion">
+      <div class="sprite"><img id="mini-sprite" alt="" hidden><span id="mini-fallback" class="fallback">🥚</span></div>
+      <div class="copy">
+        <strong id="mini-name">Incubating egg</strong>
+        <span id="mini-detail">Reading local usage…</span>
+        <div class="progress" id="mini-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-label="Egg progress"><span></span></div>
+      </div>
+      <div class="today"><strong id="mini-today">0</strong><span id="mini-today-label">today</span></div>
+    </section>
+    <footer>
+      <span id="mini-dex">Pokédex: —</span>
+      <div class="meta">
+        <span id="mini-status" aria-live="assertive"></span>
+        <span id="mini-updated">—</span>
+        <button id="mini-refresh" type="button" title="Refresh data" aria-label="Refresh data">↻</button>
+      </div>
+    </footer>
+  </main>
+  <script>
+    (() => {
+      'use strict';
+
+      const supportedLanguages = ['en', 'it', 'ko', 'ja', 'es', 'fr', 'pt'];
+      const localeMap = { en: 'en-US', it: 'it-IT', ko: 'ko-KR', ja: 'ja-JP', es: 'es-ES', fr: 'fr-FR', pt: 'pt-BR' };
+      const labels = {
+        en: { active: 'Active Pokémon', egg: 'Incubating egg', reading: 'Reading local usage…', today: 'today', dex: 'Pokédex', nature: 'Nature', stage: 'Stage', hatch: 'tokens to hatch', progress: 'Egg progress', refresh: 'Refresh data', error: 'error' },
+        it: { active: 'Pokémon attivo', egg: 'Uovo in incubazione', reading: 'Leggo l’utilizzo locale…', today: 'oggi', dex: 'Pokédex', nature: 'Natura', stage: 'Fase', hatch: 'token alla schiusa', progress: 'Progresso uovo', refresh: 'Aggiorna dati', error: 'errore' },
+        ko: { active: '활성 Pokémon', egg: '부화 중인 알', reading: '로컬 사용량을 읽는 중…', today: '오늘', dex: 'Pokédex', nature: '성격', stage: '단계', hatch: '부화까지 남은 토큰', progress: '알 진행도', refresh: '데이터 새로 고침', error: '오류' },
+        ja: { active: '現在のポケモン', egg: '孵化中のタマゴ', reading: 'ローカル使用量を読み込み中…', today: '今日', dex: 'Pokédex', nature: '性格', stage: '段階', hatch: '孵化までのトークン', progress: 'タマゴの進行度', refresh: 'データを更新', error: 'エラー' },
+        es: { active: 'Pokémon activo', egg: 'Huevo en incubación', reading: 'Leyendo el uso local…', today: 'hoy', dex: 'Pokédex', nature: 'Naturaleza', stage: 'Fase', hatch: 'tokens para eclosionar', progress: 'Progreso del huevo', refresh: 'Actualizar datos', error: 'error' },
+        fr: { active: 'Pokémon actif', egg: 'Œuf en incubation', reading: 'Lecture de l’utilisation locale…', today: 'aujourd’hui', dex: 'Pokédex', nature: 'Nature', stage: 'Stade', hatch: 'jetons avant l’éclosion', progress: 'Progression de l’œuf', refresh: 'Actualiser les données', error: 'erreur' },
+        pt: { active: 'Pokémon ativo', egg: 'Ovo em incubação', reading: 'Lendo o uso local…', today: 'hoje', dex: 'Pokédex', nature: 'Natureza', stage: 'Estágio', hatch: 'tokens até a eclosão', progress: 'Progresso do ovo', refresh: 'Atualizar dados', error: 'erro' },
+      };
+      const $ = (id) => document.getElementById(id);
+      const number = (value) => Number.isFinite(Number(value)) ? Number(value) : 0;
+      const compact = (value, language, fractionDigits = 0) => new Intl.NumberFormat(localeMap[language], { notation: 'compact', maximumFractionDigits: fractionDigits }).format(number(value));
+      const safeImage = (value) => /^(assets\/[A-Za-z0-9._/-]+|https:\/\/raw\.githubusercontent\.com\/PokeAPI\/sprites\/[^\s]+)$/.test(String(value || ''));
+      const languageOf = (snapshot) => supportedLanguages.includes(snapshot?.language) ? snapshot.language : supportedLanguages.includes(snapshot?.settings?.language) ? snapshot.settings.language : 'en';
+      const setText = (id, value) => { const node = $(id); if (node) node.textContent = String(value); };
+      const setLabel = (id, key, language) => setText(id, labels[language]?.[key] ?? labels.en[key]);
+      const showError = (language) => { setText('mini-status', labels[language].error); $('mini-status')?.classList.add('error'); };
+
+      function render(snapshot) {
+        if (!snapshot) return;
+        const language = languageOf(snapshot);
+        const text = labels[language] || labels.en;
+        const active = snapshot.active;
+        const egg = snapshot.egg || {};
+        const progress = active
+          ? Math.max(0, Math.min(1, number(active.usedAtStage) / Math.max(1, number(active.threshold))))
+          : Math.max(0, Math.min(1, number(egg.progress)));
+        const image = $('mini-sprite');
+        const fallbackNode = $('mini-fallback');
+        const sprite = active ? snapshot.sprite : egg.sprite;
+        const fallback = active && active.shinyVisible ? '✨' : active ? '🔹' : '🥚';
+
+        document.documentElement.lang = language;
+        setLabel('mini-today-label', 'today', language);
+        setLabel('mini-refresh', 'refresh', language);
+        setLabel('mini-progress', 'progress', language);
+        if (image && safeImage(sprite)) {
+          image.src = sprite;
+          image.alt = active ? (active.name || text.active) : text.egg;
+          image.hidden = false;
+          if (fallbackNode) fallbackNode.hidden = true;
+        } else {
+          if (image) image.hidden = true;
+          if (fallbackNode) { fallbackNode.hidden = false; fallbackNode.textContent = fallback; }
+        }
+        setText('mini-name', active ? (active.name || text.active) : text.egg);
+        setText('mini-detail', active
+          ? `${active.shinyVisible ? 'Shiny · ' : ''}${active.nature || `${text.nature} —`} · ${text.stage.toLowerCase()} ${number(active.stageIndex) + 1}/${Math.max(1, number(active.totalForms))}`
+          : `${compact(egg.remaining, language, 1)} ${text.hatch}`);
+        const bar = document.querySelector('#mini-progress span');
+        if (bar) bar.style.width = `${Math.round(progress * 100)}%`;
+        $('mini-progress')?.setAttribute('aria-valuenow', String(Math.round(progress * 100)));
+        setText('mini-today', compact(snapshot.usage?.today?.tokens, language));
+        setText('mini-dex', `${text.dex}: ${Array.isArray(snapshot.state?.dex) ? snapshot.state.dex.length : 0}`);
+        setText('mini-status', '');
+        $('mini-status')?.classList.remove('error');
+        const refresh = number(snapshot.lastRefreshAt);
+        setText('mini-updated', refresh ? new Date(refresh).toLocaleTimeString(localeMap[language], { hour: '2-digit', minute: '2-digit' }) : '—');
+      }
+
+      async function getSnapshot() {
+        const response = await fetch('/api/snapshot', { cache: 'no-store' });
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        return response.json();
+      }
+
+      async function refresh() {
+        const button = $('mini-refresh');
+        const language = languageOf(window.__miniSnapshot || {});
+        if (button) button.disabled = true;
+        try {
+          const response = await fetch('/api/action', {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({ type: 'refresh' }),
+            cache: 'no-store',
+          });
+          if (!response.ok) throw new Error(`HTTP ${response.status}`);
+          const result = await response.json();
+          const snapshot = result.snapshot || await getSnapshot();
+          window.__miniSnapshot = snapshot;
+          render(snapshot);
+        } catch {
+          showError(language);
+        } finally {
+          if (button) button.disabled = false;
+        }
+      }
+
+      $('mini-sprite')?.addEventListener('error', () => {
+        $('mini-sprite').hidden = true;
+        $('mini-fallback').hidden = false;
+      });
+      $('mini-refresh')?.addEventListener('click', refresh);
+      getSnapshot().then((snapshot) => { window.__miniSnapshot = snapshot; render(snapshot); }).catch(() => showError('en'));
+      setInterval(refresh, 60_000);
+      if (typeof EventSource !== 'undefined') {
+        const events = new EventSource('/api/events');
+        events.addEventListener('snapshot', (event) => {
+          try { const snapshot = JSON.parse(event.data); window.__miniSnapshot = snapshot; render(snapshot); } catch {}
+        });
+      }
+    })();
+  </script>
+</body>
+</html>

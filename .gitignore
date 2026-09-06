@@ -1,0 +1,30 @@
+# Dependencies and generated output
+node_modules/
+dist/
+coverage/
+
+# Local configuration and secrets
+.env
+.env.*
+*.local
+
+# Runtime state and provider data
+data/
+state/
+logs/
+cache/
+companion-state.json
+*.db
+*.db-wal
+*.db-shm
+*.sqlite
+*.sqlite3
+*.log
+*.tmp
+
+# Local release archives and editor files
+*.zip
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

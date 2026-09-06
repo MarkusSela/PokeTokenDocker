@@ -1,0 +1,76 @@
+services:
+  poketokendocker:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    image: ${PTD_IMAGE:-ghcr.io/markussela/poketokendocker:0.1.0}
+    init: true
+    environment:
+      - PTD_WEB_HOST=0.0.0.0
+      - PTD_WEB_PORT=4317
+      - PTD_WEB_MODE=${PTD_WEB_MODE:-public-readonly}
+      - PTD_WEB_CONTAINER=1
+      - PTD_WEB_ALLOW_MUTATIONS=${PTD_WEB_ALLOW_MUTATIONS:-0}
+      - PTD_BIND_HOST=${PTD_BIND_HOST:-127.0.0.1}
+      - PTD_ALLOWED_HOSTS=${PTD_ALLOWED_HOSTS:-127.0.0.1,localhost,::1}
+      - PTD_PROJECT_URL=${PTD_PROJECT_URL:-https://github.com/MarkusSela/PokeTokenDocker}
+      - PTD_ISSUES_URL=${PTD_ISSUES_URL:-https://github.com/MarkusSela/PokeTokenDocker/issues}
+      - PTD_RELEASE_URL=${PTD_RELEASE_URL:-https://api.github.com/repos/MarkusSela/PokeTokenDocker/releases/latest}
+      - PTD_STATE_DIR=/data
+      - HERMES_HOME=/hermes
+      - PTD_EMBED_ORIGIN=${PTD_EMBED_ORIGIN:-}
+    ports:
+      - "${PTD_BIND_HOST:-127.0.0.1}:4317:4317"
+    volumes:
+      - type: bind
+        source: ${PTD_DATA_DIR:-../data}
+        target: /data
+      - type: bind
+        source: ${PTD_HERMES_DIR:?Set PTD_HERMES_DIR to the Hermes data directory}
+        target: /hermes
+        read_only: true
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:4317/healthz').then(r => { if (!r.ok) process.exit(1); }).catch(() => process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+  poketokendocker-local-integration:
+    profiles: ["local-integration"]
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    image: ${PTD_IMAGE:-ghcr.io/markussela/poketokendocker:0.1.0}
+    init: true
+    environment:
+      - PTD_WEB_HOST=0.0.0.0
+      - PTD_WEB_PORT=4317
+      - PTD_WEB_MODE=docker-local
+      - PTD_WEB_CONTAINER=1
+      - PTD_WEB_ALLOW_MUTATIONS=1
+      - PTD_BIND_HOST=127.0.0.1
+      - PTD_ALLOWED_HOSTS=127.0.0.1,localhost,::1
+      - PTD_PROJECT_URL=${PTD_PROJECT_URL:-https://github.com/MarkusSela/PokeTokenDocker}
+      - PTD_ISSUES_URL=${PTD_ISSUES_URL:-https://github.com/MarkusSela/PokeTokenDocker/issues}
+      - PTD_RELEASE_URL=${PTD_RELEASE_URL:-https://api.github.com/repos/MarkusSela/PokeTokenDocker/releases/latest}
+      - PTD_STATE_DIR=/data
+      - HERMES_HOME=/hermes
+      - PTD_EMBED_ORIGIN=${PTD_EMBED_ORIGIN:-}
+    ports:
+      - "127.0.0.1:4318:4317"
+    volumes:
+      - poketokendocker-local-data:/data
+      - type: bind
+        source: ${PTD_HERMES_DIR:?Set PTD_HERMES_DIR to the Hermes data directory}
+        target: /hermes
+        read_only: true
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:4317/healthz').then(r => { if (!r.ok) process.exit(1); }).catch(() => process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+volumes:
+  poketokendocker-local-data:
