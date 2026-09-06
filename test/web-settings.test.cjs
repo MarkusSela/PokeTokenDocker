@@ -27,7 +27,7 @@ function makeService() {
     scanReader: async () => ({ totalRows: 0, unattributedRows: 0, timeWindowedRows: 0, providers: [] }),
     releaseChecker: async () => ({
       ok: true,
-      currentVersion: '0.1.0',
+      currentVersion: '0.1.1',
       latestVersion: '0.2.0',
       updateAvailable: true,
       windowsReleaseAvailable: true,

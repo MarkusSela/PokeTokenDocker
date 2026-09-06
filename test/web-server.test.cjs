@@ -344,7 +344,7 @@ test('web server exposes safe export and update action results', async () => {
         ok: true,
         update: {
           ok: true,
-          currentVersion: '0.1.0',
+          currentVersion: '0.1.1',
           latestVersion: '0.2.0',
           updateAvailable: true,
           url: 'https://github.com/MarkusSela/PokeTokenDocker/releases/tag/v0.2.0',

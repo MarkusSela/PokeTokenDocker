@@ -33,13 +33,13 @@
   <a href="README.pt.md">🇵🇹 Português</a>
 </p>
 
-> **소스 패키지:** `0.1.0` · Docker/Web 빌드 · 기본 Compose 프로필은 `public-readonly` 로컬 read-only입니다.
+> **소스 패키지:** `0.1.1` · Docker/Web 빌드 · 기본 Compose 프로필은 `public-readonly` 로컬 read-only입니다.
 >
-> **게시된 이미지:** `ghcr.io/markussela/poketokendocker:0.1.0` · `PTD_IMAGE`로 Docker Hub 또는 로컬 태그를 사용할 수 있습니다.
+> **게시된 이미지:** `ghcr.io/markussela/poketokendocker:0.1.1` · `PTD_IMAGE`로 Docker Hub 또는 로컬 태그를 사용할 수 있습니다.
 
 ## 프로젝트 소개
 
-PokeTokenDocker는 PokeTokenBar 아이디어의 headless Web 빌드입니다. 로컬 AI 코딩 사용량이 알, 컴패니언, 성장하는 Pokédex로 이어집니다. Docker 컨테이너가 사용 메타데이터를 읽고 브라우저에서 컴패니언을 제공하도록 서버, NAS 또는 신뢰할 수 있는 로컬 머신을 위해 설계되었습니다.
+PokeTokenDocker는 기존 컴패니언 개념의 headless Web 빌드입니다. 로컬 AI 코딩 사용량이 알, 컴패니언, 성장하는 Pokédex로 이어집니다. Docker 컨테이너가 사용 메타데이터를 읽고 브라우저에서 컴패니언을 제공하도록 서버, NAS 또는 신뢰할 수 있는 로컬 머신을 위해 설계되었습니다.
 
 Hermes와 provider 디렉터리는 **읽기 전용**으로 마운트됩니다. 명시적으로 변경 가능한 로컬 프로필을 켠 경우에만 컴패니언 상태가 `/data`에 기록됩니다. 기본 `public-readonly` 프로필은 구매, 설정 저장, 가져오기 및 기타 변경을 비활성화합니다. SSH, Tailscale, Home Assistant, 원격 데이터베이스 또는 텔레메트리는 필요하지 않습니다.
 
@@ -74,11 +74,12 @@ Hermes와 provider 디렉터리는 **읽기 전용**으로 마운트됩니다. �
 
 ## 📸 스크린샷
 
-모든 이미지는 격리된 합성 fixture에서 캡처했습니다. live 컨테이너나 개인 계정의 데이터가 아닙니다. 전체 정책과 목록은 [`docs/SCREENSHOTS.md`](docs/SCREENSHOTS.md)를 참고하세요.
+갤러리는 격리된 합성 fixture에서 캡처한 8개 화면과 프로젝트가 제공한 Homepage 카드 참조 이미지로 구성됩니다. fixture 화면에는 데모 값만 있으며, 참조 이미지는 이번 릴리스에 맞게 리브랜딩했고 호스트, 계정, 자격 증명 또는 개인 경로를 포함하지 않습니다. 전체 정책과 목록은 [`docs/SCREENSHOTS.md`](docs/SCREENSHOTS.md)를 참고하세요.
 
 <table>
   <tr><td align="center"><img src="docs/images/home.png" alt="반짝이는 Pikachu와 이름이 표시된 Pokémon이 있는 PokeTokenDocker 웹 워크스페이스" width="520"></td><td><strong>🏠 워크스페이스.</strong><br>넓은 레이아웃에서 Home, Bag, Shop, Pokédex를 함께 표시합니다. 반짝이는 Pikachu가 중심이며 Home에는 합성 token 값과 5개의 데모 provider가 보입니다.</td></tr>
   <tr><td align="center"><img src="docs/images/mini.png" alt="PokeTokenDocker Mini 서비스 카드 하나와 공개 링크가 있는 Homepage 대시보드" width="520"></td><td><strong>🧩 Homepage의 Mini.</strong><br>이 Homepage 대시보드에는 헤더, 검색, PokeTokenDocker service card 하나만 있는 Services 그룹과 네 개의 공개 링크가 있는 Bookmarks 그룹이 있습니다. 삽입된 실제 Mini는 반짝이는 Pikachu, 합성 오늘 사용량, 진행도, Pokédex 수를 보여주며 다른 컨테이너는 개인정보 보호를 위해 표시하지 않습니다.</td></tr>
+  <tr><td align="center"><img src="docs/images/homepage.png" alt="반짝이는 Pikachu와 8M today를 보여주는 PokeTokenDocker Homepage 카드" width="520"></td><td><strong>🌐 Homepage 카드 프리뷰.</strong><br>이번 릴리스를 위해 제공된 컴팩트 카드는 PokeTokenDocker 이름을 사용하며 반짝이는 Pikachu, Jolly 성격, 1/1 단계, 3분의 1 진행도와 표시 예시인 8M today를 보여줍니다. 호스트, 계정, 자격 증명 또는 개인 경로는 포함하지 않습니다.</td></tr>
   <tr><td align="center"><img src="docs/images/home-panel.png" alt="반짝이는 Pikachu와 provider 지표가 있는 PokeTokenDocker Home" width="420"></td><td><strong>📊 Home.</strong><br>반짝이는 Pikachu, 진행도, wallet, 합성 오늘/주간 합계, 5개 provider, 데모 quota와 read-only 안내를 한 패널에 표시합니다.</td></tr>
   <tr><td align="center"><img src="docs/images/bag.png" alt="아이콘과 수량이 있는 PokeTokenDocker Bag" width="380"></td><td><strong>🎒 Bag.</strong><br>별도의 Bag 화면에서 Rare Candy, Mint, Shiny Charm, Poké Doll과 수량을 보여줍니다. read-only 경계도 표시됩니다.</td></tr>
   <tr><td align="center"><img src="docs/images/shop.png" alt="합성 가격이 있는 PokeTokenDocker Shop" width="380"></td><td><strong>🛍️ Shop.</strong><br>별도의 Shop 화면에서 진행 아이템과 egg tier를 합성 가격과 함께 표시합니다. 기본 `public-readonly` 프로필에서는 조작이 비활성화됩니다.</td></tr>
@@ -133,7 +134,7 @@ Docker 버전은 `PTD_*` namespace를 사용하며 Windows 버전의 `PTB_*`와 
 
 | 변수 | 기본값 | 목적 |
 | --- | --- | --- |
-| `PTD_IMAGE` | `ghcr.io/markussela/poketokendocker:0.1.0` | 게시된 이미지. Docker Hub 또는 로컬 태그로 변경할 수 있습니다. |
+| `PTD_IMAGE` | `ghcr.io/markussela/poketokendocker:0.1.1` | 게시된 이미지. Docker Hub 또는 로컬 태그로 변경할 수 있습니다. |
 | `PTD_HERMES_DIR` | 필수 | `/hermes`에 read-only로 마운트할 호스트 디렉터리. |
 | `PTD_DATA_DIR` | `../data` | `/data`에 마운트할 호스트 디렉터리. |
 | `PTD_BIND_HOST` | `127.0.0.1` | 포트를 공개할 호스트 인터페이스. |
@@ -160,8 +161,8 @@ npm ci
 npm test
 node scripts/audit-release.cjs
 npm audit --omit=dev --audit-level=high
-docker pull ghcr.io/markussela/poketokendocker:0.1.0
-docker build -f docker/Dockerfile --build-arg VERSION=0.1.0 -t poketokendocker:local .
+docker pull ghcr.io/markussela/poketokendocker:0.1.1
+docker build -f docker/Dockerfile --build-arg VERSION=0.1.1 -t poketokendocker:local .
 ```
 
 이미지는 권한이 없는 `node` 사용자로 실행되며 production 의존성과 `/healthz` healthcheck만 포함합니다. 기여할 때는 [`CONTRIBUTING.md`](CONTRIBUTING.md)와 합성 데이터를 사용하세요.

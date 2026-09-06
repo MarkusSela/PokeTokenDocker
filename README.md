@@ -34,13 +34,13 @@
   <a href="README.pt.md">🇵🇹 Português</a>
 </p>
 
-> **Source package:** `0.1.0` · Docker/web build · The default Compose profile is `public-readonly`, local, and read-only.
+> **Source package:** `0.1.1` · Docker/web build · The default Compose profile is `public-readonly`, local, and read-only.
 >
-> **Published image:** `ghcr.io/markussela/poketokendocker:0.1.0` · Set `PTD_IMAGE` to use a Docker Hub namespace or a locally built tag.
+> **Published image:** `ghcr.io/markussela/poketokendocker:0.1.1` · Set `PTD_IMAGE` to use a Docker Hub namespace or a locally built tag.
 
 ## About this project
 
-PokeTokenDocker is the headless web build of the PokeTokenBar idea: local AI coding usage becomes an egg, then a companion, then a growing Pokédex. It is designed for a server, NAS, or trusted local machine where a Docker container can read usage metadata and serve the companion through a browser.
+PokeTokenDocker is a headless web build of the original companion concept: local AI coding usage becomes an egg, then a companion, then a growing Pokédex. It is designed for a server, NAS, or trusted local machine where a Docker container can read usage metadata and serve the companion through a browser.
 
 The service keeps the boundary explicit:
 
@@ -94,7 +94,7 @@ Official quota windows are shown only when a source provides them. If quota info
 
 ## 📸 Screenshots
 
-All images below were captured from an isolated synthetic fixture. They contain demonstration values only; they are not captures of the live service or of a personal account. The complete image policy and index are in [`docs/SCREENSHOTS.md`](docs/SCREENSHOTS.md).
+The gallery combines eight captures from an isolated synthetic fixture with a project-owner-provided Homepage card reference. The fixture captures contain demonstration values only; the reference image was rebranded for this release and contains no host, account, credential, or private-path data. The complete image policy and index are in [`docs/SCREENSHOTS.md`](docs/SCREENSHOTS.md).
 
 <table>
   <thead>
@@ -111,6 +111,10 @@ All images below were captured from an isolated synthetic fixture. They contain 
     <tr>
       <td align="center"><img src="docs/images/mini.png" alt="Homepage dashboard with one PokeTokenDocker Mini service card and public links" width="520"></td>
       <td><strong>🧩 Mini view on Homepage.</strong><br>This Homepage dashboard capture includes a header, search, a Services group with exactly one service card: PokeTokenDocker, and a Bookmarks group with four public links. The embedded Mini view shows shiny Pikachu, today’s synthetic usage, progression, and Pokédex count; unrelated containers are intentionally not shown.</td>
+    </tr>
+    <tr>
+      <td align="center"><img src="docs/images/homepage.png" alt="PokeTokenDocker Homepage card with shiny Pikachu and 8M today" width="520"></td>
+      <td><strong>🌐 Homepage card reference.</strong><br>The compact card supplied for this release uses the PokeTokenDocker identity and shows shiny Pikachu, Jolly nature, hatch phase 1/1, one-third progress, and the visible 8M today example. It contains no host, account, credential, or private-path data.</td>
     </tr>
     <tr>
       <td align="center"><img src="docs/images/home-panel.png" alt="PokeTokenDocker Home panel with shiny Pikachu and provider metrics" width="420"></td>
@@ -209,7 +213,7 @@ The Compose file uses the `PTD_*` namespace. These variables are intentionally d
 
 | Variable | Default | Purpose |
 | --- | --- | --- |
-| `PTD_IMAGE` | `ghcr.io/markussela/poketokendocker:0.1.0` | Published image reference. Override it for Docker Hub or a local tag. |
+| `PTD_IMAGE` | `ghcr.io/markussela/poketokendocker:0.1.1` | Published image reference. Override it for Docker Hub or a local tag. |
 | `PTD_HERMES_DIR` | required | Docker-host directory mounted read-only at `/hermes`. |
 | `PTD_DATA_DIR` | `../data` | Docker-host directory mounted at `/data` for companion state. |
 | `PTD_BIND_HOST` | `127.0.0.1` | Host interface used by the published port. |
@@ -260,10 +264,10 @@ node scripts/audit-release.cjs
 npm audit --omit=dev --audit-level=high
 
 # Pull the public image (or use Compose as shown above)
-docker pull ghcr.io/markussela/poketokendocker:0.1.0
+docker pull ghcr.io/markussela/poketokendocker:0.1.1
 
 # Build a local image instead
-docker build -f docker/Dockerfile --build-arg VERSION=0.1.0 -t poketokendocker:local .
+docker build -f docker/Dockerfile --build-arg VERSION=0.1.1 -t poketokendocker:local .
 ```
 
 The Docker image runs as the unprivileged `node` user, includes only production dependencies, exposes port `4317`, and has a `/healthz` healthcheck.

@@ -34,7 +34,7 @@ function loadShippedCatalog() {
 async function json(url, options = {}) {
   const response = await fetch(url, {
     ...options,
-    headers: { "user-agent": "PokeTokenDocker/0.1.0", ...(options.headers || {}) },
+    headers: { "user-agent": "PokeTokenDocker/0.1.1", ...(options.headers || {}) },
     signal: AbortSignal.timeout(15000),
   });
   if (!response.ok) throw new Error(`PokéAPI ${response.status}`);

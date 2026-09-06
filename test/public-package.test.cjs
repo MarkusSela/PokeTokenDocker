@@ -30,7 +30,7 @@ test('README documents the shipped Mini view and only real API routes', () => {
 
 test('screenshot documentation names every bundled image and keeps the Mini separate', () => {
   const docs = read('docs/SCREENSHOTS.md');
-  for (const image of ['home.png', 'settings.png']) {
+  for (const image of ['home.png', 'homepage.png', 'settings.png']) {
     assert.ok(fs.existsSync(path.join(root, 'docs', 'images', image)), `${image} must exist`);
     assert.match(docs, new RegExp(image.replace('.', '\\.'), 'i'));
   }

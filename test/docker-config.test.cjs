@@ -33,7 +33,7 @@ test('Compose keeps the host bind local and Hermes mount read-only', () => {
   assert.equal(compose.includes('/data'), true);
   assert.match(compose, /read_only:\s*true/);
   assert.match(compose, /poketokendocker:/);
-  assert.match(compose, /image:\s+\$\{PTD_IMAGE:-ghcr\.io\/markussela\/poketokendocker:0\.1\.0\}/);
+  assert.match(compose, /image:\s+\$\{PTD_IMAGE:-ghcr\.io\/markussela\/poketokendocker:0\.1\.1\}/);
   assert.doesNotMatch(compose, new RegExp(`privileged:\\s*true|docker\\.sock|\\/home:\\s*\\/root|${legacyEnv}`));
 });
 

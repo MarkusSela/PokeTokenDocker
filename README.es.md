@@ -33,13 +33,13 @@
   <a href="README.pt.md">🇵🇹 Português</a>
 </p>
 
-> **Paquete fuente:** `0.1.0` · build Docker/web · el perfil Compose predeterminado es `public-readonly`, local y de solo lectura.
+> **Paquete fuente:** `0.1.1` · build Docker/web · el perfil Compose predeterminado es `public-readonly`, local y de solo lectura.
 >
-> **Imagen publicada:** `ghcr.io/markussela/poketokendocker:0.1.0` · Define `PTD_IMAGE` para usar Docker Hub o una etiqueta local.
+> **Imagen publicada:** `ghcr.io/markussela/poketokendocker:0.1.1` · Define `PTD_IMAGE` para usar Docker Hub o una etiqueta local.
 
 ## Sobre el proyecto
 
-PokeTokenDocker es la versión web headless de la idea PokeTokenBar: el uso local de IA para programar se convierte en un huevo, después en un compañero y finalmente en una Pokédex que crece. Está pensado para un servidor, NAS o máquina local de confianza donde un contenedor Docker pueda leer metadatos de uso y servir el compañero desde el navegador.
+PokeTokenDocker es la versión web headless del concepto original del compañero: el uso local de IA para programar se convierte en un huevo, después en un compañero y finalmente en una Pokédex que crece. Está pensado para un servidor, NAS o máquina local de confianza donde un contenedor Docker pueda leer metadatos de uso y servir el compañero desde el navegador.
 
 Hermes y los directorios de los proveedores se montan en **solo lectura**. El compañero solo escribe su propio estado en `/data` cuando se activa explícitamente un perfil local con mutaciones. El perfil predeterminado `public-readonly` deshabilita compras, cambios de configuración, importaciones y otras mutaciones.
 
@@ -62,11 +62,12 @@ Las cuotas oficiales solo aparecen cuando una fuente las proporciona. Si no est�
 
 ## 📸 Capturas
 
-Las imágenes se capturaron con una fixture sintética aislada. Solo contienen valores de demostración y no representan el contenedor live ni una cuenta personal. Consulta [`docs/SCREENSHOTS.md`](docs/SCREENSHOTS.md).
+La galería combina ocho capturas de una fixture sintética aislada con una referencia de tarjeta Homepage proporcionada por el proyecto. Las capturas de la fixture solo contienen valores de demostración; la imagen de referencia se reetiquetó para esta versión y no contiene host, cuenta, credenciales ni rutas privadas. Consulta la política y el índice completos en [`docs/SCREENSHOTS.md`](docs/SCREENSHOTS.md).
 
 <table>
   <tr><td align="center"><img src="docs/images/home.png" alt="Espacio web PokeTokenDocker con Pikachu shiny y Pokémon con nombre" width="520"></td><td><strong>🏠 Espacio.</strong><br>La vista ancha reúne Home, Bag, Shop y una Pokédex con nombres legibles. Pikachu shiny es el protagonista y Home muestra valores sintéticos de tokens y cinco proveedores de demostración.</td></tr>
   <tr><td align="center"><img src="docs/images/mini.png" alt="Panel de Homepage con una tarjeta PokeTokenDocker Mini y enlaces públicos" width="520"></td><td><strong>🧩 Mini en Homepage.</strong><br>Este panel de Homepage incluye encabezado, búsqueda, un grupo Services con una única tarjeta de servicio (PokeTokenDocker) y un grupo Bookmarks con cuatro enlaces públicos. La Mini real incrustada muestra Pikachu shiny, uso sintético de hoy, progreso y cantidad de Pokédex; los demás contenedores no aparecen por privacidad.</td></tr>
+  <tr><td align="center"><img src="docs/images/homepage.png" alt="Tarjeta Homepage de PokeTokenDocker con Pikachu shiny y 8M today" width="520"></td><td><strong>🌐 Vista previa de la tarjeta Homepage.</strong><br>La tarjeta compacta proporcionada para esta versión usa la identidad PokeTokenDocker y muestra Pikachu shiny, naturaleza Jolly, fase 1/1, un tercio de progreso y el ejemplo visible 8M today. No contiene host, cuenta, credenciales ni rutas privadas.</td></tr>
   <tr><td align="center"><img src="docs/images/home-panel.png" alt="Panel Home de PokeTokenDocker con Pikachu shiny y proveedores" width="420"></td><td><strong>📊 Home.</strong><br>Pikachu shiny, progreso, wallet, totales sintéticos de hoy/semana, cinco proveedores, cuotas de demostración y aviso de solo lectura en un panel.</td></tr>
   <tr><td align="center"><img src="docs/images/bag.png" alt="Bag de PokeTokenDocker con iconos y cantidades" width="380"></td><td><strong>🎒 Bag.</strong><br>La vista independiente muestra Rare Candy, Mint, Shiny Charm y Poké Doll con iconos y cantidades. El límite de solo lectura está visible.</td></tr>
   <tr><td align="center"><img src="docs/images/shop.png" alt="Shop de PokeTokenDocker con precios sintéticos" width="380"></td><td><strong>🛍️ Shop.</strong><br>La vista independiente lista objetos de progreso y niveles de huevo con precios sintéticos. En el perfil `public-readonly` los controles están visibles pero desactivados.</td></tr>
@@ -117,7 +118,7 @@ No expongas el perfil mutante a una LAN no confiable. Para pruebas que cambien i
 
 ## ⚙️ Configuración
 
-Las variables usan el namespace `PTD_*`, distinto del `PTB_*` de Windows: `PTD_IMAGE` apunta a la imagen publicada `ghcr.io/markussela/poketokendocker:0.1.0` y puede cambiarse por Docker Hub o una etiqueta local; `PTD_HERMES_DIR` es obligatorio; `PTD_DATA_DIR` define `/data`; `PTD_BIND_HOST` controla el bind (por defecto `127.0.0.1`); `PTD_ALLOWED_HOSTS` limita las peticiones mutantes; `PTD_WEB_MODE` y `PTD_WEB_ALLOW_MUTATIONS` mantienen el modo seguro; `PTD_EMBED_ORIGIN` autoriza una única integración iframe; `PTD_WEB_PORT` es el puerto interno `4317`.
+Las variables usan el namespace `PTD_*`, distinto del `PTB_*` de Windows: `PTD_IMAGE` apunta a la imagen publicada `ghcr.io/markussela/poketokendocker:0.1.1` y puede cambiarse por Docker Hub o una etiqueta local; `PTD_HERMES_DIR` es obligatorio; `PTD_DATA_DIR` define `/data`; `PTD_BIND_HOST` controla el bind (por defecto `127.0.0.1`); `PTD_ALLOWED_HOSTS` limita las peticiones mutantes; `PTD_WEB_MODE` y `PTD_WEB_ALLOW_MUTATIONS` mantienen el modo seguro; `PTD_EMBED_ORIGIN` autoriza una única integración iframe; `PTD_WEB_PORT` es el puerto interno `4317`.
 
 `/hermes` y `/data` deben ser rutas separadas. El servicio rechaza rutas solapadas.
 
@@ -134,8 +135,8 @@ npm ci
 npm test
 node scripts/audit-release.cjs
 npm audit --omit=dev --audit-level=high
-docker pull ghcr.io/markussela/poketokendocker:0.1.0
-docker build -f docker/Dockerfile --build-arg VERSION=0.1.0 -t poketokendocker:local .
+docker pull ghcr.io/markussela/poketokendocker:0.1.1
+docker build -f docker/Dockerfile --build-arg VERSION=0.1.1 -t poketokendocker:local .
 ```
 
 La imagen usa el usuario sin privilegios `node` y un healthcheck en `/healthz`. Para contribuir, consulta [`CONTRIBUTING.md`](CONTRIBUTING.md) y usa datos sintéticos.

@@ -12,9 +12,9 @@ function read(relativePath) {
 test('Compose defaults to the published image and supports a local override', () => {
   const compose = read('docker/compose.yaml');
   const envExample = read('docker/ptd.env.example');
-  assert.match(compose, /image:\s+\$\{PTD_IMAGE:-ghcr\.io\/markussela\/poketokendocker:0\.1\.0\}/);
+  assert.match(compose, /image:\s+\$\{PTD_IMAGE:-ghcr\.io\/markussela\/poketokendocker:0\.1\.1\}/);
   assert.doesNotMatch(compose, /docker-poketokendocker:latest/);
-  assert.match(envExample, /^PTD_IMAGE=ghcr\.io\/markussela\/poketokendocker:0\.1\.0$/m);
+  assert.match(envExample, /^PTD_IMAGE=ghcr\.io\/markussela\/poketokendocker:0\.1\.1$/m);
 });
 
 test('CI runs the regression suite, release audit, dependency audit, and Docker build', () => {
@@ -47,7 +47,7 @@ test('Docker Hub publication is an explicit manual workflow with secret-based lo
 
 test('Dockerfile declares public image metadata and keeps the runtime unprivileged', () => {
   const dockerfile = read('docker/Dockerfile');
-  assert.match(dockerfile, /ARG VERSION=0\.1\.0/);
+  assert.match(dockerfile, /ARG VERSION=0\.1\.1/);
   assert.match(dockerfile, /org\.opencontainers\.image\.source/);
   assert.match(dockerfile, /org\.opencontainers\.image\.version/);
   assert.match(dockerfile, /USER node/);
@@ -57,11 +57,11 @@ test('README documents pull-first installation and the image override', () => {
   const readme = read('README.md');
   assert.match(readme, /docker compose -f docker\/compose\.yaml pull/);
   assert.match(readme, /PTD_IMAGE/);
-  assert.match(readme, /ghcr\.io\/markussela\/poketokendocker:0\.1\.0/);
+  assert.match(readme, /ghcr\.io\/markussela\/poketokendocker:0\.1\.1/);
 });
 
 test('public screenshot gallery keeps Homepage Mini second and separates each feature view', () => {
-  const expected = ['home.png', 'mini.png', 'home-panel.png', 'bag.png', 'shop.png', 'pokedex.png', 'catch-log.png', 'settings.png'];
+  const expected = ['home.png', 'mini.png', 'homepage.png', 'home-panel.png', 'bag.png', 'shop.png', 'pokedex.png', 'catch-log.png', 'settings.png'];
   const readmes = fs.readdirSync(root)
     .filter((name) => name.startsWith('README') && name.endsWith('.md'))
     .sort();

@@ -47,4 +47,4 @@ jobs:
           push: false
           tags: poketokendocker:ci
           build-args: |
-            VERSION=0.1.0
+            VERSION=0.1.1

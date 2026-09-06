@@ -33,13 +33,13 @@
   <a href="README.pt.md">🇵🇹 Português</a>
 </p>
 
-> **ソースパッケージ:** `0.1.0` · Docker/Web ビルド · 既定の Compose プロファイルは `public-readonly` のローカル・読み取り専用です。
+> **ソースパッケージ:** `0.1.1` · Docker/Web ビルド · 既定の Compose プロファイルは `public-readonly` のローカル・読み取り専用です。
 >
-> **公開済みイメージ:** `ghcr.io/markussela/poketokendocker:0.1.0` · `PTD_IMAGE` で Docker Hub またはローカルタグに変更できます。
+> **公開済みイメージ:** `ghcr.io/markussela/poketokendocker:0.1.1` · `PTD_IMAGE` で Docker Hub またはローカルタグに変更できます。
 
 ## プロジェクトについて
 
-PokeTokenDocker は PokeTokenBar のアイデアをヘッドレス Web 化したものです。ローカル AI コーディングの利用量がタマゴ、コンパニオン、成長する Pokédex になります。Docker コンテナが利用メタデータを読み取り、ブラウザからコンパニオンを表示できるサーバー、NAS、信頼できるローカル環境向けに設計されています。
+PokeTokenDocker は元のコンパニオン概念をヘッドレス Web 化したものです。ローカル AI コーディングの利用量がタマゴ、コンパニオン、成長する Pokédex になります。Docker コンテナが利用メタデータを読み取り、ブラウザからコンパニオンを表示できるサーバー、NAS、信頼できるローカル環境向けに設計されています。
 
 データ境界は明確です。Hermes とプロバイダーのディレクトリは読み取り専用でマウントされます。明示的にローカルの変更プロファイルを有効にした場合だけ、コンパニオン自身の状態を `/data` に書き込みます。既定の `public-readonly` は購入、設定変更、インポートなどを無効にします。SSH、Tailscale、Home Assistant、リモートデータベース、テレメトリーは必要ありません。
 
@@ -74,11 +74,12 @@ PokeTokenDocker は PokeTokenBar のアイデアをヘッドレス Web 化した
 
 ## 📸 スクリーンショット
 
-画像は隔離した合成 fixture から取得しています。live コンテナや個人アカウントのデータではありません。完全な一覧とルールは [`docs/SCREENSHOTS.md`](docs/SCREENSHOTS.md) を参照してください。
+ギャラリーは、隔離した合成 fixture から取得した 8 枚のキャプチャと、プロジェクト提供の Homepage カード参照画像で構成されています。fixture のキャプチャはデモ値のみを含み、参照画像はこのリリース向けにリブランド済みで、ホスト名、アカウント、認証情報、個人パスは含みません。完全なポリシーと一覧は [`docs/SCREENSHOTS.md`](docs/SCREENSHOTS.md) を参照してください。
 
 <table>
   <tr><td align="center"><img src="docs/images/home.png" alt="Pikachu shiny と名前付き Pokémon を表示する PokeTokenDocker Web ワークスペース" width="520"></td><td><strong>🏠 ワークスペース。</strong><br>ワイド表示で Home、Bag、Shop、Pokédex を確認できます。主役は Pikachu shiny。Home には合成 token 値と 5 つのデモ provider が表示されます。</td></tr>
   <tr><td align="center"><img src="docs/images/mini.png" alt="PokeTokenDocker Mini と公開リンク 1 枚だけを載せた Homepage ダッシュボード" width="520"></td><td><strong>🧩 Homepage の Mini。</strong><br>この Homepage ダッシュボードにはヘッダー、検索、Services グループ（PokeTokenDocker の service card 1 枚）と、4 つの公開リンクを持つ Bookmarks グループがあります。埋め込まれた実際の Mini は Pikachu shiny、合成された今日の利用量、進行度、Pokédex 数を表示し、他のコンテナは省略しています。</td></tr>
+  <tr><td align="center"><img src="docs/images/homepage.png" alt="PokeTokenDocker の shiny Pikachu と 8M today の Homepage カード" width="520"></td><td><strong>🌐 Homepage カードのプレビュー。</strong><br>このリリース向けに提供されたコンパクトなカードは PokeTokenDocker の名前を使い、shiny Pikachu、Jolly、フェーズ 1/1、3 分の 1 の進行度、表示例の 8M today を示します。ホスト名、アカウント、認証情報、個人パスは含みません。</td></tr>
   <tr><td align="center"><img src="docs/images/home-panel.png" alt="Pikachu shiny と provider メトリクスを表示する PokeTokenDocker Home" width="420"></td><td><strong>📊 Home。</strong><br>Pikachu shiny、進行度、wallet、今日/週の合成値、5 provider、デモ quota、read-only 通知をまとめて表示します。</td></tr>
   <tr><td align="center"><img src="docs/images/bag.png" alt="アイコンと個数を表示する PokeTokenDocker Bag" width="380"></td><td><strong>🎒 Bag。</strong><br>単独の Bag 画面で Rare Candy、Mint、Shiny Charm、Poké Doll と個数を表示します。read-only 境界も確認できます。</td></tr>
   <tr><td align="center"><img src="docs/images/shop.png" alt="合成価格を表示する PokeTokenDocker Shop" width="380"></td><td><strong>🛍️ Shop。</strong><br>単独の Shop 画面で進行アイテムとタマゴ tier を合成価格付きで表示します。既定の `public-readonly` では操作が無効です。</td></tr>
@@ -133,7 +134,7 @@ Docker 版は `PTD_*` namespace を使います。Windows 版の `PTB_*` とは�
 
 | 変数 | 既定値 | 目的 |
 | --- | --- | --- |
-| `PTD_IMAGE` | `ghcr.io/markussela/poketokendocker:0.1.0` | 公開済みイメージ。Docker Hub またはローカルタグに変更できます。 |
+| `PTD_IMAGE` | `ghcr.io/markussela/poketokendocker:0.1.1` | 公開済みイメージ。Docker Hub またはローカルタグに変更できます。 |
 | `PTD_HERMES_DIR` | 必須 | `/hermes` に read-only mount する host directory。 |
 | `PTD_DATA_DIR` | `../data` | `/data` に mount する host directory。 |
 | `PTD_BIND_HOST` | `127.0.0.1` | port を公開する host interface。 |
@@ -160,8 +161,8 @@ npm ci
 npm test
 node scripts/audit-release.cjs
 npm audit --omit=dev --audit-level=high
-docker pull ghcr.io/markussela/poketokendocker:0.1.0
-docker build -f docker/Dockerfile --build-arg VERSION=0.1.0 -t poketokendocker:local .
+docker pull ghcr.io/markussela/poketokendocker:0.1.1
+docker build -f docker/Dockerfile --build-arg VERSION=0.1.1 -t poketokendocker:local .
 ```
 
 イメージは非特権の `node` ユーザーで動作し、production dependency と `/healthz` healthcheck を含みます。貢献時は [`CONTRIBUTING.md`](CONTRIBUTING.md) と合成データを使用してください。

@@ -1,6 +1,6 @@
 {
   "name": "poketokendocker",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A local-first Docker companion that turns local AI coding usage into Pokémon progress.",
   "author": "PokeTokenDocker contributors",
   "license": "MIT",

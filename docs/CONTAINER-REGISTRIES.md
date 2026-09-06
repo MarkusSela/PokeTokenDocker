@@ -20,7 +20,7 @@ Docker Hub publication is intentionally manual. It requires a Docker Hub access 
 - `DOCKERHUB_USERNAME` — the Docker Hub account used to log in;
 - `DOCKERHUB_TOKEN` — a Docker Hub access token, never a password in source control.
 
-Configure the secrets with GitHub's repository settings or the `gh` CLI. Then run **Actions → Publish Docker Hub image → Run workflow**, supplying the lowercase Docker Hub namespace and a semantic version such as `0.1.0`.
+Configure the secrets with GitHub's repository settings or the `gh` CLI. Then run **Actions → Publish Docker Hub image → Run workflow**, supplying the lowercase Docker Hub namespace and a semantic version such as `0.1.1`.
 
 The workflow publishes:
 
@@ -32,7 +32,7 @@ docker.io/<namespace>/poketokendocker:latest
 To use that image with Compose, set this in `.env`:
 
 ```dotenv
-PTD_IMAGE=docker.io/<namespace>/poketokendocker:0.1.0
+PTD_IMAGE=docker.io/<namespace>/poketokendocker:0.1.1
 ```
 
 Never put a registry token, password, or private repository URL in `.env`, README files, issues, screenshots, or commits.

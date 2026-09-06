@@ -3,7 +3,7 @@ services:
     build:
       context: ..
       dockerfile: docker/Dockerfile
-    image: ${PTD_IMAGE:-ghcr.io/markussela/poketokendocker:0.1.0}
+    image: ${PTD_IMAGE:-ghcr.io/markussela/poketokendocker:0.1.1}
     init: true
     environment:
       - PTD_WEB_HOST=0.0.0.0
@@ -41,7 +41,7 @@ services:
     build:
       context: ..
       dockerfile: docker/Dockerfile
-    image: ${PTD_IMAGE:-ghcr.io/markussela/poketokendocker:0.1.0}
+    image: ${PTD_IMAGE:-ghcr.io/markussela/poketokendocker:0.1.1}
     init: true
     environment:
       - PTD_WEB_HOST=0.0.0.0

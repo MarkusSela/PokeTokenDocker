@@ -1,6 +1,12 @@
 # Changelog
 
-All notable public changes to PokeTokenDocker are documented here.
+## 0.1.1
+
+Branding and documentation refresh for the PokeTokenDocker release.
+
+- Aligns the public product identity, Docker defaults, user-agent, README variants, and release checks on `PokeTokenDocker` and version `0.1.1`.
+- Adds the project-owner-provided, rebranded Homepage card reference to the public documentation gallery.
+- Keeps the original project and Windows companion names intact where they are external attribution or link destinations.
 
 ## 0.1.0
 

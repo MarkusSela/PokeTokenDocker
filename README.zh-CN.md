@@ -33,13 +33,13 @@
   <a href="README.pt.md">🇵🇹 Português</a>
 </p>
 
-> **源代码包：** `0.1.0` · Docker/Web 版本 · 默认 Compose 配置为本地 `public-readonly` 只读模式。
+> **源代码包：** `0.1.1` · Docker/Web 版本 · 默认 Compose 配置为本地 `public-readonly` 只读模式。
 >
-> **已发布镜像：** `ghcr.io/markussela/poketokendocker:0.1.0` · 设置 `PTD_IMAGE` 可改用 Docker Hub 或本地标签。
+> **已发布镜像：** `ghcr.io/markussela/poketokendocker:0.1.1` · 设置 `PTD_IMAGE` 可改用 Docker Hub 或本地标签。
 
 ## 项目简介
 
-PokeTokenDocker 是 PokeTokenBar 概念的无头 Web 版本：本地 AI 编程使用量会变成蛋、伙伴，最终形成不断成长的宝可梦图鉴。它适合服务器、NAS 或可信本地机器，让 Docker 容器读取使用元数据并通过浏览器提供伙伴界面。
+PokeTokenDocker 是原始 companion 概念的无头 Web 版本：本地 AI 编程使用量会变成蛋、伙伴，最终形成不断成长的宝可梦图鉴。它适合服务器、NAS 或可信本地机器，让 Docker 容器读取使用元数据并通过浏览器提供伙伴界面。
 
 数据边界保持清晰：Hermes 和 provider 目录以只读方式挂载；只有明确启用可变本地配置时，伙伴才会把自己的状态写入 `/data`；默认的 `public-readonly` 配置会禁用购买、设置写入、导入和其他修改；不需要 SSH、Tailscale、Home Assistant、远程数据库或遥测服务。
 
@@ -74,11 +74,12 @@ PokeTokenDocker 是 PokeTokenBar 概念的无头 Web 版本：本地 AI 编程�
 
 ## 📸 截图
 
-以下截图来自隔离的合成 fixture，只包含演示值，不是 live 容器或个人账户截图。完整索引见 [`docs/SCREENSHOTS.md`](docs/SCREENSHOTS.md)。
+截图画廊由隔离合成 fixture 的 8 张截图和项目提供的 Homepage 卡片参考图组成。fixture 截图只包含演示值；参考图已在本版本中完成品牌替换，不包含主机、账户、凭据或私人路径。完整政策和索引见 [`docs/SCREENSHOTS.md`](docs/SCREENSHOTS.md)。
 
 <table>
   <tr><td align="center"><img src="docs/images/home.png" alt="带有 shiny Pikachu 和已命名 Pokémon 的 PokeTokenDocker Web 工作区" width="520"></td><td><strong>🏠 工作区。</strong><br>宽屏布局同时展示 Home、Bag、Shop 和带有可读名称的 Pokédex。shiny Pikachu 是视觉主角，Home 显示合成 token 数值和 5 个演示 provider。</td></tr>
   <tr><td align="center"><img src="docs/images/mini.png" alt="带有一个 PokeTokenDocker Mini 服务卡片和公开链接的 Homepage 仪表盘" width="520"></td><td><strong>🧩 Homepage 中的 Mini。</strong><br>这个 Homepage 仪表盘包含页眉、搜索、仅有一个 PokeTokenDocker service card 的 Services 分组，以及包含四个公开链接的 Bookmarks 分组。嵌入的真实 Mini 显示 shiny Pikachu、合成的今日使用量、进度和 Pokédex 数量；其他容器因隐私不会显示。</td></tr>
+  <tr><td align="center"><img src="docs/images/homepage.png" alt="显示 shiny Pikachu 和 8M today 的 PokeTokenDocker Homepage 卡片" width="520"></td><td><strong>🌐 Homepage 卡片预览。</strong><br>本版本提供的紧凑卡片使用 PokeTokenDocker 标识，显示 shiny Pikachu、Jolly 性格、1/1 阶段、三分之一进度和可见的 8M today 示例。它不包含主机、账户、凭据或私人路径。</td></tr>
   <tr><td align="center"><img src="docs/images/home-panel.png" alt="带有 shiny Pikachu 和 provider 指标的 PokeTokenDocker Home" width="420"></td><td><strong>📊 Home。</strong><br>在一个面板中显示 shiny Pikachu、进度、wallet、合成的今日/本周总量、5 个 provider、演示配额窗口和只读提示。</td></tr>
   <tr><td align="center"><img src="docs/images/bag.png" alt="带有图标和数量的 PokeTokenDocker Bag" width="380"></td><td><strong>🎒 Bag。</strong><br>独立 Bag 截图显示 Rare Candy、Mint、Shiny Charm 和 Poké Doll 的图标与数量，并显示只读边界。</td></tr>
   <tr><td align="center"><img src="docs/images/shop.png" alt="带有合成价格的 PokeTokenDocker Shop" width="380"></td><td><strong>🛍️ Shop。</strong><br>独立 Shop 截图列出成长道具和 egg tier，并使用合成价格。默认 `public-readonly` 配置下控件可见但已禁用。</td></tr>
@@ -133,7 +134,7 @@ Docker 版本使用 `PTD_*` 命名空间，与 Windows 版本的 `PTB_*` 不兼�
 
 | 变量 | 默认值 | 作用 |
 | --- | --- | --- |
-| `PTD_IMAGE` | `ghcr.io/markussela/poketokendocker:0.1.0` | 已发布镜像；可改为 Docker Hub 或本地标签。 |
+| `PTD_IMAGE` | `ghcr.io/markussela/poketokendocker:0.1.1` | 已发布镜像；可改为 Docker Hub 或本地标签。 |
 | `PTD_HERMES_DIR` | 必填 | 以只读方式挂载到 `/hermes` 的主机目录。 |
 | `PTD_DATA_DIR` | `../data` | 挂载到 `/data` 的主机目录。 |
 | `PTD_BIND_HOST` | `127.0.0.1` | 端口发布使用的主机接口。 |
@@ -170,8 +171,8 @@ npm ci
 npm test
 node scripts/audit-release.cjs
 npm audit --omit=dev --audit-level=high
-docker pull ghcr.io/markussela/poketokendocker:0.1.0
-docker build -f docker/Dockerfile --build-arg VERSION=0.1.0 -t poketokendocker:local .
+docker pull ghcr.io/markussela/poketokendocker:0.1.1
+docker build -f docker/Dockerfile --build-arg VERSION=0.1.1 -t poketokendocker:local .
 ```
 
 镜像以非特权 `node` 用户运行，只安装 production 依赖，并包含 `/healthz` 健康检查。贡献时请阅读 [`CONTRIBUTING.md`](CONTRIBUTING.md) 并使用合成数据。
