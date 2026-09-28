@@ -94,7 +94,7 @@
     .subheading { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; margin: 2px 0 -4px; }
     .subheading h3 { margin: 0; }
     .stack { display: grid; gap: 8px; }
-    .shop-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: stretch; }
+    .shop-grid { grid-template-columns: 1fr; align-items: stretch; }
     .provider-row, .item-row, .shop-row { display: flex; align-items: center; justify-content: space-between; gap: 9px; padding: 9px; border: 1px solid var(--line); border-radius: 9px; background: var(--surface); }
     .provider-row strong, .item-row strong, .shop-row strong { display: block; font-size: 13px; }
     .provider-row span, .item-row span, .shop-row span { display: block; margin-top: 2px; color: var(--muted); font-size: 11px; }
@@ -115,9 +115,10 @@
     .item-emoji { display: block; font-size: 64px; line-height: 1; transform: scale(1.45); }
     .item-row .item-copy { flex: 1; }
     .action-button { padding: 6px 8px; flex: 0 0 auto; font-size: 11px; }
-    .shop-row { align-items: flex-start; flex-direction: column; }
-    .shop-main { display: flex; width: 100%; align-items: center; gap: 9px; }
-    .shop-row .shop-footer { display: flex; width: 100%; align-items: center; justify-content: space-between; gap: 8px; }
+    .shop-row { align-items: center; flex-direction: row; }
+    .shop-main { display: flex; min-width: 0; flex: 1; align-items: center; gap: 9px; }
+    .shop-row .shop-footer { display: flex; width: auto; flex: 0 0 auto; align-items: center; justify-content: flex-end; gap: 8px; }
+    .shop-footer .meta { margin-top: 0; text-align: right; }
     .callout { margin-top: auto; padding: 9px 10px; border-radius: 8px; background: #2b3850; color: var(--muted); font-size: 11px; }
     .limit-stack { display: grid; gap: 7px; }
     .limit-row { padding: 8px 9px; border: 1px solid var(--line); border-radius: 9px; background: var(--surface); }
@@ -209,7 +210,7 @@
 
     @media (max-width: 1200px) {
       .workspace { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .shop-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .shop-grid { grid-template-columns: 1fr; }
       .settings-form { grid-template-columns: 1fr; }
       .settings-group, .setting-row.full, .settings-footnote { grid-column: 1; }
     }

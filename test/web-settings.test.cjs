@@ -27,11 +27,11 @@ function makeService() {
     scanReader: async () => ({ totalRows: 0, unattributedRows: 0, timeWindowedRows: 0, providers: [] }),
     releaseChecker: async () => ({
       ok: true,
-      currentVersion: '0.2.2',
-      latestVersion: '0.2.2',
+      currentVersion: '0.2.3',
+      latestVersion: '0.2.3',
       updateAvailable: true,
       windowsReleaseAvailable: true,
-      url: 'https://github.com/MarkusSela/PokeTokenDocker/releases/tag/v0.2.2',
+      url: 'https://github.com/MarkusSela/PokeTokenDocker/releases/tag/v0.2.3',
     }),
     persist: false,
   });
@@ -119,7 +119,7 @@ test('web backup and update actions return safe data and a real release result',
     const update = await service.handleAction('check-update');
     assert.equal(update.ok, true);
     assert.equal(update.update.updateAvailable, true);
-    assert.equal(update.update.latestVersion, '0.2.2');
+    assert.equal(update.update.latestVersion, '0.2.3');
 
     const imported = await service.handleAction('import-save', {
       ...exported.save,

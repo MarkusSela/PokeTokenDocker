@@ -22,7 +22,7 @@ function platformAssetPattern(platform) {
 }
 
 async function checkLatestRelease({
-  currentVersion = '0.2.2',
+  currentVersion = '0.2.3',
   platform = process.platform,
   fetcher = globalThis.fetch,
   releaseUrl = RELEASE_URL,

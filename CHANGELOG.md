@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.2.3
+
+Shop layout release.
+
+- Stacks Shop entries in one column, matching the Bag layout.
+- Uses the same horizontal item-row composition for Shop icons, descriptions, prices, and actions.
+
 ## 0.2.2
 
 Shop inventory visibility release.

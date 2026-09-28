@@ -37,10 +37,12 @@ test('Pokédex keeps 24 species per page with a sticky pager and max three-colum
   assert.match(htmlSource, /collection-pager/);
 });
 
-test('Shop uses the same panel-intro heading contract as Bag', () => {
+test('Shop uses the same panel-intro and stacked item layout as Bag', () => {
   assert.match(htmlSource, /shop-items[^>]*shop-grid/);
   assert.match(htmlSource, /\.shop-grid/);
-  assert.match(htmlSource, /repeat\(3, minmax\(0, 1fr\)\)/);
+  assert.match(htmlSource, /\.shop-grid\s*\{\s*grid-template-columns:\s*1fr;/);
+  assert.match(htmlSource, /\.shop-row\s*\{\s*align-items:\s*center;\s*flex-direction:\s*row;/);
+  assert.match(htmlSource, /\.shop-row \.shop-footer\s*\{\s*display:\s*flex;\s*width:\s*auto;/);
   const shopStart = htmlSource.indexOf('<section class="window shop-window"');
   const shopEnd = htmlSource.indexOf('</section>', shopStart);
   const shopMarkup = htmlSource.slice(shopStart, shopEnd);
