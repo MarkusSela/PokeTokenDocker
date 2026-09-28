@@ -33,9 +33,9 @@
   <a href="README.pt.md">🇵🇹 Português</a>
 </p>
 
-> **Paquet source :** `0.2.0` · build Docker/web · le profil Compose par défaut est `public-readonly`, local et en lecture seule.
+> **Paquet source :** `0.2.1` · build Docker/web · le profil Compose par défaut est `public-readonly`, local et en lecture seule.
 >
-> **Image publiée :** `ghcr.io/markussela/poketokendocker:0.2.0` · Définissez `PTD_IMAGE` pour utiliser Docker Hub ou un tag local.
+> **Image publiée :** `ghcr.io/markussela/poketokendocker:0.2.1` · Définissez `PTD_IMAGE` pour utiliser Docker Hub ou un tag local.
 
 ## À propos
 
@@ -118,7 +118,7 @@ Ne l’exposez pas à un LAN non fiable. Pour les tests qui modifient l’invent
 
 ## ⚙️ Configuration
 
-Le namespace est `PTD_*`, différent de `PTB_*` sous Windows : `PTD_IMAGE` pointe vers l’image publiée `ghcr.io/markussela/poketokendocker:0.2.0` et peut être remplacée par Docker Hub ou un tag local ; `PTD_HERMES_DIR` est obligatoire ; `PTD_DATA_DIR` définit `/data` ; `PTD_BIND_HOST` contrôle le bind ; `PTD_ALLOWED_HOSTS` limite les requêtes mutables ; `PTD_WEB_MODE` et `PTD_WEB_ALLOW_MUTATIONS` gardent le mode sûr ; `PTD_EMBED_ORIGIN` autorise une origine iframe ; `PTD_WEB_PORT` est le port interne `4317`.
+Le namespace est `PTD_*`, différent de `PTB_*` sous Windows : `PTD_IMAGE` pointe vers l’image publiée `ghcr.io/markussela/poketokendocker:0.2.1` et peut être remplacée par Docker Hub ou un tag local ; `PTD_HERMES_DIR` est obligatoire ; `PTD_DATA_DIR` définit `/data` ; `PTD_BIND_HOST` contrôle le bind ; `PTD_ALLOWED_HOSTS` limite les requêtes mutables ; `PTD_WEB_MODE` et `PTD_WEB_ALLOW_MUTATIONS` gardent le mode sûr ; `PTD_EMBED_ORIGIN` autorise une origine iframe ; `PTD_WEB_PORT` est le port interne `4317`.
 
 `/hermes` et `/data` doivent être séparés. Les chemins qui se chevauchent sont refusés.
 
@@ -135,8 +135,8 @@ npm ci
 npm test
 node scripts/audit-release.cjs
 npm audit --omit=dev --audit-level=high
-docker pull ghcr.io/markussela/poketokendocker:0.2.0
-docker build -f docker/Dockerfile --build-arg VERSION=0.2.0 -t poketokendocker:local .
+docker pull ghcr.io/markussela/poketokendocker:0.2.1
+docker build -f docker/Dockerfile --build-arg VERSION=0.2.1 -t poketokendocker:local .
 ```
 
 L’image utilise l’utilisateur non privilégié `node` et un healthcheck `/healthz`. Pour contribuer, consultez [`CONTRIBUTING.md`](CONTRIBUTING.md) et utilisez des données synthétiques.

@@ -24,7 +24,7 @@ function line(id = 1, rarity = 'common') {
   };
 }
 
-test('Pokédex keeps 24 species per page with a sticky pager contract', () => {
+test('Pokédex keeps 24 species per page with a sticky pager and max three-column grid', () => {
   assert.match(appSource, /COLLECTION_PAGE_SIZE\s*=\s*24/);
   assert.match(appSource, /collectionPage/);
   assert.match(appSource, /filteredEntries\.slice\(/);
@@ -33,14 +33,19 @@ test('Pokédex keeps 24 species per page with a sticky pager contract', () => {
   assert.doesNotMatch(appSource, /names\?\.\[catalog\.language\(\)\]/);
   assert.match(appSource, /collectionRarity/);
   assert.match(appSource, /collection-rarity/);
-  assert.match(htmlSource, /repeat\(4, minmax\(0, 1fr\)\)/);
+  assert.match(htmlSource, /repeat\(3, minmax\(0, 1fr\)\)/);
   assert.match(htmlSource, /collection-pager/);
 });
 
-test('Shop exposes the report three-column layout contract', () => {
+test('Shop uses the same panel-intro heading contract as Bag', () => {
   assert.match(htmlSource, /shop-items[^>]*shop-grid/);
   assert.match(htmlSource, /\.shop-grid/);
   assert.match(htmlSource, /repeat\(3, minmax\(0, 1fr\)\)/);
+  const shopStart = htmlSource.indexOf('<section class="window shop-window"');
+  const shopEnd = htmlSource.indexOf('</section>', shopStart);
+  const shopMarkup = htmlSource.slice(shopStart, shopEnd);
+  assert.ok(shopMarkup.indexOf('<div class="panel-intro">') >= 0);
+  assert.ok(shopMarkup.indexOf('id="shop-wallet"') > shopMarkup.indexOf('<div class="panel-intro">'));
 });
 
 test('Web companion and Gold walking overlays are browser-configurable', () => {

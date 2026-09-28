@@ -35,6 +35,7 @@
     home: ['Home', 'Home', '홈', 'ホーム', 'Inicio', 'Accueil', 'Início'],
     bag: ['Bag', 'Borsa', '가방', 'バッグ', 'Bolsa', 'Sac', 'Bolsa'],
     shop: ['Shop', 'Negozio', '상점', 'ショップ', 'Tienda', 'Boutique', 'Loja'],
+    shopSectionLabel: ['market', 'mercato', '상점', 'マーケット', 'mercado', 'marché', 'mercado'],
     pokedex: ['Pokédex', 'Pokédex', 'Pokédex', 'ポケモン図鑑', 'Pokédex', 'Pokédex', 'Pokédex'],
     workspaceAria: ['PokeTokenDocker windows', 'Finestre PokeTokenDocker', 'PokeTokenDocker 창', 'PokeTokenDocker ウィンドウ', 'Ventanas de PokeTokenDocker', 'Fenêtres PokeTokenDocker', 'Janelas do PokeTokenDocker'],
     loadingRarity: ['EGG', 'UOVO', '알', 'タマゴ', 'HUEVO', 'ŒUF', 'OVO'],

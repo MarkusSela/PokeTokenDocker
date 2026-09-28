@@ -34,9 +34,9 @@
   <a href="README.pt.md">🇵🇹 Português</a>
 </p>
 
-> **Pacchetto sorgente:** `0.2.0` · build Docker/web · il profilo Compose predefinito è `public-readonly`, locale e read-only.
+> **Pacchetto sorgente:** `0.2.1` · build Docker/web · il profilo Compose predefinito è `public-readonly`, locale e read-only.
 >
-> **Immagine pubblicata:** `ghcr.io/markussela/poketokendocker:0.2.0` · Imposta `PTD_IMAGE` per usare Docker Hub o un tag locale.
+> **Immagine pubblicata:** `ghcr.io/markussela/poketokendocker:0.2.1` · Imposta `PTD_IMAGE` per usare Docker Hub o un tag locale.
 
 ## Informazioni sul progetto
 
@@ -158,7 +158,7 @@ PokeTokenDocker usa il namespace `PTD_*`, diverso da quello `PTB_*` della build 
 
 | Variabile | Default | Scopo |
 | --- | --- | --- |
-| `PTD_IMAGE` | `ghcr.io/markussela/poketokendocker:0.2.0` | Riferimento all’immagine pubblicata; puoi sostituirlo con Docker Hub o un tag locale. |
+| `PTD_IMAGE` | `ghcr.io/markussela/poketokendocker:0.2.1` | Riferimento all’immagine pubblicata; puoi sostituirlo con Docker Hub o un tag locale. |
 | `PTD_HERMES_DIR` | obbligatoria | Directory host montata read-only in `/hermes`. |
 | `PTD_DATA_DIR` | `../data` | Directory host montata in `/data`. |
 | `PTD_BIND_HOST` | `127.0.0.1` | Interfaccia host del port mapping. |
@@ -201,8 +201,8 @@ npm ci
 npm test
 node scripts/audit-release.cjs
 npm audit --omit=dev --audit-level=high
-docker pull ghcr.io/markussela/poketokendocker:0.2.0
-docker build -f docker/Dockerfile --build-arg VERSION=0.2.0 -t poketokendocker:local .
+docker pull ghcr.io/markussela/poketokendocker:0.2.1
+docker build -f docker/Dockerfile --build-arg VERSION=0.2.1 -t poketokendocker:local .
 ```
 
 Il container esegue come utente non privilegiato `node`, include solo dipendenze production ed espone un healthcheck su `/healthz`. Per contribuire usa [`CONTRIBUTING.md`](CONTRIBUTING.md) e dati sintetici.

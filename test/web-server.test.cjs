@@ -344,11 +344,11 @@ test('web server exposes safe export and update action results', async () => {
         ok: true,
         update: {
           ok: true,
-          currentVersion: '0.2.0',
-          latestVersion: '0.2.0',
+          currentVersion: '0.2.1',
+          latestVersion: '0.2.1',
           updateAvailable: true,
-          url: 'https://github.com/MarkusSela/PokeTokenDocker/releases/tag/v0.2.0',
-          assetUrl: 'https://github.com/MarkusSela/PokeTokenDocker/releases/download/v0.2.0/app.exe',
+          url: 'https://github.com/MarkusSela/PokeTokenDocker/releases/tag/v0.2.1',
+          assetUrl: 'https://github.com/MarkusSela/PokeTokenDocker/releases/download/v0.2.1/app.exe',
         },
       },
   };
@@ -380,7 +380,7 @@ test('web server exposes safe export and update action results', async () => {
     });
     const updatePayload = await json(update);
     assert.equal(update.status, 200);
-    assert.equal(updatePayload.update.latestVersion, '0.2.0');
+    assert.equal(updatePayload.update.latestVersion, '0.2.1');
     assert.equal(updatePayload.update.assetUrl.endsWith('/app.exe'), true);
   });
 });

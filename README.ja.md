@@ -33,9 +33,9 @@
   <a href="README.pt.md">🇵🇹 Português</a>
 </p>
 
-> **ソースパッケージ:** `0.2.0` · Docker/Web ビルド · 既定の Compose プロファイルは `public-readonly` のローカル・読み取り専用です。
+> **ソースパッケージ:** `0.2.1` · Docker/Web ビルド · 既定の Compose プロファイルは `public-readonly` のローカル・読み取り専用です。
 >
-> **公開済みイメージ:** `ghcr.io/markussela/poketokendocker:0.2.0` · `PTD_IMAGE` で Docker Hub またはローカルタグに変更できます。
+> **公開済みイメージ:** `ghcr.io/markussela/poketokendocker:0.2.1` · `PTD_IMAGE` で Docker Hub またはローカルタグに変更できます。
 
 ## プロジェクトについて
 
@@ -134,7 +134,7 @@ Docker 版は `PTD_*` namespace を使います。Windows 版の `PTB_*` とは�
 
 | 変数 | 既定値 | 目的 |
 | --- | --- | --- |
-| `PTD_IMAGE` | `ghcr.io/markussela/poketokendocker:0.2.0` | 公開済みイメージ。Docker Hub またはローカルタグに変更できます。 |
+| `PTD_IMAGE` | `ghcr.io/markussela/poketokendocker:0.2.1` | 公開済みイメージ。Docker Hub またはローカルタグに変更できます。 |
 | `PTD_HERMES_DIR` | 必須 | `/hermes` に read-only mount する host directory。 |
 | `PTD_DATA_DIR` | `../data` | `/data` に mount する host directory。 |
 | `PTD_BIND_HOST` | `127.0.0.1` | port を公開する host interface。 |
@@ -161,8 +161,8 @@ npm ci
 npm test
 node scripts/audit-release.cjs
 npm audit --omit=dev --audit-level=high
-docker pull ghcr.io/markussela/poketokendocker:0.2.0
-docker build -f docker/Dockerfile --build-arg VERSION=0.2.0 -t poketokendocker:local .
+docker pull ghcr.io/markussela/poketokendocker:0.2.1
+docker build -f docker/Dockerfile --build-arg VERSION=0.2.1 -t poketokendocker:local .
 ```
 
 イメージは非特権の `node` ユーザーで動作し、production dependency と `/healthz` healthcheck を含みます。貢献時は [`CONTRIBUTING.md`](CONTRIBUTING.md) と合成データを使用してください。

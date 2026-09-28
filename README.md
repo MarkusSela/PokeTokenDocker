@@ -34,9 +34,9 @@
   <a href="README.pt.md">🇵🇹 Português</a>
 </p>
 
-> **Source package:** `0.2.0` · Docker/web build · The default Compose profile is `public-readonly`, local, and read-only.
+> **Source package:** `0.2.1` · Docker/web build · The default Compose profile is `public-readonly`, local, and read-only.
 >
-> **Published image:** `ghcr.io/markussela/poketokendocker:0.2.0` · Set `PTD_IMAGE` to use a Docker Hub namespace or a locally built tag.
+> **Published image:** `ghcr.io/markussela/poketokendocker:0.2.1` · Set `PTD_IMAGE` to use a Docker Hub namespace or a locally built tag.
 
 ## About this project
 
@@ -222,7 +222,7 @@ The Compose file uses the `PTD_*` namespace. These variables are intentionally d
 
 | Variable | Default | Purpose |
 | --- | --- | --- |
-| `PTD_IMAGE` | `ghcr.io/markussela/poketokendocker:0.2.0` | Published image reference. Override it for Docker Hub or a local tag. |
+| `PTD_IMAGE` | `ghcr.io/markussela/poketokendocker:0.2.1` | Published image reference. Override it for Docker Hub or a local tag. |
 | `PTD_HERMES_DIR` | required | Docker-host directory mounted read-only at `/hermes`. |
 | `PTD_DATA_DIR` | `../data` | Docker-host directory mounted at `/data` for companion state. |
 | `PTD_BIND_HOST` | `127.0.0.1` | Host interface used by the published port. |
@@ -273,10 +273,10 @@ node scripts/audit-release.cjs
 npm audit --omit=dev --audit-level=high
 
 # Pull the public image (or use Compose as shown above)
-docker pull ghcr.io/markussela/poketokendocker:0.2.0
+docker pull ghcr.io/markussela/poketokendocker:0.2.1
 
 # Build a local image instead
-docker build -f docker/Dockerfile --build-arg VERSION=0.2.0 -t poketokendocker:local .
+docker build -f docker/Dockerfile --build-arg VERSION=0.2.1 -t poketokendocker:local .
 ```
 
 The Docker image runs as the unprivileged `node` user, includes only production dependencies, exposes port `4317`, and has a `/healthz` healthcheck.

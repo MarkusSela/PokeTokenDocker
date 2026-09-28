@@ -33,9 +33,9 @@
   <a href="README.pt.md">🇵🇹 Português</a>
 </p>
 
-> **源代码包：** `0.2.0` · Docker/Web 版本 · 默认 Compose 配置为本地 `public-readonly` 只读模式。
+> **源代码包：** `0.2.1` · Docker/Web 版本 · 默认 Compose 配置为本地 `public-readonly` 只读模式。
 >
-> **已发布镜像：** `ghcr.io/markussela/poketokendocker:0.2.0` · 设置 `PTD_IMAGE` 可改用 Docker Hub 或本地标签。
+> **已发布镜像：** `ghcr.io/markussela/poketokendocker:0.2.1` · 设置 `PTD_IMAGE` 可改用 Docker Hub 或本地标签。
 
 ## 项目简介
 
@@ -134,7 +134,7 @@ Docker 版本使用 `PTD_*` 命名空间，与 Windows 版本的 `PTB_*` 不兼�
 
 | 变量 | 默认值 | 作用 |
 | --- | --- | --- |
-| `PTD_IMAGE` | `ghcr.io/markussela/poketokendocker:0.2.0` | 已发布镜像；可改为 Docker Hub 或本地标签。 |
+| `PTD_IMAGE` | `ghcr.io/markussela/poketokendocker:0.2.1` | 已发布镜像；可改为 Docker Hub 或本地标签。 |
 | `PTD_HERMES_DIR` | 必填 | 以只读方式挂载到 `/hermes` 的主机目录。 |
 | `PTD_DATA_DIR` | `../data` | 挂载到 `/data` 的主机目录。 |
 | `PTD_BIND_HOST` | `127.0.0.1` | 端口发布使用的主机接口。 |
@@ -171,8 +171,8 @@ npm ci
 npm test
 node scripts/audit-release.cjs
 npm audit --omit=dev --audit-level=high
-docker pull ghcr.io/markussela/poketokendocker:0.2.0
-docker build -f docker/Dockerfile --build-arg VERSION=0.2.0 -t poketokendocker:local .
+docker pull ghcr.io/markussela/poketokendocker:0.2.1
+docker build -f docker/Dockerfile --build-arg VERSION=0.2.1 -t poketokendocker:local .
 ```
 
 镜像以非特权 `node` 用户运行，只安装 production 依赖，并包含 `/healthz` 健康检查。贡献时请阅读 [`CONTRIBUTING.md`](CONTRIBUTING.md) 并使用合成数据。

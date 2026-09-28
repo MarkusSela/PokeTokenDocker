@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.2.1
+
+UI polish release.
+
+- Aligns the Shop heading and wallet summary with the Bag panel header.
+- Reduces the Pokédex grid to a maximum of three columns on wide layouts for readable cards.
+
 ## 0.2.0
 
 Parity work against the Windows v0.2.0 directive.

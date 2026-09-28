@@ -143,7 +143,7 @@
     .collection-page-label { min-width: 92px; color: var(--muted); font-size: 11px; text-align: center; }
     .collection-filter { display: flex; align-items: center; justify-content: center; gap: 7px; color: var(--muted); font-size: 11px; }
     .collection-filter select { min-width: 128px; border: 1px solid var(--line); border-radius: 6px; background: var(--window-head); color: var(--text); padding: 5px 7px; font-size: 11px; }
-    .pokedex-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+    .pokedex-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
     .dex-card { display: flex; min-height: 102px; flex-direction: column; align-items: center; justify-content: space-between; padding: 6px; border: 1px solid var(--line); border-radius: 9px; background: var(--surface); text-align: center; }
     .dex-card:hover { border-color: var(--accent); background: var(--surface-hover); }
     .dex-sprite-frame { display: grid; width: 100%; height: 68px; place-items: center; }
@@ -297,10 +297,10 @@
         <header class="window-head">
           <span class="window-lights" aria-hidden="true"><span></span><span></span><span></span></span>
           <h2 id="shop-window-title" class="window-title" data-i18n="shop">Shop</h2>
-          <span id="shop-wallet" class="window-meta"></span>
+          <span class="window-meta" data-i18n="shopSectionLabel">market</span>
         </header>
         <div class="window-body">
-          <div class="panel-intro"><div><h2 data-i18n="shop">Shop</h2><p class="subtle" data-i18n="shopIntro">Use wallet tokens.</p></div></div>
+          <div class="panel-intro"><div><h2 data-i18n="shop">Shop</h2><p class="subtle" data-i18n="shopIntro">Use wallet tokens.</p></div><span id="shop-wallet" class="meta"></span></div>
           <div id="shop-items" class="stack shop-grid"></div>
         </div>
       </section>
