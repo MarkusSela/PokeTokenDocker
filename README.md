@@ -34,9 +34,9 @@
   <a href="README.pt.md">🇵🇹 Português</a>
 </p>
 
-> **Source package:** `0.2.3` · Docker/web build · The default Compose profile is `public-readonly`, local, and read-only.
+> **Source package:** `0.2.4` · Docker/web build · The default Compose profile is `public-readonly`, local, and read-only.
 >
-> **Published image:** `ghcr.io/markussela/poketokendocker:0.2.3` · Set `PTD_IMAGE` to use a Docker Hub namespace or a locally built tag.
+> **Published image:** `ghcr.io/markussela/poketokendocker:0.2.4` · Set `PTD_IMAGE` to use a Docker Hub namespace or a locally built tag.
 
 ## About this project
 
@@ -222,13 +222,14 @@ The Compose file uses the `PTD_*` namespace. These variables are intentionally d
 
 | Variable | Default | Purpose |
 | --- | --- | --- |
-| `PTD_IMAGE` | `ghcr.io/markussela/poketokendocker:0.2.3` | Published image reference. Override it for Docker Hub or a local tag. |
+| `PTD_IMAGE` | `ghcr.io/markussela/poketokendocker:0.2.4` | Published image reference. Override it for Docker Hub or a local tag. |
 | `PTD_HERMES_DIR` | required | Docker-host directory mounted read-only at `/hermes`. |
 | `PTD_DATA_DIR` | `../data` | Docker-host directory mounted at `/data` for companion state. |
 | `PTD_BIND_HOST` | `127.0.0.1` | Host interface used by the published port. |
 | `PTD_ALLOWED_HOSTS` | loopback hosts | Host values accepted for mutating API requests. |
 | `PTD_WEB_MODE` | `public-readonly` | Service mode. Use `docker-local` only with the explicit local profile. |
 | `PTD_WEB_ALLOW_MUTATIONS` | `0` | Additional gate for mutating actions. Keep `0` for read-only deployments. |
+| `PTD_ALLOW_LAN_MUTATIONS` | `0` | Explicit unsafe-LAN opt-in. Requires `docker-local` and `PTD_WEB_ALLOW_MUTATIONS=1`; use only on a trusted LAN. |
 | `PTD_EMBED_ORIGIN` | empty | One exact origin allowed by the Mini view's `frame-ancestors` policy. |
 | `PTD_WEB_PORT` | `4317` | Port inside the container; normally leave it unchanged. |
 
@@ -273,10 +274,10 @@ node scripts/audit-release.cjs
 npm audit --omit=dev --audit-level=high
 
 # Pull the public image (or use Compose as shown above)
-docker pull ghcr.io/markussela/poketokendocker:0.2.3
+docker pull ghcr.io/markussela/poketokendocker:0.2.4
 
 # Build a local image instead
-docker build -f docker/Dockerfile --build-arg VERSION=0.2.3 -t poketokendocker:local .
+docker build -f docker/Dockerfile --build-arg VERSION=0.2.4 -t poketokendocker:local .
 ```
 
 The Docker image runs as the unprivileged `node` user, includes only production dependencies, exposes port `4317`, and has a `/healthz` healthcheck.

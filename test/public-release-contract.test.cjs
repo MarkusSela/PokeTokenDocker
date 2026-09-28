@@ -12,9 +12,9 @@ function read(relativePath) {
 test('Compose defaults to the published image and supports a local override', () => {
   const compose = read('docker/compose.yaml');
   const envExample = read('docker/ptd.env.example');
-  assert.match(compose, /image:\s+\$\{PTD_IMAGE:-ghcr\.io\/markussela\/poketokendocker:0\.2\.3\}/);
+  assert.match(compose, /image:\s+\$\{PTD_IMAGE:-ghcr\.io\/markussela\/poketokendocker:0\.2\.4\}/);
   assert.doesNotMatch(compose, /docker-poketokendocker:latest/);
-  assert.match(envExample, /^PTD_IMAGE=ghcr\.io\/markussela\/poketokendocker:0\.2\.3$/m);
+  assert.match(envExample, /^PTD_IMAGE=ghcr\.io\/markussela\/poketokendocker:0\.2\.4$/m);
 });
 
 test('CI runs the regression suite, release audit, dependency audit, and Docker build', () => {
@@ -47,7 +47,7 @@ test('Docker Hub publication is an explicit manual workflow with secret-based lo
 
 test('Dockerfile declares public image metadata and keeps the runtime unprivileged', () => {
   const dockerfile = read('docker/Dockerfile');
-  assert.match(dockerfile, /ARG VERSION=0\.2\.3/);
+  assert.match(dockerfile, /ARG VERSION=0\.2\.4/);
   assert.match(dockerfile, /org\.opencontainers\.image\.source/);
   assert.match(dockerfile, /org\.opencontainers\.image\.version/);
   assert.match(dockerfile, /USER node/);
@@ -57,7 +57,7 @@ test('README documents pull-first installation and the image override', () => {
   const readme = read('README.md');
   assert.match(readme, /docker compose -f docker\/compose\.yaml pull/);
   assert.match(readme, /PTD_IMAGE/);
-  assert.match(readme, /ghcr\.io\/markussela\/poketokendocker:0\.2\.3/);
+  assert.match(readme, /ghcr\.io\/markussela\/poketokendocker:0\.2\.4/);
 });
 
 test('public screenshot gallery lists the Homepage card and each feature view', () => {

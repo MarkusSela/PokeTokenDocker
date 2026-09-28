@@ -68,6 +68,16 @@ test('Docker mutations fail closed without explicit loopback opt-in', async () =
     readOnly: false,
   });
   assert.equal(wildcardCapabilities.actions, false);
+  const lanOptInEnv = { ...wildcardEnv, PTD_ALLOW_LAN_MUTATIONS: '1' };
+  assert.equal(configuredMode(lanOptInEnv), 'docker-local');
+  const lanOptInCapabilities = buildCapabilities({
+    mode: 'docker-local',
+    platform: 'linux',
+    env: lanOptInEnv,
+    readOnly: false,
+  });
+  assert.equal(lanOptInCapabilities.readOnly, false);
+  assert.equal(lanOptInCapabilities.actions, true);
 
   const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'ptd-review-policy-'));
   try {

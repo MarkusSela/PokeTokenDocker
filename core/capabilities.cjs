@@ -58,7 +58,8 @@ function dockerMutationsAllowed(env = process.env) {
     : env.PTD_WEB_CONTAINER === '1'
       ? ''
       : '127.0.0.1';
-  return LOCAL_BIND_HOSTS.has(bindHost);
+  if (LOCAL_BIND_HOSTS.has(bindHost)) return true;
+  return String(env.PTD_ALLOW_LAN_MUTATIONS || '').trim() === '1';
 }
 
 function defaultNativeOverlaySupport(platform, session, env) {

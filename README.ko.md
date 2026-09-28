@@ -33,9 +33,9 @@
   <a href="README.pt.md">🇵🇹 Português</a>
 </p>
 
-> **소스 패키지:** `0.2.3` · Docker/Web 빌드 · 기본 Compose 프로필은 `public-readonly` 로컬 read-only입니다.
+> **소스 패키지:** `0.2.4` · Docker/Web 빌드 · 기본 Compose 프로필은 `public-readonly` 로컬 read-only입니다.
 >
-> **게시된 이미지:** `ghcr.io/markussela/poketokendocker:0.2.3` · `PTD_IMAGE`로 Docker Hub 또는 로컬 태그를 사용할 수 있습니다.
+> **게시된 이미지:** `ghcr.io/markussela/poketokendocker:0.2.4` · `PTD_IMAGE`로 Docker Hub 또는 로컬 태그를 사용할 수 있습니다.
 
 ## 프로젝트 소개
 
@@ -134,7 +134,7 @@ Docker 버전은 `PTD_*` namespace를 사용하며 Windows 버전의 `PTB_*`와 
 
 | 변수 | 기본값 | 목적 |
 | --- | --- | --- |
-| `PTD_IMAGE` | `ghcr.io/markussela/poketokendocker:0.2.3` | 게시된 이미지. Docker Hub 또는 로컬 태그로 변경할 수 있습니다. |
+| `PTD_IMAGE` | `ghcr.io/markussela/poketokendocker:0.2.4` | 게시된 이미지. Docker Hub 또는 로컬 태그로 변경할 수 있습니다. |
 | `PTD_HERMES_DIR` | 필수 | `/hermes`에 read-only로 마운트할 호스트 디렉터리. |
 | `PTD_DATA_DIR` | `../data` | `/data`에 마운트할 호스트 디렉터리. |
 | `PTD_BIND_HOST` | `127.0.0.1` | 포트를 공개할 호스트 인터페이스. |
@@ -161,8 +161,8 @@ npm ci
 npm test
 node scripts/audit-release.cjs
 npm audit --omit=dev --audit-level=high
-docker pull ghcr.io/markussela/poketokendocker:0.2.3
-docker build -f docker/Dockerfile --build-arg VERSION=0.2.3 -t poketokendocker:local .
+docker pull ghcr.io/markussela/poketokendocker:0.2.4
+docker build -f docker/Dockerfile --build-arg VERSION=0.2.4 -t poketokendocker:local .
 ```
 
 이미지는 권한이 없는 `node` 사용자로 실행되며 production 의존성과 `/healthz` healthcheck만 포함합니다. 기여할 때는 [`CONTRIBUTING.md`](CONTRIBUTING.md)와 합성 데이터를 사용하세요.

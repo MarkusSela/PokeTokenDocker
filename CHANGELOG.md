@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.2.4
+
+Writable LAN opt-in release.
+
+- Adds explicit `PTD_ALLOW_LAN_MUTATIONS=1` opt-in for using Shop and Bag actions on a deliberately writable LAN deployment.
+- Keeps the default and all deployments without the opt-in read-only.
+
 ## 0.2.3
 
 Shop layout release.

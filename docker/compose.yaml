@@ -3,7 +3,7 @@ services:
     build:
       context: ..
       dockerfile: docker/Dockerfile
-    image: ${PTD_IMAGE:-ghcr.io/markussela/poketokendocker:0.2.3}
+    image: ${PTD_IMAGE:-ghcr.io/markussela/poketokendocker:0.2.4}
     init: true
     environment:
       - PTD_WEB_HOST=0.0.0.0
@@ -11,6 +11,7 @@ services:
       - PTD_WEB_MODE=${PTD_WEB_MODE:-public-readonly}
       - PTD_WEB_CONTAINER=1
       - PTD_WEB_ALLOW_MUTATIONS=${PTD_WEB_ALLOW_MUTATIONS:-0}
+      - PTD_ALLOW_LAN_MUTATIONS=${PTD_ALLOW_LAN_MUTATIONS:-0}
       - PTD_BIND_HOST=${PTD_BIND_HOST:-127.0.0.1}
       - PTD_ALLOWED_HOSTS=${PTD_ALLOWED_HOSTS:-127.0.0.1,localhost,::1}
       - PTD_PROJECT_URL=${PTD_PROJECT_URL:-https://github.com/MarkusSela/PokeTokenDocker}
@@ -41,7 +42,7 @@ services:
     build:
       context: ..
       dockerfile: docker/Dockerfile
-    image: ${PTD_IMAGE:-ghcr.io/markussela/poketokendocker:0.2.3}
+    image: ${PTD_IMAGE:-ghcr.io/markussela/poketokendocker:0.2.4}
     init: true
     environment:
       - PTD_WEB_HOST=0.0.0.0
