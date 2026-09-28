@@ -48,6 +48,13 @@ test('Shop uses the same panel-intro heading contract as Bag', () => {
   assert.ok(shopMarkup.indexOf('id="shop-wallet"') > shopMarkup.indexOf('<div class="panel-intro">'));
 });
 
+test('Shop keeps every Bag item visible, including owned unique items', () => {
+  for (const key of ['rareCandy', 'expCandyXL', 'mint', 'shinyCharm', 'pokeDoll', 'hatchIncubator', 'shinyIncense']) {
+    assert.match(appSource, new RegExp(`kind: '${key}'`));
+  }
+  assert.match(appSource, /const purchasable = shopDefinitions\(snapshot\);/);
+  assert.doesNotMatch(appSource, /shopDefinitions\(snapshot\)\.filter\(/);
+});
 test('Web companion and Gold walking overlays are browser-configurable', () => {
   assert.match(settingsSource, /spriteStyle:\s*"auto"/);
   assert.match(settingsSource, /showFloatingPet:\s*false/);

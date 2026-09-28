@@ -33,9 +33,9 @@
   <a href="README.pt.md">🇵🇹 Português</a>
 </p>
 
-> **源代码包：** `0.2.1` · Docker/Web 版本 · 默认 Compose 配置为本地 `public-readonly` 只读模式。
+> **源代码包：** `0.2.2` · Docker/Web 版本 · 默认 Compose 配置为本地 `public-readonly` 只读模式。
 >
-> **已发布镜像：** `ghcr.io/markussela/poketokendocker:0.2.1` · 设置 `PTD_IMAGE` 可改用 Docker Hub 或本地标签。
+> **已发布镜像：** `ghcr.io/markussela/poketokendocker:0.2.2` · 设置 `PTD_IMAGE` 可改用 Docker Hub 或本地标签。
 
 ## 项目简介
 
@@ -81,9 +81,9 @@ PokeTokenDocker 是原始 companion 概念的无头 Web 版本：本地 AI 编�
   <tr><td align="center"><img src="docs/images/home.png" alt="带有 shiny Pikachu 和已命名 Pokémon 的 PokeTokenDocker Web 工作区" width="520"></td><td><strong>🏠 工作区。</strong><br>宽屏布局同时展示 Home、Bag、Shop 和带有可读名称的 Pokédex。shiny Pikachu 是视觉主角，Home 显示合成 token 数值和 5 个演示 provider。</td></tr>
   <tr><td align="center"><img src="docs/images/homepage.png" alt="显示 shiny Pikachu 和 8M today 的 PokeTokenDocker Homepage 卡片" width="520"></td><td><strong>🌐 Homepage 卡片预览。</strong><br>本版本提供的紧凑卡片使用 PokeTokenDocker 标识，显示 shiny Pikachu、Jolly 性格、1/1 阶段、三分之一进度和可见的 8M today 示例。它不包含主机、账户、凭据或私人路径。</td></tr>
   <tr><td align="center"><img src="docs/images/home-panel.png" alt="带有 shiny Pikachu 和 provider 指标的 PokeTokenDocker Home" width="420"></td><td><strong>📊 Home。</strong><br>在一个面板中显示 shiny Pikachu、进度、wallet、合成的今日/本周总量、5 个 provider、演示配额窗口和只读提示。</td></tr>
-  <tr><td align="center"><img src="docs/images/bag.png" alt="带有图标和数量的 PokeTokenDocker Bag" width="380"></td><td><strong>🎒 Bag。</strong><br>独立 Bag 截图显示 Rare Candy、Mint、Shiny Charm 和 Poké Doll 的图标与数量，并显示只读边界。</td></tr>
-  <tr><td align="center"><img src="docs/images/shop.png" alt="带有合成价格的 PokeTokenDocker Shop" width="380"></td><td><strong>🛍️ Shop。</strong><br>独立 Shop 截图列出成长道具和 egg tier，并使用合成价格。默认 `public-readonly` 配置下控件可见但已禁用。</td></tr>
-  <tr><td align="center"><img src="docs/images/pokedex.png" alt="带有 Pokémon 名称和 sprite 的完整 PokeTokenDocker Pokédex" width="520"></td><td><strong>📖 Pokédex。</strong><br>一张截图展示完整 fixture 集合：42 张卡片、真实 Pokémon 名称和已加载的 sprite，包括 shiny Pikachu 的进化线。没有未知名称。</td></tr>
+  <tr><td align="center"><img src="docs/images/bag.png" alt="带有图标和数量的 PokeTokenDocker Bag" width="380"></td><td><strong>🎒 Bag。</strong><br>独立 Bag 截图显示 Rare Candy、Exp. Candy XL、Mint、Shiny Charm、Poké Doll、Hatch Incubator 和 Shiny Incense 这七种道具的图标与数量，并显示只读边界。</td></tr>
+  <tr><td align="center"><img src="docs/images/shop.png" alt="带有合成价格的 PokeTokenDocker Shop" width="380"></td><td><strong>🛍️ Shop。</strong><br>Shop 展示与 Bag 相同的七种道具，并提供 Common、Uncommon 和 Rare egg tier。已拥有的唯一道具仍会显示，并在适用时禁用购买；默认 `public-readonly` 配置下所有控件均已禁用。</td></tr>
+  <tr><td align="center"><img src="docs/images/pokedex.png" alt="带有 Pokémon 名称和 sprite 的完整 PokeTokenDocker Pokédex" width="520"></td><td><strong>📖 Pokédex。</strong><br>完整 fixture 集合使用每页 24 条记录和最多三列的网格显示，包含真实 Pokémon 名称和已加载的 sprite，以及 shiny Pikachu 的进化线。没有未知名称。</td></tr>
   <tr><td align="center"><img src="docs/images/catch-log.png" alt="带有进化链的 PokeTokenDocker Catch Log" width="520"></td><td><strong>📜 Catch Log。</strong><br>独立日志显示进化链、可读名称、稀有度、性格和中性的演示日期。</td></tr>
   <tr><td align="center"><img src="docs/images/settings.png" alt="只读模式下的 PokeTokenDocker Settings" width="520"></td><td><strong>⚙️ Settings。</strong><br>语言、刷新、摘要、隐私、只读文件夹、保存、更新和支持链接集中在一个对话框中。</td></tr>
 </table>
@@ -134,7 +134,7 @@ Docker 版本使用 `PTD_*` 命名空间，与 Windows 版本的 `PTB_*` 不兼�
 
 | 变量 | 默认值 | 作用 |
 | --- | --- | --- |
-| `PTD_IMAGE` | `ghcr.io/markussela/poketokendocker:0.2.1` | 已发布镜像；可改为 Docker Hub 或本地标签。 |
+| `PTD_IMAGE` | `ghcr.io/markussela/poketokendocker:0.2.2` | 已发布镜像；可改为 Docker Hub 或本地标签。 |
 | `PTD_HERMES_DIR` | 必填 | 以只读方式挂载到 `/hermes` 的主机目录。 |
 | `PTD_DATA_DIR` | `../data` | 挂载到 `/data` 的主机目录。 |
 | `PTD_BIND_HOST` | `127.0.0.1` | 端口发布使用的主机接口。 |
@@ -171,8 +171,8 @@ npm ci
 npm test
 node scripts/audit-release.cjs
 npm audit --omit=dev --audit-level=high
-docker pull ghcr.io/markussela/poketokendocker:0.2.1
-docker build -f docker/Dockerfile --build-arg VERSION=0.2.1 -t poketokendocker:local .
+docker pull ghcr.io/markussela/poketokendocker:0.2.2
+docker build -f docker/Dockerfile --build-arg VERSION=0.2.2 -t poketokendocker:local .
 ```
 
 镜像以非特权 `node` 用户运行，只安装 production 依赖，并包含 `/healthz` 健康检查。贡献时请阅读 [`CONTRIBUTING.md`](CONTRIBUTING.md) 并使用合成数据。

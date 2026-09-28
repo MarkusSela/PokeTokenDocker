@@ -34,9 +34,9 @@
   <a href="README.pt.md">🇵🇹 Português</a>
 </p>
 
-> **Source package:** `0.2.1` · Docker/web build · The default Compose profile is `public-readonly`, local, and read-only.
+> **Source package:** `0.2.2` · Docker/web build · The default Compose profile is `public-readonly`, local, and read-only.
 >
-> **Published image:** `ghcr.io/markussela/poketokendocker:0.2.1` · Set `PTD_IMAGE` to use a Docker Hub namespace or a locally built tag.
+> **Published image:** `ghcr.io/markussela/poketokendocker:0.2.2` · Set `PTD_IMAGE` to use a Docker Hub namespace or a locally built tag.
 
 ## About this project
 
@@ -131,15 +131,15 @@ The gallery combines eight captures from an isolated synthetic fixture with a pr
     </tr>
     <tr>
       <td align="center"><img src="docs/images/bag.png" alt="PokeTokenDocker Bag panel with item icons and counts" width="380"></td>
-      <td><strong>🎒 Bag.</strong><br>The standalone Bag view shows Rare Candy, Mint, Shiny Charm, and Poké Doll counts with their icons. The read-only boundary is visible and no action changes the fixture.</td>
+      <td><strong>🎒 Bag.</strong><br>The standalone Bag view shows all seven item types—Rare Candy, Exp. Candy XL, Mint, Shiny Charm, Poké Doll, Hatch Incubator, and Shiny Incense—with their icons and owned counts. The read-only boundary is visible and no action changes the fixture.</td>
     </tr>
     <tr>
       <td align="center"><img src="docs/images/shop.png" alt="PokeTokenDocker Shop panel with synthetic prices" width="380"></td>
-      <td><strong>🛍️ Shop.</strong><br>The separate Shop view lists progression items and egg tiers with synthetic prices. Controls remain visible but are disabled in the default `public-readonly` profile.</td>
+      <td><strong>🛍️ Shop.</strong><br>The Shop shows the same seven item types as Bag, plus Common, Uncommon, and Rare Egg tiers. Already-owned unique items remain visible and their purchase control is disabled when applicable; all controls are disabled in the default `public-readonly` profile.</td>
     </tr>
     <tr>
       <td align="center"><img src="docs/images/pokedex.png" alt="Complete PokeTokenDocker Pokédex with named Pokémon sprites" width="520"></td>
-      <td><strong>📖 Pokédex.</strong><br>The complete fixture collection is shown in one capture: 42 cards, real Pokémon names, and loaded sprites, including the shiny Pikachu evolution line. No unknown-name placeholders are used.</td>
+      <td><strong>📖 Pokédex.</strong><br>The complete fixture collection is shown through a 24-entry pager with a maximum three-column grid: real Pokémon names and loaded sprites, including the shiny Pikachu evolution line. No unknown-name placeholders are used.</td>
     </tr>
     <tr>
       <td align="center"><img src="docs/images/catch-log.png" alt="PokeTokenDocker Catch Log with evolution chains" width="520"></td>
@@ -222,7 +222,7 @@ The Compose file uses the `PTD_*` namespace. These variables are intentionally d
 
 | Variable | Default | Purpose |
 | --- | --- | --- |
-| `PTD_IMAGE` | `ghcr.io/markussela/poketokendocker:0.2.1` | Published image reference. Override it for Docker Hub or a local tag. |
+| `PTD_IMAGE` | `ghcr.io/markussela/poketokendocker:0.2.2` | Published image reference. Override it for Docker Hub or a local tag. |
 | `PTD_HERMES_DIR` | required | Docker-host directory mounted read-only at `/hermes`. |
 | `PTD_DATA_DIR` | `../data` | Docker-host directory mounted at `/data` for companion state. |
 | `PTD_BIND_HOST` | `127.0.0.1` | Host interface used by the published port. |
@@ -273,10 +273,10 @@ node scripts/audit-release.cjs
 npm audit --omit=dev --audit-level=high
 
 # Pull the public image (or use Compose as shown above)
-docker pull ghcr.io/markussela/poketokendocker:0.2.1
+docker pull ghcr.io/markussela/poketokendocker:0.2.2
 
 # Build a local image instead
-docker build -f docker/Dockerfile --build-arg VERSION=0.2.1 -t poketokendocker:local .
+docker build -f docker/Dockerfile --build-arg VERSION=0.2.2 -t poketokendocker:local .
 ```
 
 The Docker image runs as the unprivileged `node` user, includes only production dependencies, exposes port `4317`, and has a `/healthz` healthcheck.

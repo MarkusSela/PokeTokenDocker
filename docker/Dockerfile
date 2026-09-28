@@ -1,4 +1,4 @@
-ARG VERSION=0.2.1
+ARG VERSION=0.2.2
 FROM node:22-bookworm-slim
 ARG VERSION
 

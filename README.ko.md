@@ -33,9 +33,9 @@
   <a href="README.pt.md">🇵🇹 Português</a>
 </p>
 
-> **소스 패키지:** `0.2.1` · Docker/Web 빌드 · 기본 Compose 프로필은 `public-readonly` 로컬 read-only입니다.
+> **소스 패키지:** `0.2.2` · Docker/Web 빌드 · 기본 Compose 프로필은 `public-readonly` 로컬 read-only입니다.
 >
-> **게시된 이미지:** `ghcr.io/markussela/poketokendocker:0.2.1` · `PTD_IMAGE`로 Docker Hub 또는 로컬 태그를 사용할 수 있습니다.
+> **게시된 이미지:** `ghcr.io/markussela/poketokendocker:0.2.2` · `PTD_IMAGE`로 Docker Hub 또는 로컬 태그를 사용할 수 있습니다.
 
 ## 프로젝트 소개
 
@@ -81,9 +81,9 @@ Hermes와 provider 디렉터리는 **읽기 전용**으로 마운트됩니다. �
   <tr><td align="center"><img src="docs/images/home.png" alt="반짝이는 Pikachu와 이름이 표시된 Pokémon이 있는 PokeTokenDocker 웹 워크스페이스" width="520"></td><td><strong>🏠 워크스페이스.</strong><br>넓은 레이아웃에서 Home, Bag, Shop, Pokédex를 함께 표시합니다. 반짝이는 Pikachu가 중심이며 Home에는 합성 token 값과 5개의 데모 provider가 보입니다.</td></tr>
   <tr><td align="center"><img src="docs/images/homepage.png" alt="반짝이는 Pikachu와 8M today를 보여주는 PokeTokenDocker Homepage 카드" width="520"></td><td><strong>🌐 Homepage 카드 프리뷰.</strong><br>이번 릴리스를 위해 제공된 컴팩트 카드는 PokeTokenDocker 이름을 사용하며 반짝이는 Pikachu, Jolly 성격, 1/1 단계, 3분의 1 진행도와 표시 예시인 8M today를 보여줍니다. 호스트, 계정, 자격 증명 또는 개인 경로는 포함하지 않습니다.</td></tr>
   <tr><td align="center"><img src="docs/images/home-panel.png" alt="반짝이는 Pikachu와 provider 지표가 있는 PokeTokenDocker Home" width="420"></td><td><strong>📊 Home.</strong><br>반짝이는 Pikachu, 진행도, wallet, 합성 오늘/주간 합계, 5개 provider, 데모 quota와 read-only 안내를 한 패널에 표시합니다.</td></tr>
-  <tr><td align="center"><img src="docs/images/bag.png" alt="아이콘과 수량이 있는 PokeTokenDocker Bag" width="380"></td><td><strong>🎒 Bag.</strong><br>별도의 Bag 화면에서 Rare Candy, Mint, Shiny Charm, Poké Doll과 수량을 보여줍니다. read-only 경계도 표시됩니다.</td></tr>
-  <tr><td align="center"><img src="docs/images/shop.png" alt="합성 가격이 있는 PokeTokenDocker Shop" width="380"></td><td><strong>🛍️ Shop.</strong><br>별도의 Shop 화면에서 진행 아이템과 egg tier를 합성 가격과 함께 표시합니다. 기본 `public-readonly` 프로필에서는 조작이 비활성화됩니다.</td></tr>
-  <tr><td align="center"><img src="docs/images/pokedex.png" alt="이름 있는 sprite가 표시된 완전한 PokeTokenDocker Pokédex" width="520"></td><td><strong>📖 Pokédex.</strong><br>fixture의 42개 card를 한 장에 담고 모든 실제 Pokémon 이름과 sprite를 표시합니다. 반짝이는 Pikachu 진화 라인도 포함하며 알 수 없는 이름이 없습니다.</td></tr>
+  <tr><td align="center"><img src="docs/images/bag.png" alt="아이콘과 수량이 있는 PokeTokenDocker Bag" width="380"></td><td><strong>🎒 Bag.</strong><br>별도의 Bag 화면에서 Rare Candy, Exp. Candy XL, Mint, Shiny Charm, Poké Doll, Hatch Incubator, Shiny Incense의 7가지 아이템 전체와 수량을 보여줍니다. read-only 경계도 표시됩니다.</td></tr>
+  <tr><td align="center"><img src="docs/images/shop.png" alt="합성 가격이 있는 PokeTokenDocker Shop" width="380"></td><td><strong>🛍️ Shop.</strong><br>Shop은 Bag과 같은 7가지 아이템 전체와 Common, Uncommon, Rare egg tier를 함께 표시합니다. 이미 보유한 고유 아이템도 계속 표시하고 해당 구매 조작은 비활성화합니다. 기본 `public-readonly` 프로필에서는 모든 조작이 비활성화됩니다.</td></tr>
+  <tr><td align="center"><img src="docs/images/pokedex.png" alt="이름 있는 sprite가 표시된 완전한 PokeTokenDocker Pokédex" width="520"></td><td><strong>📖 Pokédex.</strong><br>전체 fixture 컬렉션을 24개 단위 페이지와 최대 3열 그리드로 표시합니다. 실제 Pokémon 이름과 sprite를 사용하며 shiny Pikachu 진화 라인도 포함하고 알 수 없는 이름이 없습니다.</td></tr>
   <tr><td align="center"><img src="docs/images/catch-log.png" alt="진화 체인이 있는 PokeTokenDocker Catch Log" width="520"></td><td><strong>📜 Catch Log.</strong><br>별도의 로그에서 진화 체인, 읽을 수 있는 이름, 희귀도, 성격과 중립적인 데모 날짜를 보여줍니다.</td></tr>
   <tr><td align="center"><img src="docs/images/settings.png" alt="read-only PokeTokenDocker Settings" width="520"></td><td><strong>⚙️ Settings.</strong><br>언어, 새로고침, 요약, 개인정보 보호, read-only 폴더, 저장, 업데이트와 지원 링크를 한 대화상자에 모았습니다.</td></tr>
 </table>
@@ -134,7 +134,7 @@ Docker 버전은 `PTD_*` namespace를 사용하며 Windows 버전의 `PTB_*`와 
 
 | 변수 | 기본값 | 목적 |
 | --- | --- | --- |
-| `PTD_IMAGE` | `ghcr.io/markussela/poketokendocker:0.2.1` | 게시된 이미지. Docker Hub 또는 로컬 태그로 변경할 수 있습니다. |
+| `PTD_IMAGE` | `ghcr.io/markussela/poketokendocker:0.2.2` | 게시된 이미지. Docker Hub 또는 로컬 태그로 변경할 수 있습니다. |
 | `PTD_HERMES_DIR` | 필수 | `/hermes`에 read-only로 마운트할 호스트 디렉터리. |
 | `PTD_DATA_DIR` | `../data` | `/data`에 마운트할 호스트 디렉터리. |
 | `PTD_BIND_HOST` | `127.0.0.1` | 포트를 공개할 호스트 인터페이스. |
@@ -161,8 +161,8 @@ npm ci
 npm test
 node scripts/audit-release.cjs
 npm audit --omit=dev --audit-level=high
-docker pull ghcr.io/markussela/poketokendocker:0.2.1
-docker build -f docker/Dockerfile --build-arg VERSION=0.2.1 -t poketokendocker:local .
+docker pull ghcr.io/markussela/poketokendocker:0.2.2
+docker build -f docker/Dockerfile --build-arg VERSION=0.2.2 -t poketokendocker:local .
 ```
 
 이미지는 권한이 없는 `node` 사용자로 실행되며 production 의존성과 `/healthz` healthcheck만 포함합니다. 기여할 때는 [`CONTRIBUTING.md`](CONTRIBUTING.md)와 합성 데이터를 사용하세요.

@@ -211,7 +211,8 @@ test('item purchases and toggles show feedback only on the interacted object', (
 test('shop keeps the owned Poke Doll visible and uses the supplied Mint PNG', () => {
   const app = fs.readFileSync(path.join(root, 'web', 'app.js'), 'utf8');
   assert.match(app, /assets\/items\/mint\.png/);
-  assert.match(app, /item\.kind !== 'shinyCharm'/);
+  assert.match(app, /const purchasable = shopDefinitions\(snapshot\);/);
+  assert.doesNotMatch(app, /shopDefinitions\(snapshot\)\.filter\(/);
   assert.equal(fs.existsSync(path.join(root, 'assets', 'items', 'mint.png')), true);
   const mintShopStart = app.indexOf("{ kind: 'mint',");
   const mintShopEnd = app.indexOf('price:', mintShopStart);

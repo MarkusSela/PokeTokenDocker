@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.2
+
+Shop inventory visibility release.
+
+- Keeps every Bag item in the Shop, including already-owned unique items.
+- Leaves owned unique-item purchase controls disabled while keeping the item visible.
+- Documents the complete Shop catalog in all localized README files.
+
 ## 0.2.1
 
 UI polish release.

@@ -10,7 +10,7 @@ on:
       tag:
         description: Image tag to publish
         required: true
-        default: 0.2.1
+        default: 0.2.2
         type: string
 
 permissions:

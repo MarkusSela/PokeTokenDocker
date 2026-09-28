@@ -500,9 +500,7 @@
     const inventory = snapshot.state?.inventory || {};
     text('#shop-wallet', t('tokensCount', { tokens: compact(snapshot.wallet) }));
     const uniqueItems = new Set(['shinyCharm']);
-    const purchasable = shopDefinitions(snapshot).filter(
-      (item) => item.kind !== 'shinyCharm' || number(inventory[item.kind]) < 1,
-    );
+    const purchasable = shopDefinitions(snapshot);
     for (const item of purchasable) {
       const row = element('article', 'shop-row');
       const main = element('div', 'shop-main');
