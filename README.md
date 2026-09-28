@@ -34,9 +34,9 @@
   <a href="README.pt.md">🇵🇹 Português</a>
 </p>
 
-> **Source package:** `0.1.1` · Docker/web build · The default Compose profile is `public-readonly`, local, and read-only.
+> **Source package:** `0.2.0` · Docker/web build · The default Compose profile is `public-readonly`, local, and read-only.
 >
-> **Published image:** `ghcr.io/markussela/poketokendocker:0.1.1` · Set `PTD_IMAGE` to use a Docker Hub namespace or a locally built tag.
+> **Published image:** `ghcr.io/markussela/poketokendocker:0.2.0` · Set `PTD_IMAGE` to use a Docker Hub namespace or a locally built tag.
 
 ## About this project
 
@@ -56,8 +56,9 @@ This repository is the Docker/web companion, not the Windows tray application. T
 - 🏠 **Presents a focused web workspace:** Home, Bag, Shop, Pokédex, Catch Log, and Settings live in one responsive page.
 - 📈 **Turns usage into progression:** local token metadata advances the active egg or companion, including stages, rarity, nature, and graduation.
 - 📚 **Builds a collection:** the Pokédex records discovered species while the Catch Log keeps each evolution chain and catch history.
-- 🎒 **Adds a reward loop:** Rare Candy, Mint, Shiny Charm, Poké Doll, and egg tiers belong to the companion state, not to a provider account.
+- 🎒 **Adds a reward loop:** Rare Candy, Exp. Candy XL, Mint, Shiny Charm, Poké Doll, Hatch Incubator, Shiny Incense, and egg tiers belong to the companion state, not to a provider account.
 - 🔄 **Streams live state:** the browser receives snapshot and activity events through the SSE endpoint and can refresh without a full page reload.
+- 🎨 **Keeps the visual modes:** Settings switches between animated Auto and Pixel Gen V sprites, and can enable a browser companion overlay or the Gold walking overlay.
 - 🧩 **Supports a compact view:** [`web/mini.html`](web/mini.html) is intended for a trusted Homepage or iframe integration.
 - 🌍 **Speaks seven UI languages:** English, Italian, Korean, Japanese, Spanish, French, and Portuguese are available in Settings.
 - 🔒 **Starts safely:** Compose binds to loopback and runs in `public-readonly` mode unless you deliberately choose another profile.
@@ -71,6 +72,18 @@ This repository is the Docker/web companion, not the Windows tray application. T
 5. The WebUI renders the current snapshot and receives later updates over Server-Sent Events.
 
 Progression state belongs to PokeTokenDocker. It never writes back to Hermes or to a provider source.
+
+## 📚 Catalog and migration
+
+The shipped offline catalog contains all **1,025 National Dex species** across **540 evolution chains**. The generator is reproducible with `python scripts/generate-catalog.py`; the runtime uses the generated JSON and does not need PokéAPI to choose an egg line.
+
+To migrate a Windows companion save into a Docker data directory, create the backup before starting the target service and run:
+
+```shell
+npm run migrate:state -- --source=/absolute/path/windows-state.json --target=/absolute/path/data/companion-state.json --backup-dir=/absolute/path/data/backups
+```
+
+The command validates JSON, creates a byte-identical backup, reports SHA-256 values, normalizes legacy fields, writes atomically, and can restore the exact backup with `--rollback=/absolute/path/backup.json --target=/absolute/path/data/companion-state.json`.
 
 ## 🔌 Supported local sources
 
@@ -209,7 +222,7 @@ The Compose file uses the `PTD_*` namespace. These variables are intentionally d
 
 | Variable | Default | Purpose |
 | --- | --- | --- |
-| `PTD_IMAGE` | `ghcr.io/markussela/poketokendocker:0.1.1` | Published image reference. Override it for Docker Hub or a local tag. |
+| `PTD_IMAGE` | `ghcr.io/markussela/poketokendocker:0.2.0` | Published image reference. Override it for Docker Hub or a local tag. |
 | `PTD_HERMES_DIR` | required | Docker-host directory mounted read-only at `/hermes`. |
 | `PTD_DATA_DIR` | `../data` | Docker-host directory mounted at `/data` for companion state. |
 | `PTD_BIND_HOST` | `127.0.0.1` | Host interface used by the published port. |
@@ -260,10 +273,10 @@ node scripts/audit-release.cjs
 npm audit --omit=dev --audit-level=high
 
 # Pull the public image (or use Compose as shown above)
-docker pull ghcr.io/markussela/poketokendocker:0.1.1
+docker pull ghcr.io/markussela/poketokendocker:0.2.0
 
 # Build a local image instead
-docker build -f docker/Dockerfile --build-arg VERSION=0.1.1 -t poketokendocker:local .
+docker build -f docker/Dockerfile --build-arg VERSION=0.2.0 -t poketokendocker:local .
 ```
 
 The Docker image runs as the unprivileged `node` user, includes only production dependencies, exposes port `4317`, and has a `/healthz` healthcheck.

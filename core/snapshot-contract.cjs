@@ -22,6 +22,7 @@ const NUMERIC_METRICS = Object.freeze([
 ]);
 const SAFE_SETTING_KEYS = Object.freeze([
   'language',
+  'spriteStyle',
   'refreshMinutes',
   'limitDisplay',
   'launchAtLogin',
@@ -30,6 +31,8 @@ const SAFE_SETTING_KEYS = Object.freeze([
   'menuLimitPercent',
   'showFloatingPet',
   'floatingPetSize',
+  'showGoldWalking',
+  'goldWalkingSize',
 
   'notificationsBubbles',
   'updateNotifications',
@@ -40,8 +43,8 @@ const SAFE_SETTING_KEYS = Object.freeze([
   'providerStatus',
   'keychainOptOut',
 ]);
-const SAFE_INVENTORY_KEYS = new Set(['rareCandy', 'mint', 'shinyCharm', 'pokeDoll']);
-const TOGGLEABLE_ITEM_KEYS = Object.freeze(['shinyCharm', 'pokeDoll']);
+const SAFE_INVENTORY_KEYS = new Set(['rareCandy', 'expCandyXL', 'mint', 'shinyCharm', 'pokeDoll', 'hatchIncubator', 'shinyIncense']);
+const TOGGLEABLE_ITEM_KEYS = Object.freeze(['shinyCharm', 'pokeDoll', 'hatchIncubator', 'shinyIncense']);
 const SAFE_CAPABILITY_KEYS = Object.freeze([
   'mode',
   'platform',
@@ -57,6 +60,8 @@ const SAFE_CAPABILITY_KEYS = Object.freeze([
   'notifications',
   'autostart',
   'floatingPet',
+  'webOverlay',
+  'goldWalking',
 
   'companionFallback',
 ]);
@@ -188,10 +193,11 @@ function sanitizeInventory(value) {
 
 function sanitizeItemActivation(value, inventory) {
   const source = value && typeof value === 'object' ? value : {};
+  const defaults = { shinyCharm: true, pokeDoll: true, hatchIncubator: false, shinyIncense: false };
   const result = {};
   for (const key of TOGGLEABLE_ITEM_KEYS) {
     if (!inventory[key]) continue;
-    result[key] = Object.prototype.hasOwnProperty.call(source, key) ? Boolean(source[key]) : true;
+    result[key] = Object.prototype.hasOwnProperty.call(source, key) ? Boolean(source[key]) : defaults[key];
   }
   return result;
 }
@@ -278,9 +284,15 @@ function sanitizeRepresentative(value) {
 function sanitizeBalance(value) {
   const source = value && typeof value === 'object' ? value : {};
   const result = {};
-  for (const key of ['freshEgg', 'rareCandy', 'mint', 'shinyCharm', 'pokeDoll']) {
+  for (const key of ['freshEgg', 'rareCandy', 'expCandyXL', 'mint', 'shinyCharm', 'pokeDoll', 'hatchIncubator', 'shinyIncense']) {
     result[key] = { price: safeInteger(source[key]?.price) };
   }
+  result.rareCandy.xp = safeInteger(source.rareCandy?.xp);
+  result.expCandyXL.xp = safeInteger(source.expCandyXL?.xp);
+  result.hatchIncubator.threshold = safeInteger(source.hatchIncubator?.threshold);
+  result.shinyCharm.denominator = safeInteger(source.shinyCharm?.denominator);
+  result.shinyIncense.denominator = safeInteger(source.shinyIncense?.denominator);
+  result.shinyIncense.combinedDenominator = safeInteger(source.shinyIncense?.combinedDenominator);
   const common = result.freshEgg.price;
   const graduation = source.graduation && typeof source.graduation === 'object'
     ? source.graduation
@@ -368,6 +380,7 @@ function sanitizeSnapshot(value, options = {}) {
     egg: {
       progress: Math.max(0, Math.min(1, finiteNumber(source.egg?.progress))),
       remaining: finiteNumber(source.egg?.remaining),
+      threshold: finiteNumber(source.egg?.threshold),
       tier: ALLOWED_RARITIES.has(source.egg?.tier) ? source.egg.tier : null,
       blockedReason: ALLOWED_EGG_BLOCK_REASONS.has(source.egg?.blockedReason)
         ? source.egg.blockedReason

@@ -13,14 +13,29 @@ const BALANCE = Object.freeze({
     weeklyGrant: 5,
     price: 500_000_000,
   }),
+  expCandyXL: Object.freeze({
+    xp: 250_000_000,
+    price: 1_000_000_000,
+  }),
   mint: Object.freeze({ price: 100_000_000 }),
   shinyCharm: Object.freeze({ price: 3_000_000_000, denominator: 48 }),
+  hatchIncubator: Object.freeze({ price: 250_000_000, threshold: 2_500_000 }),
+  shinyIncense: Object.freeze({ price: 1_500_000_000, denominator: 32, combinedDenominator: 24 }),
   freshEgg: Object.freeze({ price: 1_000_000_000 }),
   uncommonEgg: Object.freeze({ price: 2_500_000_000 }),
   rareEgg: Object.freeze({ price: 4_000_000_000 }),
-  pokeDoll: Object.freeze({ price: 8_000_000_000 }),
+  pokeDoll: Object.freeze({ price: 250_000_000 }),
 });
-const TOGGLEABLE_ITEMS = Object.freeze(["shinyCharm", "pokeDoll"]);
+const INVENTORY_ITEMS = Object.freeze([
+  "rareCandy",
+  "expCandyXL",
+  "mint",
+  "shinyCharm",
+  "pokeDoll",
+  "hatchIncubator",
+  "shinyIncense",
+]);
+const TOGGLEABLE_ITEMS = Object.freeze(["shinyCharm", "pokeDoll", "hatchIncubator", "shinyIncense"]);
 const NATURES = Object.freeze([
   "Hardy",
   "Lonely",
@@ -76,11 +91,11 @@ function phaseThreshold(rarityName, totalForms, stageIndex) {
 function normalizedEggUsage(value) {
   return Math.max(0, Number(value) || 0);
 }
-function eggProgress(usage) {
-  return Math.min(1, normalizedEggUsage(usage) / BALANCE.eggHatch);
+function eggProgress(usage, threshold = BALANCE.eggHatch) {
+  return Math.min(1, normalizedEggUsage(usage) / Math.max(1, Number(threshold) || BALANCE.eggHatch));
 }
-function eggTokensToHatch(usage) {
-  return Math.max(0, BALANCE.eggHatch - normalizedEggUsage(usage));
+function eggTokensToHatch(usage, threshold = BALANCE.eggHatch) {
+  return Math.max(0, (Number(threshold) || BALANCE.eggHatch) - normalizedEggUsage(usage));
 }
 function eggPrice(tier = null) {
   if (tier === "uncommon") return BALANCE.uncommonEgg.price;
@@ -224,19 +239,25 @@ function normalizedNumberMap(value) {
 }
 function normalizedInventory(value) {
   const out = {};
-  for (const kind of ["rareCandy", "mint", "shinyCharm", "pokeDoll"])
+  for (const kind of INVENTORY_ITEMS)
     if (Object.prototype.hasOwnProperty.call(record(value), kind))
       out[kind] = Math.floor(nonNegative(value[kind]));
   return out;
 }
 function normalizedItemActivation(value, inventory) {
   const source = record(value);
+  const defaults = {
+    shinyCharm: true,
+    pokeDoll: true,
+    hatchIncubator: false,
+    shinyIncense: false,
+  };
   const out = {};
   for (const kind of TOGGLEABLE_ITEMS) {
     if (!inventory[kind]) continue;
     out[kind] = Object.prototype.hasOwnProperty.call(source, kind)
       ? booleanValue(source[kind])
-      : true;
+      : defaults[kind];
   }
   return out;
 }
@@ -332,14 +353,27 @@ class Game {
       && this.itemCount(kind) > 0
       && this.state.itemActivation?.[kind] !== false;
   }
+  eggThreshold() {
+    return this.isItemActive("hatchIncubator")
+      ? BALANCE.hatchIncubator.threshold
+      : BALANCE.eggHatch;
+  }
+  consumeItem(kind) {
+    const count = this.itemCount(kind);
+    if (!count) return false;
+    this.state.inventory[kind] = count - 1;
+    this.state.itemActivation[kind] = false;
+    return true;
+  }
   toggleItem(kind) {
     if (!TOGGLEABLE_ITEMS.includes(kind) || !this.itemCount(kind)) return false;
+    if (["hatchIncubator", "shinyIncense"].includes(kind) && this.state.active) return false;
     this.state.itemActivation[kind] = !this.isItemActive(kind);
     if (
       kind === "pokeDoll" &&
       !this.isItemActive(kind) &&
       !this.state.active &&
-      this.state.eggUsage >= BALANCE.eggHatch
+      this.state.eggUsage >= this.eggThreshold()
     ) this.hatch();
     return true;
   }
@@ -572,7 +606,7 @@ class Game {
     this.state.usedSinceInstall += delta;
     if (!this.state.active) {
       this.state.eggUsage += delta;
-      if (this.state.eggUsage >= BALANCE.eggHatch && this.catalog.length)
+      if (this.state.eggUsage >= this.eggThreshold() && this.catalog.length)
         this.hatch();
     } else this.applyUsageToActive(delta);
   }
@@ -589,6 +623,12 @@ class Game {
         x.captureRate <=
           ({ uncommon: 120, rare: 45 }[this.state.eggTier] ?? 255),
     );
+    const uniqueLines = new Map();
+    for (const candidate of pool) {
+      const baseId = Number(candidate.line?.baseId ?? candidate.id);
+      if (!uniqueLines.has(baseId)) uniqueLines.set(baseId, candidate);
+    }
+    pool = [...uniqueLines.values()];
     if (this.isItemActive("pokeDoll")) {
       const freshPool = pool.filter((x) => {
         const candidate = x.line ?? { baseId: x.id };
@@ -633,11 +673,14 @@ class Game {
     if (tier && ranks[line.rarity] < ranks[tier]) return false;
     if (this.isItemActive("pokeDoll") && this.lineAlreadyCollected(line))
       return false;
-    const overflow = Math.max(0, this.state.eggUsage - BALANCE.eggHatch);
+    const overflow = Math.max(0, this.state.eggUsage - this.eggThreshold());
     const plan = line.pathIds?.length ? line.pathIds : [line.baseId];
-    const isShiny =
-      this.rng() <
-      1 / (this.isItemActive("shinyCharm") ? BALANCE.shinyCharm.denominator : 64);
+    const shinyCharmActive = this.isItemActive("shinyCharm");
+    const shinyIncenseActive = this.isItemActive("shinyIncense");
+    const shinyDenominator = shinyIncenseActive
+      ? (shinyCharmActive ? BALANCE.shinyIncense.combinedDenominator : BALANCE.shinyIncense.denominator)
+      : (shinyCharmActive ? BALANCE.shinyCharm.denominator : 64);
+    const isShiny = this.rng() < 1 / shinyDenominator;
     const nature = NATURES[Math.floor(this.rng() * NATURES.length)];
     const disguise =
       line.rarity === "common" && plan.length >= 2 && this.rng() < 1 / 128
@@ -660,6 +703,8 @@ class Game {
     this.state.eggUsage = 0;
     this.state.eggTier = null;
     this.state.eggBlockedReason = null;
+    this.consumeItem("hatchIncubator");
+    this.consumeItem("shinyIncense");
     if (overflow) this.applyUsageToActive(overflow);
     return true;
   }
@@ -727,26 +772,36 @@ class Game {
   buyItem(kind) {
     const items = {
       rareCandy: BALANCE.rareCandy,
+      expCandyXL: BALANCE.expCandyXL,
       mint: BALANCE.mint,
       shinyCharm: BALANCE.shinyCharm,
       pokeDoll: BALANCE.pokeDoll,
+      hatchIncubator: BALANCE.hatchIncubator,
+      shinyIncense: BALANCE.shinyIncense,
     };
     const item = Object.prototype.hasOwnProperty.call(items, kind) ? items[kind] : null;
     if (
       !item ||
       this.wallet < item.price ||
-      (TOGGLEABLE_ITEMS.includes(kind) && this.itemCount(kind))
+      (kind === "shinyCharm" && this.itemCount(kind))
     )
       return false;
     this.state.spentTokens += item.price;
     this.state.inventory[kind] = this.itemCount(kind) + 1;
-    if (TOGGLEABLE_ITEMS.includes(kind)) this.state.itemActivation[kind] = true;
+    if (kind === "shinyCharm") this.state.itemActivation[kind] = true;
+    else if (TOGGLEABLE_ITEMS.includes(kind)) this.state.itemActivation[kind] = false;
     return true;
   }
   useRareCandy() {
     if (!this.state.active || !this.itemCount("rareCandy")) return false;
     this.state.inventory.rareCandy--;
     this.applyUsageToActive(BALANCE.rareCandy.xp);
+    return true;
+  }
+  useExpCandyXL() {
+    if (!this.state.active || !this.itemCount("expCandyXL")) return false;
+    this.state.inventory.expCandyXL--;
+    this.applyUsageToActive(BALANCE.expCandyXL.xp);
     return true;
   }
   useMint() {

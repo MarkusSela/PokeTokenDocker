@@ -38,12 +38,17 @@ const METRICS = Object.freeze([
 ]);
 const WEB_SETTING_KEYS = new Set([
   'language',
+  'spriteStyle',
   'refreshMinutes',
   'limitDisplay',
   'launchAtLogin',
   'menuTodayTokens',
   'menuTodayCost',
   'menuLimitPercent',
+  'showFloatingPet',
+  'floatingPetSize',
+  'showGoldWalking',
+  'goldWalkingSize',
   'updateNotifications',
   'providerStatus',
   'keychainOptOut',
@@ -118,15 +123,20 @@ function activeName(game, active) {
   const id = active.pathIds?.[active.stageIndex];
   const value = active.names?.[id];
   const names = typeof value === 'string' ? { en: value, it: value } : value || {};
-  const language = game.state.settings.language === 'it' ? 'it' : 'en';
-  return names[language] || names.en || names.it || `#${id}`;
+  return names.en || names.it || `#${id}`;
 }
 
-function spriteUrl(active) {
+const STATIC_AUTO_SPRITES = new Set([990, 991, 993, 1010, 1017, 1022, 1023, 1025]);
+
+function spriteUrl(active, settings = {}) {
   if (!active) return null;
-  const id = active.pathIds?.[active.stageIndex];
-  const shiny = Boolean((active.shiny && !active.dittoDisguise) || active.dittoRevealed);
-  return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/${shiny ? 'shiny/' : ''}${id}.gif`;
+  const id = Number(active.pathIds?.[active.stageIndex]);
+  if (!Number.isInteger(id) || id < 1 || id > 1025) return null;
+  const shinyPath = ((active.shiny && !active.dittoDisguise) || active.dittoRevealed) ? 'shiny/' : '';
+  const base = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon';
+  if (settings.spriteStyle === 'pixel') return `${base}/versions/generation-v/black-white/${shinyPath}${id}.png`;
+  if (STATIC_AUTO_SPRITES.has(id)) return `${base}/${shinyPath}${id}.png`;
+  return `${base}/versions/generation-v/black-white/animated/${shinyPath}${id}.gif`;
 }
 
 function representativeSnapshot(game) {
@@ -253,14 +263,15 @@ function createLocalService({
       },
       representative,
       egg: {
-        progress: eggProgress(game.state.eggUsage),
-        remaining: eggTokensToHatch(game.state.eggUsage),
+        progress: eggProgress(game.state.eggUsage, game.eggThreshold()),
+        remaining: eggTokensToHatch(game.state.eggUsage, game.eggThreshold()),
+        threshold: game.eggThreshold(),
         tier: game.state.eggTier,
         blockedReason: game.state.eggBlockedReason,
         sprite: 'assets/emerald-egg-static.png',
         animatedSprite: 'assets/emerald-egg.webp',
       },
-      sprite: spriteUrl(active),
+      sprite: spriteUrl(active, game.state.settings),
       usage: usage || {},
       limits: {
         officialAvailable: Boolean(usage?.officialAvailable),
@@ -335,6 +346,7 @@ function createLocalService({
     let ok = false;
     if (type === 'buy') ok = game.buyItem(typeof value === 'string' ? value : '');
     if (type === 'candy') ok = game.useRareCandy();
+    if (type === 'candy-xl') ok = game.useExpCandyXL();
     if (type === 'mint') ok = game.useMint();
     if (type === 'egg') ok = game.buyEgg(value == null ? null : value);
     if (type === 'toggle-item') ok = game.toggleItem(typeof value === 'string' ? value : '');

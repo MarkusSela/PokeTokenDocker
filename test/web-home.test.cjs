@@ -53,7 +53,10 @@ test('Docker Home uses the selected representative only for its sprite', () => {
   assert.match(html, /<html\s+lang="en">/i);
   assert.match(app, /snapshot\.representative/);
   assert.match(app, /dexSprite\(\{\s*shiny:\s*snapshot\.representative\.shiny\s*\},\s*snapshot\.representative\.id\)/);
-  assert.doesNotMatch(app, /renderFloating|showFloatingPet|floatingPetSize|notificationsBubbles/);
+  assert.match(app, /renderWebOverlays/);
+  assert.match(app, /showFloatingPet|floatingPetSize/);
+  assert.match(html, /id="companion-overlay"/);
+  assert.match(html, /id="gold-walking-overlay"/);
   assert.doesNotMatch(html, /web-floating-preview|PET E ANIMAZIONI WEB|NOTIFICHE/i);
 });
 
@@ -86,7 +89,7 @@ test('Docker web UI uses existing catalog keys and changes the document language
   const html = fs.readFileSync(file, 'utf8');
   const usedKeys = [...app.matchAll(/\bt\(['"]([^'"]+)['"]/g)].map((match) => match[1]);
   for (const key of usedKeys) assert.ok(catalog.messages.en[key], `missing app key: ${key}`);
-  const staticKeys = [...html.matchAll(/data-i18n(?:-aria-label)?="([^"]+)"/g)].map((match) => match[1]);
+  const staticKeys = [...html.matchAll(/data-i18n(?:-aria-label|-alt)?="([^"]+)"/g)].map((match) => match[1]);
   for (const key of staticKeys) assert.ok(catalog.messages.en[key], `missing HTML key: ${key}`);
 
   const textNode = { dataset: { i18n: 'workspaceTitle' }, textContent: 'initial' };

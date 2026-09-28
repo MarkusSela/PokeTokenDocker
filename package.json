@@ -1,6 +1,6 @@
 {
   "name": "poketokendocker",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "A local-first Docker companion that turns local AI coding usage into Pokémon progress.",
   "author": "PokeTokenDocker contributors",
   "license": "MIT",
@@ -18,7 +18,8 @@
     "start": "node server/cli.cjs",
     "start:web": "node server/cli.cjs",
     "test": "node --test",
-    "audit:release": "node scripts/audit-release.cjs"
+    "audit:release": "node scripts/audit-release.cjs",
+    "migrate:state": "node scripts/migrate-state.cjs"
   },
   "engines": {
     "node": ">=22"

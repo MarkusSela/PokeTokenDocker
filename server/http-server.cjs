@@ -16,6 +16,7 @@ const DEFAULT_BODY_TIMEOUT_MS = 10_000;
 const WEB_MUTATING_ACTIONS = new Set([
   'buy',
   'candy',
+  'candy-xl',
   'mint',
   'egg',
   'setting',

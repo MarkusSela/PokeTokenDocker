@@ -1,6 +1,7 @@
 const MUTATING_ACTIONS = Object.freeze([
   'buy',
   'candy',
+  'candy-xl',
   'mint',
   'egg',
   'setting',
@@ -113,6 +114,8 @@ function buildCapabilities({
     notifications,
     autostart: desktop,
     floatingPet: overlay,
+    webOverlay: web,
+    goldWalking: web,
 
     companionFallback: overlay ? null : 'home',
   };

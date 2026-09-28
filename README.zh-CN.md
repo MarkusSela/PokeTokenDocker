@@ -33,9 +33,9 @@
   <a href="README.pt.md">🇵🇹 Português</a>
 </p>
 
-> **源代码包：** `0.1.1` · Docker/Web 版本 · 默认 Compose 配置为本地 `public-readonly` 只读模式。
+> **源代码包：** `0.2.0` · Docker/Web 版本 · 默认 Compose 配置为本地 `public-readonly` 只读模式。
 >
-> **已发布镜像：** `ghcr.io/markussela/poketokendocker:0.1.1` · 设置 `PTD_IMAGE` 可改用 Docker Hub 或本地标签。
+> **已发布镜像：** `ghcr.io/markussela/poketokendocker:0.2.0` · 设置 `PTD_IMAGE` 可改用 Docker Hub 或本地标签。
 
 ## 项目简介
 
@@ -50,8 +50,9 @@ PokeTokenDocker 是原始 companion 概念的无头 Web 版本：本地 AI 编�
 - 🏠 **Web 工作区：** Home、Bag、Shop、Pokédex、Catch Log 和 Settings 位于同一个响应式页面。
 - 📈 **使用量成长：** 本地元数据会推进当前蛋或伙伴，并记录阶段、稀有度、性格和毕业状态。
 - 📚 **收藏图鉴：** Pokédex 记录发现的物种，Catch Log 保存每条进化链和捕获历史。
-- 🎒 **奖励循环：** Rare Candy、Mint、Shiny Charm、Poké Doll 和蛋等级属于伙伴状态，而不是 provider 账户。
+- 🎒 **奖励循环：** Rare Candy、Exp. Candy XL、Mint、Shiny Charm、Poké Doll、Hatch Incubator、Shiny Incense 和蛋等级属于伙伴状态，而不是 provider 账户。
 - 🔄 **实时更新：** 浏览器通过 SSE 接收 snapshot 和 activity 事件，无需完整刷新页面。
+- 🎨 **视觉模式：** Settings 可在动画 Auto 与 Pixel Gen V 精灵之间切换，并启用伙伴与 Gold 行走 overlay。
 - 🧩 **Mini 视图：** [`web/mini.html`](web/mini.html) 可用于可信的 Homepage 或 iframe。
 - 🌍 **七种界面语言：** 英语、意大利语、韩语、日语、西班牙语、法语和葡萄牙语。
 - 🔒 **安全启动：** Compose 默认绑定 loopback 并运行在 `public-readonly` 模式。
@@ -133,7 +134,7 @@ Docker 版本使用 `PTD_*` 命名空间，与 Windows 版本的 `PTB_*` 不兼�
 
 | 变量 | 默认值 | 作用 |
 | --- | --- | --- |
-| `PTD_IMAGE` | `ghcr.io/markussela/poketokendocker:0.1.1` | 已发布镜像；可改为 Docker Hub 或本地标签。 |
+| `PTD_IMAGE` | `ghcr.io/markussela/poketokendocker:0.2.0` | 已发布镜像；可改为 Docker Hub 或本地标签。 |
 | `PTD_HERMES_DIR` | 必填 | 以只读方式挂载到 `/hermes` 的主机目录。 |
 | `PTD_DATA_DIR` | `../data` | 挂载到 `/data` 的主机目录。 |
 | `PTD_BIND_HOST` | `127.0.0.1` | 端口发布使用的主机接口。 |
@@ -170,8 +171,8 @@ npm ci
 npm test
 node scripts/audit-release.cjs
 npm audit --omit=dev --audit-level=high
-docker pull ghcr.io/markussela/poketokendocker:0.1.1
-docker build -f docker/Dockerfile --build-arg VERSION=0.1.1 -t poketokendocker:local .
+docker pull ghcr.io/markussela/poketokendocker:0.2.0
+docker build -f docker/Dockerfile --build-arg VERSION=0.2.0 -t poketokendocker:local .
 ```
 
 镜像以非特权 `node` 用户运行，只安装 production 依赖，并包含 `/healthz` 健康检查。贡献时请阅读 [`CONTRIBUTING.md`](CONTRIBUTING.md) 并使用合成数据。

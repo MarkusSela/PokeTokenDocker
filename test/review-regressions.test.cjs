@@ -216,7 +216,7 @@ test('shop keeps the owned Poke Doll visible and uses the supplied Mint PNG', ()
   const mintShopStart = app.indexOf("{ kind: 'mint',");
   const mintShopEnd = app.indexOf('price:', mintShopStart);
   assert.ok(mintShopStart >= 0 && mintShopEnd > mintShopStart);
-  assert.ok(app.slice(mintShopStart, mintShopEnd).includes("image: 'assets/items/mint.png'"));
+  assert.ok(app.slice(mintShopStart, mintShopEnd).includes("itemAsset('assets/items/mint.png')"));
 });
 
 test('Pokédex rendering uses the sanitized collection name field', () => {
@@ -330,7 +330,7 @@ test('Poke Doll purchase and toggle persist across service reloads', async () =>
     assert.equal((await service.handleAction('toggle-item', 'pokeDoll')).ok, true);
     const restored = createLocalService({ ...options, state: undefined });
     assert.equal(restored.game.itemCount('pokeDoll'), 1);
-    assert.equal(restored.game.isItemActive('pokeDoll'), false);
+    assert.equal(restored.game.isItemActive('pokeDoll'), true);
   } finally {
     fs.rmSync(directory, { recursive: true, force: true });
   }
@@ -349,7 +349,7 @@ test('public-readonly mode stays read-only despite an explicit writable override
 
 test('read-only capabilities deny every mutating action even when actions is inconsistent', () => {
   const capabilities = { snapshot: true, readOnly: true, actions: true };
-  for (const type of ['buy', 'candy', 'mint', 'egg', 'setting', 'toggle-item', 'import-save'])
+  for (const type of ['buy', 'candy', 'candy-xl', 'mint', 'egg', 'setting', 'toggle-item', 'import-save'])
     assert.equal(actionAllowed(capabilities, type), false, type);
 });
 

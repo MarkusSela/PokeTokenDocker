@@ -6,7 +6,7 @@ const SHIPPED_CATALOG = path.join(
   __dirname,
   "..",
   "assets",
-  "pokemon-catalog-gen1-5.json",
+  "pokemon-catalog-national-dex.json",
 );
 function cacheRead(file, ttl) {
   try {
@@ -34,7 +34,7 @@ function loadShippedCatalog() {
 async function json(url, options = {}) {
   const response = await fetch(url, {
     ...options,
-    headers: { "user-agent": "PokeTokenDocker/0.1.1", ...(options.headers || {}) },
+    headers: { "user-agent": "PokeTokenDocker/0.2.0", ...(options.headers || {}) },
     signal: AbortSignal.timeout(15000),
   });
   if (!response.ok) throw new Error(`PokéAPI ${response.status}`);
@@ -42,7 +42,7 @@ async function json(url, options = {}) {
 }
 function node(link) {
   const id = Number(String(link.species.url).split("/").filter(Boolean).at(-1));
-  if (id < 1 || id > 649) return null;
+  if (id < 1 || id > 1025) return null;
   return { id, children: (link.evolves_to || []).map(node).filter(Boolean) };
 }
 function paths(root) {
@@ -75,7 +75,7 @@ class PokeApi {
       const id = Number(
         String(chain.chain.species.url).split("/").filter(Boolean).at(-1),
       );
-      if (id >= 1 && id <= 649 && id !== 132) {
+      if (id >= 1 && id <= 1025 && id !== 132) {
         const species = await json(`${API}/pokemon-species/${id}`);
         result.push({ id, captureRate: species.capture_rate });
       }

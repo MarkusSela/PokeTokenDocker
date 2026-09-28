@@ -33,9 +33,9 @@
   <a href="README.pt.md"><strong>🇵🇹 Português</strong></a>
 </p>
 
-> **Pacote-fonte:** `0.1.1` · build Docker/web · o perfil Compose padrão é `public-readonly`, local e somente leitura.
+> **Pacote-fonte:** `0.2.0` · build Docker/web · o perfil Compose padrão é `public-readonly`, local e somente leitura.
 >
-> **Imagem publicada:** `ghcr.io/markussela/poketokendocker:0.1.1` · Defina `PTD_IMAGE` para usar Docker Hub ou uma tag local.
+> **Imagem publicada:** `ghcr.io/markussela/poketokendocker:0.2.0` · Defina `PTD_IMAGE` para usar Docker Hub ou uma tag local.
 
 ## Sobre o projeto
 
@@ -48,8 +48,9 @@ Os diretórios Hermes e dos provedores são montados em **somente leitura**. O c
 - 🏠 **Área web:** Home, Bag, Shop, Pokédex, Catch Log e Settings em uma página responsiva.
 - 📈 **Progresso pelo uso:** metadados locais avançam o ovo ou companheiro e registram estágios, raridade, natureza e graduação.
 - 📚 **Coleção:** a Pokédex guarda espécies descobertas e o Catch Log guarda cadeias evolutivas e histórico.
-- 🎒 **Recompensas:** Rare Candy, Mint, Shiny Charm, Poké Doll e níveis de ovo pertencem ao estado do companheiro.
+- 🎒 **Recompensas:** Rare Candy, Exp. Candy XL, Mint, Shiny Charm, Poké Doll, Hatch Incubator, Shiny Incense e níveis de ovo pertencem ao estado do companheiro.
 - 🔄 **Atualização ao vivo:** snapshots e eventos SSE chegam sem recarregar a página inteira.
+- 🎨 **Modos visuais:** Settings alterna entre sprites Auto animados e Pixel Gen V e ativa os overlays do companheiro e Gold caminhando.
 - 🧩 **Visão Mini:** [`web/mini.html`](web/mini.html) serve para Homepage ou iframe confiável.
 - 🌍 **Sete idiomas:** inglês, italiano, coreano, japonês, espanhol, francês e português.
 - 🔒 **Inicialização segura:** Compose usa loopback e `public-readonly` por padrão.
@@ -117,7 +118,7 @@ Não exponha o perfil mutável a uma LAN não confiável. Para testes que altere
 
 ## ⚙️ Configuração
 
-As variáveis usam o namespace `PTD_*`, diferente do `PTB_*` do Windows: `PTD_IMAGE` aponta para a imagem publicada `ghcr.io/markussela/poketokendocker:0.1.1` e pode ser trocada por Docker Hub ou uma tag local; `PTD_HERMES_DIR` é obrigatório; `PTD_DATA_DIR` define `/data`; `PTD_BIND_HOST` controla o bind; `PTD_ALLOWED_HOSTS` limita requisições mutáveis; `PTD_WEB_MODE` e `PTD_WEB_ALLOW_MUTATIONS` mantêm o modo seguro; `PTD_EMBED_ORIGIN` autoriza uma origem para iframe; `PTD_WEB_PORT` é a porta interna `4317`.
+As variáveis usam o namespace `PTD_*`, diferente do `PTB_*` do Windows: `PTD_IMAGE` aponta para a imagem publicada `ghcr.io/markussela/poketokendocker:0.2.0` e pode ser trocada por Docker Hub ou uma tag local; `PTD_HERMES_DIR` é obrigatório; `PTD_DATA_DIR` define `/data`; `PTD_BIND_HOST` controla o bind; `PTD_ALLOWED_HOSTS` limita requisições mutáveis; `PTD_WEB_MODE` e `PTD_WEB_ALLOW_MUTATIONS` mantêm o modo seguro; `PTD_EMBED_ORIGIN` autoriza uma origem para iframe; `PTD_WEB_PORT` é a porta interna `4317`.
 
 `/hermes` e `/data` devem ser caminhos separados. Caminhos sobrepostos são recusados.
 
@@ -134,8 +135,8 @@ npm ci
 npm test
 node scripts/audit-release.cjs
 npm audit --omit=dev --audit-level=high
-docker pull ghcr.io/markussela/poketokendocker:0.1.1
-docker build -f docker/Dockerfile --build-arg VERSION=0.1.1 -t poketokendocker:local .
+docker pull ghcr.io/markussela/poketokendocker:0.2.0
+docker build -f docker/Dockerfile --build-arg VERSION=0.2.0 -t poketokendocker:local .
 ```
 
 A imagem usa o usuário sem privilégios `node` e healthcheck em `/healthz`. Para contribuir, consulte [`CONTRIBUTING.md`](CONTRIBUTING.md) e use dados sintéticos.

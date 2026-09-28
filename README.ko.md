@@ -33,9 +33,9 @@
   <a href="README.pt.md">🇵🇹 Português</a>
 </p>
 
-> **소스 패키지:** `0.1.1` · Docker/Web 빌드 · 기본 Compose 프로필은 `public-readonly` 로컬 read-only입니다.
+> **소스 패키지:** `0.2.0` · Docker/Web 빌드 · 기본 Compose 프로필은 `public-readonly` 로컬 read-only입니다.
 >
-> **게시된 이미지:** `ghcr.io/markussela/poketokendocker:0.1.1` · `PTD_IMAGE`로 Docker Hub 또는 로컬 태그를 사용할 수 있습니다.
+> **게시된 이미지:** `ghcr.io/markussela/poketokendocker:0.2.0` · `PTD_IMAGE`로 Docker Hub 또는 로컬 태그를 사용할 수 있습니다.
 
 ## 프로젝트 소개
 
@@ -50,8 +50,9 @@ Hermes와 provider 디렉터리는 **읽기 전용**으로 마운트됩니다. �
 - 🏠 **웹 워크스페이스:** Home, Bag, Shop, Pokédex, Catch Log, Settings를 하나의 반응형 페이지에서 제공합니다.
 - 📈 **사용량 기반 성장:** 로컬 메타데이터로 알 또는 현재 컴패니언을 진행시키고 단계, 희귀도, 성격, 졸업 상태를 기록합니다.
 - 📚 **컬렉션:** Pokédex는 발견한 종을, Catch Log는 진화 체인과 포획 기록을 보관합니다.
-- 🎒 **보상 루프:** Rare Candy, Mint, Shiny Charm, Poké Doll 및 알 등급은 provider 계정이 아닌 컴패니언 상태에 속합니다.
+- 🎒 **보상 루프:** Rare Candy, Exp. Candy XL, Mint, Shiny Charm, Poké Doll, Hatch Incubator, Shiny Incense 및 알 등급은 provider 계정이 아닌 컴패니언 상태에 속합니다.
 - 🔄 **실시간 상태:** SSE로 snapshot과 activity 이벤트를 받아 전체 페이지 새로고침 없이 갱신합니다.
+- 🎨 **시각 모드:** Settings에서 애니메이션 Auto 또는 Pixel Gen V 스프라이트를 선택하고 컴패니언 및 Gold 걷기 오버레이를 켤 수 있습니다.
 - 🧩 **Mini 보기:** [`web/mini.html`](web/mini.html)은 신뢰할 수 있는 Homepage 또는 iframe용입니다.
 - 🌍 **7개 UI 언어:** 영어, 이탈리아어, 한국어, 일본어, 스페인어, 프랑스어, 포르투갈어.
 - 🔒 **안전한 기본값:** Compose는 loopback과 `public-readonly`로 시작합니다.
@@ -133,7 +134,7 @@ Docker 버전은 `PTD_*` namespace를 사용하며 Windows 버전의 `PTB_*`와 
 
 | 변수 | 기본값 | 목적 |
 | --- | --- | --- |
-| `PTD_IMAGE` | `ghcr.io/markussela/poketokendocker:0.1.1` | 게시된 이미지. Docker Hub 또는 로컬 태그로 변경할 수 있습니다. |
+| `PTD_IMAGE` | `ghcr.io/markussela/poketokendocker:0.2.0` | 게시된 이미지. Docker Hub 또는 로컬 태그로 변경할 수 있습니다. |
 | `PTD_HERMES_DIR` | 필수 | `/hermes`에 read-only로 마운트할 호스트 디렉터리. |
 | `PTD_DATA_DIR` | `../data` | `/data`에 마운트할 호스트 디렉터리. |
 | `PTD_BIND_HOST` | `127.0.0.1` | 포트를 공개할 호스트 인터페이스. |
@@ -160,8 +161,8 @@ npm ci
 npm test
 node scripts/audit-release.cjs
 npm audit --omit=dev --audit-level=high
-docker pull ghcr.io/markussela/poketokendocker:0.1.1
-docker build -f docker/Dockerfile --build-arg VERSION=0.1.1 -t poketokendocker:local .
+docker pull ghcr.io/markussela/poketokendocker:0.2.0
+docker build -f docker/Dockerfile --build-arg VERSION=0.2.0 -t poketokendocker:local .
 ```
 
 이미지는 권한이 없는 `node` 사용자로 실행되며 production 의존성과 `/healthz` healthcheck만 포함합니다. 기여할 때는 [`CONTRIBUTING.md`](CONTRIBUTING.md)와 합성 데이터를 사용하세요.

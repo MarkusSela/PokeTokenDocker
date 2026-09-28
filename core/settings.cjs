@@ -1,5 +1,6 @@
 const DEFAULT_SETTINGS = Object.freeze({
   language: "en",
+  spriteStyle: "auto",
   refreshMinutes: 1,
   limitDisplay: "used",
   launchAtLogin: false,
@@ -8,6 +9,8 @@ const DEFAULT_SETTINGS = Object.freeze({
   menuLimitPercent: true,
   showFloatingPet: false,
   floatingPetSize: 96,
+  showGoldWalking: false,
+  goldWalkingSize: 96,
 
   notificationsBubbles: true,
   updateNotifications: true,
@@ -21,6 +24,7 @@ const DEFAULT_SETTINGS = Object.freeze({
 });
 const SELECTS = {
   language: ["it", "en", "ko", "ja", "es", "fr", "pt"],
+  spriteStyle: ["auto", "pixel"],
   refreshMinutes: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
   limitDisplay: ["used", "remaining"],
 };
@@ -30,6 +34,7 @@ const TOGGLES = [
   "menuTodayCost",
   "menuLimitPercent",
   "showFloatingPet",
+  "showGoldWalking",
 
   "notificationsBubbles",
   "updateNotifications",
@@ -74,7 +79,7 @@ function normalizeSettings(input = {}) {
       DEFAULT_SETTINGS.refreshMinutes,
     );
   else out.refreshMinutes = DEFAULT_SETTINGS.refreshMinutes;
-  for (const key of ["language", "limitDisplay"])
+  for (const key of ["language", "spriteStyle", "limitDisplay"])
     if (!SELECTS[key].includes(out[key])) out[key] = DEFAULT_SETTINGS[key];
   for (const key of TOGGLES) out[key] = booleanValue(out[key], DEFAULT_SETTINGS[key]);
   out.warningPercent = clampInt(
@@ -94,6 +99,12 @@ function normalizeSettings(input = {}) {
     48,
     256,
     DEFAULT_SETTINGS.floatingPetSize,
+  );
+  out.goldWalkingSize = clampInt(
+    out.goldWalkingSize,
+    48,
+    256,
+    DEFAULT_SETTINGS.goldWalkingSize,
   );
 
   out.additionalScanFolders = Array.isArray(out.additionalScanFolders)

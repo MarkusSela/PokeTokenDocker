@@ -57,23 +57,29 @@ function emptyUsage() {
   };
 }
 
-test('Docker shop publishes the explicit requested prices', () => {
+test('Docker shop publishes the report v0.2.0 prices', () => {
   assert.equal(BALANCE.freshEgg.price, 1_000_000_000);
   assert.equal(BALANCE.uncommonEgg.price, 2_500_000_000);
   assert.equal(BALANCE.rareEgg.price, 4_000_000_000);
   assert.equal(BALANCE.rareCandy.price, 500_000_000);
   assert.equal(BALANCE.mint.price, 100_000_000);
   assert.equal(BALANCE.shinyCharm.price, 3_000_000_000);
-  assert.equal(BALANCE.pokeDoll.price, 8_000_000_000);
+  assert.equal(BALANCE.pokeDoll.price, 250_000_000);
+  assert.equal(BALANCE.expCandyXL.price, 1_000_000_000);
+  assert.equal(BALANCE.hatchIncubator.price, 250_000_000);
+  assert.equal(BALANCE.shinyIncense.price, 1_500_000_000);
 });
 
-test('Poke Doll can be bought once and starts enabled', () => {
+test('Poke Doll is bought unarmed and can be armed from the Bag', () => {
   const game = new Game({ state: { usedSinceInstall: 20_000_000_000 } });
   assert.equal(game.buyItem('pokeDoll'), true);
   assert.equal(game.state.spentTokens, BALANCE.pokeDoll.price);
   assert.equal(game.itemCount('pokeDoll'), 1);
+  assert.equal(game.isItemActive('pokeDoll'), false);
+  assert.equal(game.toggleItem('pokeDoll'), true);
   assert.equal(game.isItemActive('pokeDoll'), true);
-  assert.equal(game.buyItem('pokeDoll'), false);
+  assert.equal(game.buyItem('pokeDoll'), true);
+  assert.equal(game.itemCount('pokeDoll'), 2);
 });
 
 test('Poke Doll prevents hatching a previously collected line while disabled mode permits it', () => {
@@ -172,24 +178,30 @@ test('snapshot keeps item activation and every shop price at the HTTP boundary',
     }),
     wallet: 10_000_000_000,
     state: {
-      inventory: { pokeDoll: 1, shinyCharm: 1 },
-      itemActivation: { pokeDoll: false, shinyCharm: true },
+      inventory: { pokeDoll: 1, shinyCharm: 1, hatchIncubator: 1, shinyIncense: 1, expCandyXL: 1 },
+      itemActivation: { pokeDoll: false, shinyCharm: true, hatchIncubator: true, shinyIncense: true },
     },
     balance: {
       freshEgg: { price: 1_000_000_000 },
       uncommonEgg: { price: 2_500_000_000 },
       rareEgg: { price: 4_000_000_000 },
       rareCandy: { price: 500_000_000 },
+      expCandyXL: { price: 1_000_000_000, xp: 250_000_000 },
       mint: { price: 100_000_000 },
-      shinyCharm: { price: 3_000_000_000 },
-      pokeDoll: { price: 8_000_000_000 },
+      shinyCharm: { price: 3_000_000_000, denominator: 48 },
+      pokeDoll: { price: 250_000_000 },
+      hatchIncubator: { price: 250_000_000, threshold: 2_500_000 },
+      shinyIncense: { price: 1_500_000_000, denominator: 32, combinedDenominator: 24 },
     },
   });
   assert.equal(snapshot.state.itemActivation.pokeDoll, false);
   assert.equal(snapshot.state.itemActivation.shinyCharm, true);
   assert.equal(snapshot.balance.uncommonEgg.price, 2_500_000_000);
   assert.equal(snapshot.balance.rareEgg.price, 4_000_000_000);
-  assert.equal(snapshot.balance.pokeDoll.price, 8_000_000_000);
+  assert.equal(snapshot.balance.pokeDoll.price, 250_000_000);
+  assert.equal(snapshot.balance.expCandyXL.xp, 250_000_000);
+  assert.equal(snapshot.balance.hatchIncubator.threshold, 2_500_000);
+  assert.equal(snapshot.balance.shinyIncense.combinedDenominator, 24);
 });
 
 test('Docker-local mode enables settings and item actions only with explicit mutation opt-in', async () => {

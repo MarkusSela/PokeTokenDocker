@@ -8,6 +8,8 @@
     update: null,
     settingsOpen: false,
     collectionMode: 'dex',
+    collectionPage: 1,
+    collectionRarity: 'all',
     actionPending: false,
     actionType: null,
     actionValue: null,
@@ -18,9 +20,10 @@
     refreshMinutes: null,
     refreshTimer: null,
   };
+  const COLLECTION_PAGE_SIZE = 24;
   const settingTimers = new Map();
   const readActions = new Set(['refresh', 'check-update', 'export-save']);
-  const visualActions = new Set(['candy', 'buy', 'egg', 'mint', 'toggle-item']);
+  const visualActions = new Set(['candy', 'candy-xl', 'buy', 'egg', 'mint', 'toggle-item']);
   const catalog = window.PokeTokenDockerI18n;
   const t = (key, variables) => catalog.translate(key, catalog.language(), variables);
   const setLanguage = (value) => catalog.setLanguage(value);
@@ -84,6 +87,7 @@
   };
   const settingLabels = {
     language: 'settingLanguage',
+    spriteStyle: 'spriteStyle',
     refreshMinutes: 'settingRefresh',
     limitDisplay: 'settingLimitDisplay',
     launchAtLogin: 'settingAutostart',
@@ -93,6 +97,10 @@
     providerStatus: 'settingProvider',
     keychainOptOut: 'settingHideLimits',
     updateNotifications: 'settingUpdate',
+    showFloatingPet: 'settingFloatingCompanion',
+    showGoldWalking: 'settingGoldWalking',
+    floatingPetSize: 'settingFloatingSize',
+    goldWalkingSize: 'settingGoldWalkingSize',
   };
   const settingLabel = (key) => t(settingLabels[key] || key);
 
@@ -388,12 +396,19 @@
       && snapshot.state?.itemActivation?.[key] !== false;
   }
 
+  function itemAsset(autoPath, pixelPath = autoPath) {
+    return settings().spriteStyle === 'pixel' ? pixelPath : autoPath;
+  }
+
   function inventoryDefinitions(snapshot) {
     return [
-      { key: 'rareCandy', title: t('rareCandy'), image: 'assets/items/rare-candy.png', fallback: '🍬', detail: t('rareCandyDetail'), action: 'candy', actionLabel: t('use') },
-      { key: 'mint', title: t('mint'), image: 'assets/items/mint.png', fallback: '🌿', detail: t('mintDetail'), action: 'mint', actionLabel: t('use') },
-      { key: 'shinyCharm', title: t('shinyCharm'), image: 'assets/items/shiny-charm.png', fallback: '✨', detail: t('shinyCharmDetail'), toggle: true },
-      { key: 'pokeDoll', title: t('pokeDoll'), image: 'assets/items/poke-doll.webp', fallback: '🧸', detail: t('pokeDollDetail'), toggle: true },
+      { key: 'rareCandy', title: t('rareCandy'), image: itemAsset('assets/items/rare-candy.png'), fallback: '🍬', detail: t('rareCandyDetail'), action: 'candy', actionLabel: t('use') },
+      { key: 'expCandyXL', title: t('expCandyXL'), image: itemAsset('assets/items/exp-candy-xl-auto.webp', 'assets/items/exp-candy-xl-pixel.png'), fallback: '🍭', detail: t('expCandyXLDetail'), action: 'candy-xl', actionLabel: t('use') },
+      { key: 'mint', title: t('mint'), image: itemAsset('assets/items/mint.png'), fallback: '🌿', detail: t('mintDetail'), action: 'mint', actionLabel: t('use') },
+      { key: 'shinyCharm', title: t('shinyCharm'), image: itemAsset('assets/items/shiny-charm-auto.png', 'assets/items/shiny-charm.png'), fallback: '✨', detail: t('shinyCharmDetail'), toggle: true },
+      { key: 'pokeDoll', title: t('pokeDoll'), image: itemAsset('assets/items/poke-doll-auto.webp', 'assets/items/poke-doll.webp'), fallback: '🧸', detail: t('pokeDollDetail'), toggle: true },
+      { key: 'hatchIncubator', title: t('hatchIncubator'), image: itemAsset('assets/items/hatch-incubator-3d.png'), fallback: '⏩', detail: t('hatchIncubatorDetail'), toggle: true },
+      { key: 'shinyIncense', title: t('shinyIncense'), image: itemAsset('assets/items/shiny-incense-auto.png', 'assets/items/shiny-incense-pixel.png'), fallback: '🌟', detail: t('shinyIncenseDetail'), toggle: true },
     ];
   }
 
@@ -402,6 +417,27 @@
     if (item.image) appendImage(icon, item.image, item.title, item.fallback);
     else icon.append(element('span', 'item-emoji', item.fallback));
     parent.append(icon);
+  }
+
+  function appendItemTitle(parent, item) {
+    const line = element('div', 'item-name-line');
+    line.append(element('strong', '', item.title));
+    if (item.badge) {
+      const badge = element('span', `item-badge ${item.badge.className}`, item.badge.label);
+      badge.title = item.title;
+      line.append(badge);
+    }
+    parent.append(line);
+  }
+
+  function itemBadge(key, tier = null) {
+    if (key === 'pokeDoll') return { className: 'doll', label: '♥' };
+    if (key === 'hatchIncubator') return { className: 'incubator', label: '⏩' };
+    if (key === 'shinyIncense') return { className: 'incense', label: '★★★' };
+    if (tier === 'uncommon') return { className: 'uncommon', label: t('rarityUncommon') };
+    if (tier === 'rare') return { className: 'rare', label: t('rarityRare') };
+    if (tier === null && key === 'freshEgg') return { className: 'common', label: t('rarityCommon') };
+    return null;
   }
 
   function renderBag(snapshot) {
@@ -416,7 +452,7 @@
       const row = element('div', 'item-row');
       appendIcon(row, item);
       const copy = element('div', 'item-copy');
-      copy.append(element('strong', '', item.title));
+      appendItemTitle(copy, { ...item, badge: itemBadge(item.key) });
       copy.append(element('span', '', `${item.detail} · ${t('ownedCount', { count })}`));
       const feedback = actionFeedbackForItem(item.key, item.title);
       if (feedback) {
@@ -446,13 +482,16 @@
 
   function shopDefinitions(snapshot) {
     return [
-      { kind: 'rareCandy', title: t('rareCandy'), description: t('rareCandyDescription'), image: 'assets/items/rare-candy.png', fallback: '🍬', price: snapshot.balance?.rareCandy?.price },
-      { kind: 'mint', title: t('mint'), description: t('mintDescription'), image: 'assets/items/mint.png', fallback: '🌿', price: snapshot.balance?.mint?.price },
-      { kind: 'shinyCharm', title: t('shinyCharm'), description: t('shinyCharmDescription'), image: 'assets/items/shiny-charm.png', fallback: '✨', price: snapshot.balance?.shinyCharm?.price },
-      { kind: 'pokeDoll', title: t('pokeDoll'), description: t('pokeDollDescription'), image: 'assets/items/poke-doll.webp', fallback: '🧸', price: snapshot.balance?.pokeDoll?.price },
-      { kind: 'freshEgg', tier: null, title: t('commonEgg'), description: t('commonEggDescription'), image: 'assets/emerald-egg-static.png', fallback: '🥚', price: snapshot.balance?.freshEgg?.price },
-      { kind: 'uncommonEgg', tier: 'uncommon', title: t('uncommonEgg'), description: t('uncommonEggDescription'), image: 'assets/emerald-egg-static.png', fallback: '🥚', price: snapshot.balance?.uncommonEgg?.price },
-      { kind: 'rareEgg', tier: 'rare', title: t('rareEgg'), description: t('rareEggDescription'), image: 'assets/emerald-egg-static.png', fallback: '🥚', price: snapshot.balance?.rareEgg?.price },
+      { kind: 'rareCandy', title: t('rareCandy'), description: t('rareCandyDescription'), image: itemAsset('assets/items/rare-candy.png'), fallback: '🍬', price: snapshot.balance?.rareCandy?.price },
+      { kind: 'expCandyXL', title: t('expCandyXL'), description: t('expCandyXLDescription'), image: itemAsset('assets/items/exp-candy-xl-auto.webp', 'assets/items/exp-candy-xl-pixel.png'), fallback: '🍭', price: snapshot.balance?.expCandyXL?.price },
+      { kind: 'mint', title: t('mint'), description: t('mintDescription'), image: itemAsset('assets/items/mint.png'), fallback: '🌿', price: snapshot.balance?.mint?.price },
+      { kind: 'shinyCharm', title: t('shinyCharm'), description: t('shinyCharmDescription'), image: itemAsset('assets/items/shiny-charm-auto.png', 'assets/items/shiny-charm.png'), fallback: '✨', price: snapshot.balance?.shinyCharm?.price },
+      { kind: 'pokeDoll', title: t('pokeDoll'), description: t('pokeDollDescription'), image: itemAsset('assets/items/poke-doll-auto.webp', 'assets/items/poke-doll.webp'), fallback: '🧸', price: snapshot.balance?.pokeDoll?.price },
+      { kind: 'hatchIncubator', title: t('hatchIncubator'), description: t('hatchIncubatorDescription'), image: itemAsset('assets/items/hatch-incubator-3d.png'), fallback: '⏩', price: snapshot.balance?.hatchIncubator?.price },
+      { kind: 'shinyIncense', title: t('shinyIncense'), description: t('shinyIncenseDescription'), image: itemAsset('assets/items/shiny-incense-auto.png', 'assets/items/shiny-incense-pixel.png'), fallback: '🌟', price: snapshot.balance?.shinyIncense?.price },
+      { kind: 'freshEgg', tier: null, title: t('commonEgg'), description: t('commonEggDescription'), image: itemAsset('assets/items/egg-common-auto.png', 'assets/emerald-egg-static.png'), fallback: '🥚', price: snapshot.balance?.freshEgg?.price },
+      { kind: 'uncommonEgg', tier: 'uncommon', title: t('uncommonEgg'), description: t('uncommonEggDescription'), image: itemAsset('assets/items/egg-uncommon-auto.png', 'assets/emerald-egg-static.png'), fallback: '🥚', price: snapshot.balance?.uncommonEgg?.price },
+      { kind: 'rareEgg', tier: 'rare', title: t('rareEgg'), description: t('rareEggDescription'), image: itemAsset('assets/items/egg-rare-auto.png', 'assets/emerald-egg-static.png'), fallback: '🥚', price: snapshot.balance?.rareEgg?.price },
     ];
   }
 
@@ -460,7 +499,7 @@
     const list = clear($('#shop-items'));
     const inventory = snapshot.state?.inventory || {};
     text('#shop-wallet', t('tokensCount', { tokens: compact(snapshot.wallet) }));
-    const uniqueItems = new Set(['shinyCharm', 'pokeDoll']);
+    const uniqueItems = new Set(['shinyCharm']);
     const purchasable = shopDefinitions(snapshot).filter(
       (item) => item.kind !== 'shinyCharm' || number(inventory[item.kind]) < 1,
     );
@@ -469,7 +508,7 @@
       const main = element('div', 'shop-main');
       appendIcon(main, item);
       const copy = element('div', 'shop-copy');
-      copy.append(element('strong', '', item.title));
+      appendItemTitle(copy, { ...item, badge: itemBadge(item.kind, item.tier) });
       copy.append(element('span', '', item.description));
       const feedback = actionFeedbackForItem(item.kind, item.title);
       if (feedback) {
@@ -497,13 +536,33 @@
   function collectionName(entry, id = entry?.finalId || entry?.baseId) {
     const names = entry?.names?.[id];
     if (typeof names === 'string') return names;
-    return names?.[catalog.language()] || names?.en || names?.it || entry?.name || t('numberUnknown');
+    return names?.en || names?.it || entry?.name || t('numberUnknown');
   }
+
+  const STATIC_AUTO_SPRITES = new Set([990, 991, 993, 1010, 1017, 1022, 1023, 1025]);
 
   function dexSprite(entry, id = entry?.id || entry?.finalId || entry?.baseId) {
     const numericId = Number(id);
-    if (!Number.isInteger(numericId) || numericId < 1 || numericId > 100_000) return null;
-    return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/${entry.shiny ? 'shiny/' : ''}${numericId}.gif`;
+    if (!Number.isInteger(numericId) || numericId < 1 || numericId > 1025) return null;
+    const shinyPath = entry.shiny ? 'shiny/' : '';
+    const base = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon';
+    if (settings().spriteStyle === 'pixel') return `${base}/versions/generation-v/black-white/${shinyPath}${numericId}.png`;
+    if (STATIC_AUTO_SPRITES.has(numericId)) return `${base}/${shinyPath}${numericId}.png`;
+    return `${base}/versions/generation-v/black-white/animated/${shinyPath}${numericId}.gif`;
+  }
+
+  function renderCollectionPager(total, pageCount) {
+    const pager = $('#collection-pager');
+    if (!pager) return;
+    const visible = model.collectionMode === 'dex' && pageCount > 1;
+    pager.hidden = !visible;
+    if (!visible) return;
+    text('#collection-page-label', t('pageOf', { page: model.collectionPage, pages: pageCount }));
+    const previous = $('#collection-prev');
+    const next = $('#collection-next');
+    if (previous) previous.disabled = model.collectionPage <= 1;
+    if (next) next.disabled = model.collectionPage >= pageCount;
+    text('#collection-total', t('speciesCount', { count: total }));
   }
 
   function renderPokedex(snapshot) {
@@ -512,25 +571,36 @@
     const entries = mode === 'log'
       ? (Array.isArray(collection.catchLog) ? collection.catchLog : [])
       : (Array.isArray(collection.pokedex) ? collection.pokedex : []);
+    const filteredEntries = model.collectionRarity === 'all'
+      ? entries
+      : entries.filter((entry) => entry.rarity === model.collectionRarity);
+    const pageCount = mode === 'dex' ? Math.max(1, Math.ceil(filteredEntries.length / COLLECTION_PAGE_SIZE)) : 1;
+    model.collectionPage = Math.min(Math.max(1, model.collectionPage), pageCount);
+    const visibleEntries = mode === 'dex'
+      ? filteredEntries.slice((model.collectionPage - 1) * COLLECTION_PAGE_SIZE, model.collectionPage * COLLECTION_PAGE_SIZE)
+      : filteredEntries;
+    renderCollectionPager(filteredEntries.length, pageCount);
     const list = clear($('#collection-items'));
     const heading = mode === 'log' ? t('catchLogTab') : t('pokedexTab');
     text('#collection-heading', heading);
     text('#collection-description', mode === 'log' ? t('collectionLogDescription') : t('collectionDexDescription'));
     text('#collection-count', mode === 'log'
-      ? t('catchCount', { count: entries.length })
-      : t('speciesCount', { count: entries.length }));
+      ? t('catchCount', { count: filteredEntries.length })
+      : t('speciesCount', { count: filteredEntries.length }));
     document.querySelectorAll('[data-collection-mode]').forEach((button) => {
       const selected = button.dataset.collectionMode === mode;
       button.classList.toggle('active', selected);
       button.setAttribute('aria-selected', String(selected));
     });
-    if (!entries.length) {
+    const raritySelect = $('#collection-rarity');
+    if (raritySelect) raritySelect.value = model.collectionRarity;
+    if (!filteredEntries.length) {
       list?.append(element('div', 'empty', mode === 'log' ? t('emptyCatchLog') : t('emptyPokedex')));
       return;
     }
     if (mode === 'log') {
       const log = element('div', 'catch-log');
-      for (const entry of entries) {
+      for (const entry of visibleEntries) {
         const row = element('article', 'catch-row');
         const stages = element('div', 'catch-stages');
         const chain = Array.isArray(entry.chainOrder) ? entry.chainOrder : [];
@@ -554,7 +624,7 @@
       return;
     }
     const grid = element('div', 'pokedex-grid');
-    for (const entry of entries) {
+    for (const entry of visibleEntries) {
       const card = element('article', 'dex-card');
       const imageFrame = element('div', 'dex-sprite-frame');
       const name = collectionName(entry, entry.id);
@@ -566,6 +636,30 @@
       grid.append(card);
     }
     list?.append(grid);
+  }
+
+  function renderWebOverlays(snapshot) {
+    const floating = $('#companion-overlay');
+    const gold = $('#gold-walking-overlay');
+    const webOverlay = model.capabilities?.webOverlay !== false;
+    const view = companionView(snapshot);
+    if (floating) {
+      const enabled = webOverlay && Boolean(settings().showFloatingPet);
+      floating.hidden = !enabled;
+      floating.style.setProperty('--overlay-size', `${Math.floor(number(settings().floatingPetSize) || 96)}px`);
+      if (enabled) {
+        const frame = clear($('#overlay-sprite'));
+        if (frame) appendImage(frame, view.sprite, view.name, view.fallback);
+        text('#overlay-name', view.name);
+        text('#overlay-rarity', view.rarity);
+        const fill = $('#overlay-progress-fill');
+        if (fill) fill.style.width = `${Math.round(view.progress * 100)}%`;
+      }
+    }
+    if (gold) {
+      gold.hidden = !(webOverlay && Boolean(settings().showGoldWalking));
+      gold.style.setProperty('--gold-size', `${Math.floor(number(settings().goldWalkingSize) || 96)}px`);
+    }
   }
 
   function settingRow(label, hint, control, full = false) {
@@ -655,11 +749,20 @@
     content.append(settingRow(t('settingLanguage'), t('settingLanguageHint'), createSelect('language', [
       ['en', 'English'], ['it', 'Italiano'], ['ko', '한국어'], ['ja', '日本語'], ['es', 'Español'], ['fr', 'Français'], ['pt', 'Português'],
     ])));
+    content.append(settingRow(t('spriteStyle'), t('spriteStyleHint'), createSelect('spriteStyle', [
+      ['auto', t('autoStyle')], ['pixel', t('pixelStyle')],
+    ])));
     const refreshOptions = [['0', t('manual')]];
     for (let minute = 1; minute <= 15; minute += 1) refreshOptions.push([String(minute), `${minute} ${t(minute === 1 ? 'minute' : 'minutes')}`]);
     content.append(settingRow(t('settingRefresh'), t('settingRefreshHint'), createSelect('refreshMinutes', refreshOptions)));
     content.append(settingRow(t('settingLimitDisplay'), t('settingLimitDisplayHint'), createSelect('limitDisplay', [['used', t('usedOption')], ['remaining', t('remainingOption')]], noLimits)));
     content.append(settingRow(t('settingAutostart'), t('settingAutostartHint'), createSwitch('launchAtLogin')));
+
+    content.append(settingGroup(t('webOverlayGroup')));
+    content.append(settingRow(t('settingFloatingCompanion'), t('settingFloatingCompanionHint'), createSwitch('showFloatingPet')));
+    content.append(settingRow(t('settingFloatingSize'), t('settingFloatingSizeHint'), createRange('floatingPetSize', 48, 256, 'px')));
+    content.append(settingRow(t('settingGoldWalking'), t('settingGoldWalkingHint'), createSwitch('showGoldWalking')));
+    content.append(settingRow(t('settingGoldWalkingSize'), t('settingGoldWalkingSizeHint'), createRange('goldWalkingSize', 48, 256, 'px')));
 
     content.append(settingGroup(t('summaryGroup')));
     content.append(settingRow(t('settingTodayTokens'), t('settingTodayTokensHint'), createSwitch('menuTodayTokens')));
@@ -811,6 +914,7 @@
     renderBag(model.snapshot);
     renderShop(model.snapshot);
     renderPokedex(model.snapshot);
+    renderWebOverlays(model.snapshot);
     scheduleRefresh();
     if (model.settingsOpen) renderSettingsOverlay();
   }
@@ -857,8 +961,23 @@
   document.querySelectorAll('[data-collection-mode]').forEach((button) => {
     button.addEventListener('click', () => {
       model.collectionMode = button.dataset.collectionMode === 'log' ? 'log' : 'dex';
+      model.collectionPage = 1;
       renderPokedex(model.snapshot);
     });
+  });
+  $('#collection-rarity')?.addEventListener('change', (event) => {
+    const value = event.target.value;
+    model.collectionRarity = ['all', 'common', 'uncommon', 'rare', 'legendary'].includes(value) ? value : 'all';
+    model.collectionPage = 1;
+    renderPokedex(model.snapshot);
+  });
+  $('#collection-prev')?.addEventListener('click', () => {
+    model.collectionPage = Math.max(1, model.collectionPage - 1);
+    renderPokedex(model.snapshot);
+  });
+  $('#collection-next')?.addEventListener('click', () => {
+    model.collectionPage += 1;
+    renderPokedex(model.snapshot);
   });
   document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape' && model.settingsOpen) closeSettings();

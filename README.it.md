@@ -34,9 +34,9 @@
   <a href="README.pt.md">🇵🇹 Português</a>
 </p>
 
-> **Pacchetto sorgente:** `0.1.1` · build Docker/web · il profilo Compose predefinito è `public-readonly`, locale e read-only.
+> **Pacchetto sorgente:** `0.2.0` · build Docker/web · il profilo Compose predefinito è `public-readonly`, locale e read-only.
 >
-> **Immagine pubblicata:** `ghcr.io/markussela/poketokendocker:0.1.1` · Imposta `PTD_IMAGE` per usare Docker Hub o un tag locale.
+> **Immagine pubblicata:** `ghcr.io/markussela/poketokendocker:0.2.0` · Imposta `PTD_IMAGE` per usare Docker Hub o un tag locale.
 
 ## Informazioni sul progetto
 
@@ -56,8 +56,9 @@ Questa repository contiene il companion Docker/web, non l’app tray Windows. Le
 - 🏠 **Workspace web completo:** Home, Borsa, Negozio, Pokédex, Registro catture e Impostazioni in una pagina responsive.
 - 📈 **Progressione dall’utilizzo:** i metadati locali fanno avanzare l’uovo o il companion attivo, con fasi, rarità, natura e completamento.
 - 📚 **Collezione:** il Pokédex registra le specie scoperte e il Registro catture conserva catene evolutive e cronologia.
-- 🎒 **Ricompense:** Rare Candy, Mint, Shiny Charm, Poké Doll e livelli di uovo appartengono allo stato del companion, non all’account di un provider.
+- 🎒 **Ricompense:** Rare Candy, Exp. Candy XL, Mint, Shiny Charm, Poké Doll, Hatch Incubator, Shiny Incense e livelli di uovo appartengono allo stato del companion, non all’account di un provider.
 - 🔄 **Aggiornamenti live:** il browser riceve snapshot ed eventi di attività tramite SSE senza ricaricare tutta la pagina.
+- 🎨 **Modalità visive:** le Impostazioni scelgono sprite Auto animati o Pixel Gen V e attivano gli overlay del companion e Gold walking.
 - 🧩 **Vista compatta:** [`web/mini.html`](web/mini.html) è adatta a Homepage o iframe fidati.
 - 🌍 **Sette lingue UI:** inglese, italiano, coreano, giapponese, spagnolo, francese e portoghese.
 - 🔒 **Avvio sicuro:** Compose usa loopback e `public-readonly`, salvo scelta esplicita di un altro profilo.
@@ -157,7 +158,7 @@ PokeTokenDocker usa il namespace `PTD_*`, diverso da quello `PTB_*` della build 
 
 | Variabile | Default | Scopo |
 | --- | --- | --- |
-| `PTD_IMAGE` | `ghcr.io/markussela/poketokendocker:0.1.1` | Riferimento all’immagine pubblicata; puoi sostituirlo con Docker Hub o un tag locale. |
+| `PTD_IMAGE` | `ghcr.io/markussela/poketokendocker:0.2.0` | Riferimento all’immagine pubblicata; puoi sostituirlo con Docker Hub o un tag locale. |
 | `PTD_HERMES_DIR` | obbligatoria | Directory host montata read-only in `/hermes`. |
 | `PTD_DATA_DIR` | `../data` | Directory host montata in `/data`. |
 | `PTD_BIND_HOST` | `127.0.0.1` | Interfaccia host del port mapping. |
@@ -200,8 +201,8 @@ npm ci
 npm test
 node scripts/audit-release.cjs
 npm audit --omit=dev --audit-level=high
-docker pull ghcr.io/markussela/poketokendocker:0.1.1
-docker build -f docker/Dockerfile --build-arg VERSION=0.1.1 -t poketokendocker:local .
+docker pull ghcr.io/markussela/poketokendocker:0.2.0
+docker build -f docker/Dockerfile --build-arg VERSION=0.2.0 -t poketokendocker:local .
 ```
 
 Il container esegue come utente non privilegiato `node`, include solo dipendenze production ed espone un healthcheck su `/healthz`. Per contribuire usa [`CONTRIBUTING.md`](CONTRIBUTING.md) e dati sintetici.

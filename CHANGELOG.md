@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.2.0
+
+Parity work against the Windows v0.2.0 directive.
+
+- Ships the complete National Dex catalog (1,025 species and 540 evolution chains) offline.
+- Adds Exp. Candy XL, Hatch Incubator, Shiny Incense, report-aligned economy, effective hatch thresholds, shiny odds, and consumption semantics.
+- Adds byte-identical state migration backups, SHA-256 verification, rollback, and the `npm run migrate:state` CLI.
+- Adds a 24-species Pokédex pager, four-column collection grid, sticky rarity filter, and a three-column responsive Shop layout.
+- Adds browser-configurable animated/Pixel Gen V sprites, companion and Gold walking overlays, object badges, and the shipped Windows v0.2.0 item assets.
+- Extends the sanitized snapshot contract and all localized UI strings for the new items.
+
 ## 0.1.1
 
 Branding and documentation refresh for the PokeTokenDocker release.

@@ -17,7 +17,7 @@ function seededRandom(seed) {
 }
 
 function catalogPath() {
-  return path.join(__dirname, '..', 'assets', 'pokemon-catalog-gen1-5.json');
+  return path.join(__dirname, '..', 'assets', 'pokemon-catalog-national-dex.json');
 }
 
 function fixtureCandidates() {

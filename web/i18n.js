@@ -59,7 +59,12 @@
     shopIntro: ['Use wallet tokens.', 'Usa i token del wallet.', '지갑 토큰을 사용합니다.', 'ウォレットのトークンを使います。', 'Usa los tokens de la cartera.', 'Utilisez les jetons du portefeuille.', 'Use os tokens da carteira.'],
     collectionDexDescription: ['discovered species, sorted by number', 'specie scoperte, ordinate per numero', '발견한 종을 번호순으로 정렬', '発見した種を番号順に表示', 'especies descubiertas, ordenadas por número', 'espèces découvertes, triées par numéro', 'espécies descobertas, ordenadas por número'],
     collectionLogDescription: ['active and completed catches', 'attivo e catture concluse', '활성 및 완료된 포획', '育成中と捕獲完了', 'activo y capturas completadas', 'actif et captures terminées', 'ativo e capturas concluídas'],
+    rarityFilter: ['Rarity', 'Rarità', '희귀도', 'レア度', 'Rareza', 'Rareté', 'Raridade'],
+    allRarities: ['All', 'Tutte', '전체', 'すべて', 'Todas', 'Toutes', 'Todas'],
     scrollExplore: ['scroll to explore', 'scorri per esplorare', '스크롤하여 탐색', 'スクロールして探索', 'desplázate para explorar', 'faites défiler pour explorer', 'role para explorar'],
+    previousPage: ['Previous', 'Precedente', '이전', '前へ', 'Anterior', 'Précédent', 'Anterior'],
+    nextPage: ['Next', 'Successiva', '다음', '次へ', 'Siguiente', 'Suivant', 'Próxima'],
+    pageOf: ['Page {page} of {pages}', 'Pagina {page} di {pages}', '{pages}페이지 중 {page}페이지', '{pages} ページ中 {page} ページ', 'Página {page} de {pages}', 'Page {page} sur {pages}', 'Página {page} de {pages}'],
     pokedexViewAria: ['Pokédex view', 'Vista Pokédex', 'Pokédex 보기', '図鑑ビュー', 'Vista de Pokédex', 'Vue du Pokédex', 'Visualização da Pokédex'],
     pokedexTab: ['Pokémon', 'Pokémon', 'Pokémon', 'ポケモン', 'Pokémon', 'Pokémon', 'Pokémon'],
     catchLogTab: ['Catch log', 'Registro catture', '포획 기록', '捕獲記録', 'Registro de capturas', 'Journal des captures', 'Registro de capturas'],
@@ -111,6 +116,8 @@
     item: ['item', 'oggetto', '아이템', 'アイテム', 'objeto', 'objet', 'item'],
     rareCandy: ['Rare Candy', 'Rare Candy', '이상한사탕', 'ふしぎなアメ', 'Caramelo Raro', 'Super Bonbon', 'Doce Raro'],
     rareCandyDetail: ['100M progress', '100M di progresso', '1억 진행도', '1億の進行度', '100M de progreso', '100 M de progression', '100M de progresso'],
+    expCandyXL: ['Exp. Candy XL', 'Exp. Candy XL', '경험사탕 XL', 'けいけんアメXL', 'Caramelo Exp. XL', 'Bonbon Exp. XL', 'Doce de Exp. XL'],
+    expCandyXLDetail: ['250M progress', '250M di progresso', '2억 5천만 진행도', '2億5千万の進行度', '250M de progreso', '250 M de progression', '250M de progresso'],
     mint: ['Mint', 'Mint', '민트', 'ミント', 'Menta', 'Menthe', 'Menta'],
     mintDetail: ['Change nature', 'Cambia natura', '성격 변경', '性格を変更', 'Cambia la naturaleza', 'Change la nature', 'Muda a natureza'],
     shinyCharm: ['Shiny Charm', 'Shiny Charm', '빛나는부적', 'ひかるおまもり', 'Amuleto Iris', 'Charme Chroma', 'Amuleto Brilhante'],
@@ -118,6 +125,12 @@
     pokeDoll: ['Poke Doll', 'Poké Doll', '포켓몬 인형', 'ポケモンドール', 'Muñeco Pokémon', 'Poupée Pokémon', 'Boneco Pokémon'],
     pokeDollDetail: ['Avoids hatching previously caught Pokémon · toggleable', 'Evita di schiudere Pokémon già ottenuti · attivabile/disattivabile', '이미 얻은 Pokémon의 부화를 방지 · 전환 가능', '以前入手したポケモンの孵化を防止 · 切り替え可能', 'Evita eclosionar Pokémon ya obtenidos · activable', 'Évite l’éclosion de Pokémon déjà obtenus · activable', 'Evita eclosionar Pokémon já obtidos · alternável'],
     pokeDollDescription: ['Prevents hatching Pokémon already caught.', 'Impedisce di schiudere Pokémon già ottenuti.', '이미 얻은 Pokémon의 부화를 방지합니다.', 'すでに入手したポケモンの孵化を防ぎます。', 'Impide eclosionar Pokémon ya obtenidos.', 'Empêche l’éclosion de Pokémon déjà obtenus.', 'Impede eclosionar Pokémon já obtidos.'],
+    hatchIncubator: ['Hatch Incubator', 'Hatch Incubator', '부화 인큐베이터', 'ふかそうち', 'Incubadora de eclosión', 'Incubateur d’éclosion', 'Incubadora de eclosão'],
+    hatchIncubatorDetail: ['Halves the next egg threshold · toggleable', 'Dimezza la soglia del prossimo uovo · attivabile/disattivabile', '다음 알의 한도를 절반으로 줄임 · 전환 가능', '次のタマゴの必要量を半減 · 切り替え可能', 'Reduce a la mitad el próximo umbral · activable', 'Réduit de moitié le prochain seuil · activable', 'Reduz pela metade o próximo limite · alternável'],
+    hatchIncubatorDescription: ['Halves the next egg threshold.', 'Dimezza la soglia del prossimo uovo.', '다음 알의 한도를 절반으로 줄입니다.', '次のタマゴの必要量を半減します。', 'Reduce a la mitad el próximo umbral.', 'Réduit de moitié le prochain seuil.', 'Reduz pela metade o próximo limite.'],
+    shinyIncense: ['Shiny Incense', 'Shiny Incense', '빛나는 향', 'おこう', 'Incienso Shiny', 'Encens chromatique', 'Incenso Shiny'],
+    shinyIncenseDetail: ['Shiny odds 1/32 · toggleable', 'Probabilità shiny 1/32 · attivabile/disattivabile', '색이 다른 확률 1/32 · 전환 가능', '色違い確率 1/32 · 切り替え可能', 'Probabilidad Shiny 1/32 · activable', 'Probabilité chromatique 1/32 · activable', 'Chance de Shiny 1/32 · alternável'],
+    shinyIncenseDescription: ['Sets the next egg to 1/32 shiny odds.', 'Porta il prossimo uovo a probabilità shiny 1/32.', '다음 알의 색이 다른 확률을 1/32로 설정합니다.', '次のタマゴの色違い確率を1/32にします。', 'Fija el próximo huevo en probabilidad Shiny 1/32.', 'Fixe le prochain œuf à 1/32 de chance chromatique.', 'Define o próximo ovo com chance de Shiny de 1/32.'],
     active: ['Active', 'Attivo', '활성', '有効', 'Activo', 'Actif', 'Ativo'],
     activate: ['Activate', 'Attiva', '활성화', '有効化', 'Activar', 'Activer', 'Ativar'],
     deactivate: ['Deactivate', 'Disattiva', '비활성화', '無効化', 'Desactivar', 'Désactiver', 'Desativar'],
@@ -131,6 +144,7 @@
     canUseItems: ['Use Rare Candy and Mint on the active companion, or toggle owned items.', 'Usa Rare Candy e Mint sul companion attivo, oppure attiva/disattiva gli oggetti posseduti.', '활성 컴패니언에게 이상한사탕과 민트를 사용하거나 보유 아이템을 켜고 끌 수 있습니다.', '現在のコンパニオンにふしぎなアメとミントを使うか、所持アイテムを切り替えられます。', 'Usa Caramelo Raro y Menta en el compañero activo, o activa y desactiva tus objetos.', 'Utilisez un Super Bonbon et une Menthe sur le compagnon actif, ou activez et désactivez vos objets.', 'Use Doce Raro e Menta no companheiro ativo, ou ative e desative os itens que possui.'],
     waitForHatch: ['Wait for the egg to hatch before using items.', 'Attendi la schiusa per usare gli oggetti sul companion.', '알이 부화할 때까지 아이템을 사용할 수 없습니다.', 'タマゴが孵化するまでアイテムは使えません。', 'Espera a que eclosione el huevo antes de usar objetos.', 'Attendez l’éclosion de l’œuf avant d’utiliser des objets.', 'Aguarde a eclosão do ovo antes de usar itens.'],
     rareCandyDescription: ['Adds 100M progress.', 'Aggiunge 100M di progresso.', '1억 진행도를 추가합니다.', '1億の進行度を追加します。', 'Añade 100M de progreso.', 'Ajoute 100 M de progression.', 'Adiciona 100M de progresso.'],
+    expCandyXLDescription: ['Adds 250M progress.', 'Aggiunge 250M di progresso.', '2억 5천만 진행도를 추가합니다.', '2億5千万の進行度を追加します。', 'Añade 250M de progreso.', 'Ajoute 250 M de progression.', 'Adiciona 250M de progresso.'],
     mintDescription: ['Changes the companion’s nature.', 'Cambia la natura del companion.', '컴패니언의 성격을 바꿉니다.', 'コンパニオンの性格を変更します。', 'Cambia la naturaleza del compañero.', 'Change la nature du compagnon.', 'Muda a natureza do companheiro.'],
     shinyCharmDescription: ['Improves shiny odds.', 'Migliora le probabilità shiny.', '색이 다른 확률을 높입니다.', '色違いの確率を上げます。', 'Mejora las probabilidades de Shiny.', 'Améliore les chances de chromatique.', 'Melhora as chances de Shiny.'],
     commonEgg: ['Common egg', 'Uovo comune', '일반 알', 'ふつうのタマゴ', 'Huevo común', 'Œuf commun', 'Ovo comum'],
@@ -157,6 +171,23 @@
     rarityRare: ['rare', 'raro', '레어', 'レア', 'raro', 'rare', 'raro'],
     rarityLegendary: ['legendary', 'leggendario', '전설', '伝説', 'legendario', 'légendaire', 'lendário'],
     settingsGeneral: ['GENERAL', 'GENERALE', '일반', '一般', 'GENERAL', 'GÉNÉRAL', 'GERAL'],
+    spriteStyle: ['Sprite style', 'Stile sprite', '스프라이트 스타일', 'スプライトスタイル', 'Estilo de sprite', 'Style des sprites', 'Estilo de sprite'],
+    spriteStyleHint: ['Choose animated Auto sprites or Pixel Gen V sprites.', 'Scegli sprite Auto animati oppure Pixel Gen V.', '애니메이션 Auto 또는 Pixel Gen V 스프라이트를 선택합니다.', 'アニメーション Auto または Pixel Gen V スプライトを選びます。', 'Elige sprites Auto animados o Pixel Gen V.', 'Choisissez des sprites Auto animés ou Pixel Gen V.', 'Escolha sprites Auto animados ou Pixel Gen V.'],
+    autoStyle: ['Auto', 'Auto', 'Auto', 'Auto', 'Auto', 'Auto', 'Auto'],
+    pixelStyle: ['Pixel Gen V', 'Pixel Gen V', 'Pixel Gen V', 'Pixel Gen V', 'Pixel Gen V', 'Pixel Gen V', 'Pixel Gen V'],
+    floatingCompanion: ['Companion', 'Companion', '컴패니언', 'コンパニオン', 'Compañero', 'Compagnon', 'Companheiro'],
+    floatingCompanionAria: ['Floating companion', 'Companion flottante', '플로팅 컴패니언', 'フローティングコンパニオン', 'Compañero flotante', 'Compagnon flottant', 'Companheiro flutuante'],
+    goldWalkingAria: ['Gold walking overlay', 'Overlay Gold walking', 'Gold 걷기 오버레이', 'Gold 歩行オーバーレイ', 'Superposición Gold caminando', 'Overlay Gold en marche', 'Overlay Gold caminhando'],
+    goldWalkingAlt: ['Gold companion walking', 'Gold companion in cammino', '걷는 Gold 컴패니언', '歩く Gold コンパニオン', 'Compañero Gold caminando', 'Compagnon Gold en marche', 'Companheiro Gold caminhando'],
+    webOverlayGroup: ['WEB OVERLAYS', 'OVERLAY WEB', '웹 오버레이', 'ウェブオーバーレイ', 'SUPERPOSICIONES WEB', 'OVERLAYS WEB', 'OVERLAYS WEB'],
+    settingFloatingCompanion: ['Floating companion', 'Companion flottante', '플로팅 컴패니언', 'フローティングコンパニオン', 'Compañero flotante', 'Compagnon flottant', 'Companheiro flutuante'],
+    settingFloatingCompanionHint: ['Show the companion as a browser overlay.', 'Mostra il companion come overlay del browser.', '컴패니언을 브라우저 오버레이로 표시합니다.', 'コンパニオンをブラウザーオーバーレイで表示します。', 'Muestra el compañero como superposición del navegador.', 'Affiche le compagnon comme overlay du navigateur.', 'Mostra o companheiro como overlay do navegador.'],
+    settingFloatingSize: ['Companion overlay size', 'Dimensione overlay companion', '컴패니언 오버레이 크기', 'コンパニオンオーバーレイサイズ', 'Tamaño de superposición', 'Taille de l’overlay', 'Tamanho do overlay'],
+    settingFloatingSizeHint: ['Choose a browser overlay size in pixels.', 'Scegli la dimensione dell’overlay in pixel.', '브라우저 오버레이 크기를 픽셀 단위로 선택합니다.', 'ブラウザーオーバーレイのサイズをピクセルで選びます。', 'Elige el tamaño en píxeles.', 'Choisissez la taille en pixels.', 'Escolha o tamanho em pixels.'],
+    settingGoldWalking: ['Gold walking overlay', 'Overlay Gold walking', 'Gold 걷기 오버레이', 'Gold 歩行オーバーレイ', 'Superposición Gold caminando', 'Overlay Gold en marche', 'Overlay Gold caminhando'],
+    settingGoldWalkingHint: ['Show the animated Gold walking overlay in this browser.', 'Mostra l’overlay animato Gold walking in questo browser.', '이 브라우저에 애니메이션 Gold 걷기 오버레이를 표시합니다.', 'このブラウザーに Gold 歩行アニメーションを表示します。', 'Muestra la superposición animada de Gold en este navegador.', 'Affiche l’overlay animé Gold en marche dans ce navigateur.', 'Mostra o overlay animado Gold caminhando neste navegador.'],
+    settingGoldWalkingSize: ['Gold overlay size', 'Dimensione overlay Gold', 'Gold 오버레이 크기', 'Gold オーバーレイサイズ', 'Tamaño de Gold', 'Taille de Gold', 'Tamanho do Gold'],
+    settingGoldWalkingSizeHint: ['Choose the Gold overlay size in pixels.', 'Scegli la dimensione dell’overlay Gold in pixel.', 'Gold 오버레이 크기를 픽셀 단위로 선택합니다.', 'Gold オーバーレイのサイズをピクセルで選びます。', 'Elige el tamaño de Gold en píxeles.', 'Choisissez la taille de Gold en pixels.', 'Escolha o tamanho do Gold em pixels.'],
     settingLanguage: ['Language', 'Lingua', '언어', '言語', 'Idioma', 'Langue', 'Idioma'],
     settingLanguageHint: ['Shared language for this web companion.', 'Lingua condivisa per questo companion web.', '이 웹 컴패니언의 공용 언어입니다.', 'このウェブコンパニオンの共通言語です。', 'Idioma compartido de este compañero web.', 'Langue commune de ce compagnon web.', 'Idioma compartilhado deste companheiro web.'],
     settingRefresh: ['Refresh interval', 'Intervallo aggiornamento', '새로 고침 간격', '更新間隔', 'Intervalo de actualización', 'Intervalle d’actualisation', 'Intervalo de atualização'],
@@ -250,6 +281,9 @@
     });
     root.querySelectorAll?.('[data-i18n-placeholder]').forEach((node) => {
       node.setAttribute('placeholder', translate(node.dataset.i18nPlaceholder));
+    });
+    root.querySelectorAll?.('[data-i18n-alt]').forEach((node) => {
+      node.setAttribute('alt', translate(node.dataset.i18nAlt));
     });
   }
 

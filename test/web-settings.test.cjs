@@ -27,7 +27,7 @@ function makeService() {
     scanReader: async () => ({ totalRows: 0, unattributedRows: 0, timeWindowedRows: 0, providers: [] }),
     releaseChecker: async () => ({
       ok: true,
-      currentVersion: '0.1.1',
+      currentVersion: '0.2.0',
       latestVersion: '0.2.0',
       updateAvailable: true,
       windowsReleaseAvailable: true,
@@ -57,12 +57,27 @@ test('web settings accept the complete Windows toggle set and persist the choice
   }
 });
 
-test('Docker web settings reject desktop-only floating and notification controls', async () => {
+test('Docker web settings accept sprite and browser overlay controls', async () => {
+  const { service, directory } = makeService();
+  try {
+    for (const [key, value] of [
+      ['spriteStyle', 'pixel'], ['showFloatingPet', true], ['floatingPetSize', 144],
+      ['showGoldWalking', true], ['goldWalkingSize', 128],
+    ]) {
+      const result = await service.handleAction('setting', { key, value });
+      assert.equal(result.ok, true, key);
+      assert.equal(service.game.state.settings[key], value, key);
+    }
+  } finally {
+    fs.rmSync(directory, { recursive: true, force: true });
+  }
+});
+
+test('Docker web settings reject unsupported notification controls', async () => {
   const { service, directory } = makeService();
   try {
     for (const key of [
-      'showFloatingPet', 'floatingPetSize', 'notificationsBubbles', 'limitAlerts',
-      'warningPercent', 'criticalPercent', 'companionEvents',
+      'notificationsBubbles', 'limitAlerts', 'warningPercent', 'criticalPercent', 'companionEvents',
     ]) {
       const before = service.game.state.settings[key];
       const result = await service.handleAction('setting', { key, value: true });

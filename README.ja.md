@@ -33,9 +33,9 @@
   <a href="README.pt.md">🇵🇹 Português</a>
 </p>
 
-> **ソースパッケージ:** `0.1.1` · Docker/Web ビルド · 既定の Compose プロファイルは `public-readonly` のローカル・読み取り専用です。
+> **ソースパッケージ:** `0.2.0` · Docker/Web ビルド · 既定の Compose プロファイルは `public-readonly` のローカル・読み取り専用です。
 >
-> **公開済みイメージ:** `ghcr.io/markussela/poketokendocker:0.1.1` · `PTD_IMAGE` で Docker Hub またはローカルタグに変更できます。
+> **公開済みイメージ:** `ghcr.io/markussela/poketokendocker:0.2.0` · `PTD_IMAGE` で Docker Hub またはローカルタグに変更できます。
 
 ## プロジェクトについて
 
@@ -50,8 +50,9 @@ PokeTokenDocker は元のコンパニオン概念をヘッドレス Web 化し�
 - 🏠 **Web ワークスペース:** Home、Bag、Shop、Pokédex、Catch Log、Settings。
 - 📈 **利用量から成長:** ローカルメタデータでタマゴやコンパニオンを進め、段階、レア度、性格、卒業を記録。
 - 📚 **コレクション:** Pokédex に発見種を、Catch Log に進化チェーンと履歴を保存。
-- 🎒 **報酬ループ:** Rare Candy、Mint、Shiny Charm、Poké Doll、タマゴ段階をコンパニオン状態として管理。
+- 🎒 **報酬ループ:** Rare Candy、Exp. Candy XL、Mint、Shiny Charm、Poké Doll、Hatch Incubator、Shiny Incense、タマゴ段階をコンパニオン状態として管理。
 - 🔄 **ライブ更新:** SSE で snapshot と activity を受け取り、ページ全体を再読み込みせず更新。
+- 🎨 **表示モード:** Settings でアニメーション Auto または Pixel Gen V スプライトを選び、コンパニオンと Gold walking のオーバーレイを有効化。
 - 🧩 **Mini ビュー:** [`web/mini.html`](web/mini.html) は信頼できる Homepage/iframe 向け。
 - 🌍 **7 言語:** 英語、イタリア語、韓国語、日本語、スペイン語、フランス語、ポルトガル語。
 - 🔒 **安全な既定値:** Compose は loopback と `public-readonly` で開始。
@@ -133,7 +134,7 @@ Docker 版は `PTD_*` namespace を使います。Windows 版の `PTB_*` とは�
 
 | 変数 | 既定値 | 目的 |
 | --- | --- | --- |
-| `PTD_IMAGE` | `ghcr.io/markussela/poketokendocker:0.1.1` | 公開済みイメージ。Docker Hub またはローカルタグに変更できます。 |
+| `PTD_IMAGE` | `ghcr.io/markussela/poketokendocker:0.2.0` | 公開済みイメージ。Docker Hub またはローカルタグに変更できます。 |
 | `PTD_HERMES_DIR` | 必須 | `/hermes` に read-only mount する host directory。 |
 | `PTD_DATA_DIR` | `../data` | `/data` に mount する host directory。 |
 | `PTD_BIND_HOST` | `127.0.0.1` | port を公開する host interface。 |
@@ -160,8 +161,8 @@ npm ci
 npm test
 node scripts/audit-release.cjs
 npm audit --omit=dev --audit-level=high
-docker pull ghcr.io/markussela/poketokendocker:0.1.1
-docker build -f docker/Dockerfile --build-arg VERSION=0.1.1 -t poketokendocker:local .
+docker pull ghcr.io/markussela/poketokendocker:0.2.0
+docker build -f docker/Dockerfile --build-arg VERSION=0.2.0 -t poketokendocker:local .
 ```
 
 イメージは非特権の `node` ユーザーで動作し、production dependency と `/healthz` healthcheck を含みます。貢献時は [`CONTRIBUTING.md`](CONTRIBUTING.md) と合成データを使用してください。
